@@ -1,0 +1,126 @@
+@import "tailwindcss";
+
+:root {
+  /* 파스텔 핑크 톤 배경 */
+  --background: #fef5fb;
+  --foreground: #2d1b2e;
+  
+  /* KBO 파스텔 컬러 팔레트 */
+  --pastel-pink: #ffc2e2;
+  --pastel-mint: #b4f8c8;
+  --pastel-blue: #a0d8f1;
+  --pastel-lavender: #d5c6e0;
+  --pastel-peach: #ffd3b6;
+  --pastel-yellow: #fff5ba;
+  
+  /* 구단 컬러 파스텔 버전 */
+  --kbo-doosan: #a0b9d5;
+  --kbo-lg: #f0b1b8;
+  --kbo-kt: #2d2d2d;
+  --kbo-ssg: #ff9999;
+  --kbo-nc: #ffcc99;
+  --kbo-kiwoom: #ffa6c9;
+  --kbo-samsung: #a0d5ff;
+  --kbo-lotte: #ff8787;
+  --kbo-hanwha: #ffad87;
+  --kbo-kia: #ff9494;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  
+  /* 커스텀 파스텔 컬러 */
+  --color-pastel-pink: var(--pastel-pink);
+  --color-pastel-mint: var(--pastel-mint);
+  --color-pastel-blue: var(--pastel-blue);
+  --color-pastel-lavender: var(--pastel-lavender);
+  --color-pastel-peach: var(--pastel-peach);
+  --color-pastel-yellow: var(--pastel-yellow);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #fef5fb;
+    --foreground: #2d1b2e;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* 귀여운 스크롤바 */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--pastel-pink);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ffaed4;
+}
+
+/* 애니메이션 정의 */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes bounce-slow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse-soft {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 2s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 3s linear infinite;
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 2s ease-in-out infinite;
+}

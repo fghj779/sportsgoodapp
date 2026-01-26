@@ -1,0 +1,265 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
+import { MatchResult } from '@/types';
+import Button from '@/components/Button';
+import Card from '@/components/Card';
+import { Share2, Home, RotateCcw, Heart, MapPin, Shirt, Music } from 'lucide-react';
+
+export default function ResultPage() {
+  const router = useRouter();
+  const [result, setResult] = useState<MatchResult | null>(null);
+
+  useEffect(() => {
+    const savedResult = localStorage.getItem('matchResult');
+    if (savedResult) {
+      setResult(JSON.parse(savedResult));
+    } else {
+      router.push('/');
+    }
+  }, [router]);
+
+  const handleShare = async () => {
+    const shareText = `나는 ${result?.team.name} 팬! ⚾💖\nKBO-TI로 내 운명의 야구팀을 찾았어요!\n\n궁합도: ${result?.compatibility}%`;
+    
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'KBO-TI 결과',
+          text: shareText,
+          url: window.location.origin,
+        });
+      } catch (err) {
+        console.log('공유 취소됨');
+      }
+    } else {
+      // 클립보드에 복사
+      navigator.clipboard.writeText(shareText);
+      alert('결과가 클립보드에 복사되었어요! 📋');
+    }
+  };
+
+  const handleRetry = () => {
+    localStorage.removeItem('matchResult');
+    router.push('/quiz');
+  };
+
+  if (!result) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-50 to-blue-100 flex items-center justify-center">
+        <div className="text-center">
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+            className="text-6xl mb-4"
+          >
+            ⚾
+          </motion.div>
+          <p className="text-gray-600">로딩 중...</p>
+        </div>
+      </div>
+    );
+  }
+
+  const { team, compatibility, aiMessage } = result;
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-50 to-blue-100 py-12 px-4">
+      <div className="max-w-4xl mx-auto space-y-6">
+        {/* 메인 결과 카드 */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Card className="text-center space-y-6 relative overflow-hidden">
+            {/* 배경 장식 */}
+            <div className="absolute top-0 left-0 w-full h-2" style={{ backgroundColor: team.color }} />
+            
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
+            >
+              <div className="text-8xl mb-4">{team.logo}</div>
+              <h1 className="text-4xl font-bold text-gray-800 mb-2">
+                {team.name}
+              </h1>
+              <p className="text-xl text-gray-600 mb-4">
+                {team.englishName}
+              </p>
+            </motion.div>
+
+            {/* 궁합도 */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-2xl p-6"
+            >
+              <div className="flex items-center justify-center gap-3 mb-3">
+                <Heart className="text-pink-500" fill="currentColor" />
+                <span className="text-lg font-semibold text-gray-700">궁합도</span>
+                <Heart className="text-pink-500" fill="currentColor" />
+              </div>
+              <div className="text-5xl font-bold text-pink-500 mb-2">
+                {compatibility}%
+              </div>
+              <div className="h-3 bg-white rounded-full overflow-hidden max-w-md mx-auto">
+                <motion.div
+                  className="h-full bg-gradient-to-r from-pink-400 to-purple-400"
+                  initial={{ width: 0 }}
+                  animate={{ width: `${compatibility}%` }}
+                  transition={{ delay: 0.8, duration: 1 }}
+                />
+              </div>
+            </motion.div>
+
+            {/* AI 메시지 */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7 }}
+              className="bg-white rounded-2xl p-6 border-2 border-pink-200"
+            >
+              <div className="text-2xl mb-4">✨</div>
+              <p className="text-lg text-gray-700 leading-relaxed whitespace-pre-line">
+                {aiMessage}
+              </p>
+            </motion.div>
+          </Card>
+        </motion.div>
+
+        {/* 팀 상세 정보 */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.9 }}
+        >
+          <Card>
+            <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
+              {team.name} 자세히 알아보기 📚
+            </h2>
+
+            <div className="space-y-6">
+              {/* 구단 설명 */}
+              <div className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl p-5">
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="text-2xl">{team.mascot}</div>
+                  <h3 className="font-semibold text-gray-800">팀 소개</h3>
+                </div>
+                <p className="text-gray-700">{team.description}</p>
+                <p className="text-gray-600 text-sm mt-2 italic">"{team.meme}"</p>
+              </div>
+
+              {/* 홈구장 */}
+              <div className="flex items-start gap-4 p-4 bg-blue-50 rounded-xl">
+                <MapPin className="text-blue-500 flex-shrink-0 mt-1" size={24} />
+                <div>
+                  <h3 className="font-semibold text-gray-800 mb-1">홈구장</h3>
+                  <p className="text-gray-700">{team.stadium}</p>
+                </div>
+              </div>
+
+              {/* 유니폼 스타일 */}
+              <div className="flex items-start gap-4 p-4 bg-purple-50 rounded-xl">
+                <Shirt className="text-purple-500 flex-shrink-0 mt-1" size={24} />
+                <div>
+                  <h3 className="font-semibold text-gray-800 mb-1">유니폼 패션</h3>
+                  <p className="text-gray-700 mb-2">{team.uniformStyle}</p>
+                  <p className="text-sm text-gray-600">{team.fashion}</p>
+                </div>
+              </div>
+
+              {/* 응원가 */}
+              <div className="flex items-start gap-4 p-4 bg-pink-50 rounded-xl">
+                <Music className="text-pink-500 flex-shrink-0 mt-1" size={24} />
+                <div className="flex-1">
+                  <h3 className="font-semibold text-gray-800 mb-2">응원가</h3>
+                  <a
+                    href={team.cheerSongUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block px-4 py-2 bg-pink-500 text-white rounded-full text-sm hover:bg-pink-600 transition-colors"
+                  >
+                    유튜브에서 듣기 🎵
+                  </a>
+                </div>
+              </div>
+
+              {/* 키워드 태그 */}
+              <div>
+                <h3 className="font-semibold text-gray-800 mb-3">팀 키워드</h3>
+                <div className="flex flex-wrap gap-2">
+                  {team.keywords.map((keyword, index) => (
+                    <motion.span
+                      key={keyword}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 1 + index * 0.1 }}
+                      className="px-4 py-2 bg-gradient-to-r from-pink-100 to-purple-100 text-gray-700 rounded-full text-sm font-medium"
+                    >
+                      #{keyword}
+                    </motion.span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </Card>
+        </motion.div>
+
+        {/* 액션 버튼들 */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.2 }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-4"
+        >
+          <Button
+            variant="primary"
+            onClick={handleShare}
+            className="flex items-center justify-center gap-2"
+          >
+            <Share2 size={20} />
+            <span>결과 공유하기</span>
+          </Button>
+          
+          <Button
+            variant="secondary"
+            onClick={handleRetry}
+            className="flex items-center justify-center gap-2"
+          >
+            <RotateCcw size={20} />
+            <span>다시 해보기</span>
+          </Button>
+          
+          <Button
+            variant="secondary"
+            onClick={() => router.push('/')}
+            className="flex items-center justify-center gap-2"
+          >
+            <Home size={20} />
+            <span>홈으로</span>
+          </Button>
+        </motion.div>
+
+        {/* 푸터 메시지 */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5 }}
+          className="text-center space-y-2"
+        >
+          <p className="text-gray-600">
+            이제 {team.name} 경기 보러 가볼까? ⚾✨
+          </p>
+          <p className="text-sm text-gray-500">
+            야구장에서 만나요! 💕
+          </p>
+        </motion.div>
+      </div>
+    </div>
+  );
+}
