@@ -15,7 +15,10 @@
 ## 🔗 링크
 
 - **GitHub 저장소**: [https://github.com/fghj779/sportsgoodapp](https://github.com/fghj779/sportsgoodapp)
+- **배포 가이드**: [DEPLOYMENT.md](./DEPLOYMENT.md) ⭐ 필독!
 - **개발 서버**: http://localhost:3000 (로컬 실행 시)
+
+> ⚠️ **중요**: Cloudflare Pages는 지원하지 않습니다. Vercel 사용을 권장합니다!
 
 ## ✨ 주요 기능
 
