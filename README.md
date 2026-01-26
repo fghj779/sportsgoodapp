@@ -2,13 +2,20 @@
 
 > 2026 야구 뉴비를 위한 트렌디한 KBO 팀 매칭 서비스 ⚾✨
 
+[![GitHub](https://img.shields.io/badge/GitHub-fghj779/sportsgoodapp-181717?style=for-the-badge&logo=github)](https://github.com/fghj779/sportsgoodapp)
+![KBO-TI](https://img.shields.io/badge/KBO--TI-v1.1.0-FF69B4?style=for-the-badge)
+![Next.js](https://img.shields.io/badge/Next.js-16.1.4-black?style=for-the-badge&logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![OpenAI](https://img.shields.io/badge/OpenAI-5.2.0-412991?style=for-the-badge&logo=openai&logoColor=white)
+
 20대 여성을 타겟으로 한 귀엽고 세련된 KBO 팀 매칭 웹 애플리케이션입니다.
 20개의 밸런스 게임 질문으로 사용자의 성향을 분석하고, AI가 가장 잘 맞는 KBO 구단을 추천해줍니다!
 
-![KBO-TI](https://img.shields.io/badge/KBO-TI-FF69B4?style=for-the-badge)
-![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+## 🔗 링크
+
+- **GitHub 저장소**: [https://github.com/fghj779/sportsgoodapp](https://github.com/fghj779/sportsgoodapp)
+- **개발 서버**: http://localhost:3000 (로컬 실행 시)
 
 ## ✨ 주요 기능
 
@@ -48,7 +55,7 @@
 
 ### 1. 저장소 클론
 ```bash
-git clone <repository-url>
+git clone https://github.com/fghj779/sportsgoodapp.git
 cd sportsgoodapp
 ```
 
