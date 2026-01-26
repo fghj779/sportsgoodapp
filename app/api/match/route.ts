@@ -3,9 +3,8 @@ import OpenAI from 'openai';
 import { kboTeams } from '@/data/teams';
 import { Answer } from '@/types';
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+// Cloudflare Pages와 호환되도록 런타임 설정
+export const runtime = 'edge';
 
 export async function POST(request: NextRequest) {
   try {
@@ -20,6 +19,11 @@ export async function POST(request: NextRequest) {
 
     // 답변 분석을 위한 프롬프트 생성
     const userProfile = analyzeAnswers(answers);
+    
+    // Cloudflare Edge에서 OpenAI 초기화
+    const openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY || '',
+    });
     
     // OpenAI API 호출 (v5.2.0 호환)
     const completion = await openai.chat.completions.create({
