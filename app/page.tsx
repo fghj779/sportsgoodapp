@@ -6,10 +6,13 @@ import Button from '@/components/Button';
 import Card from '@/components/Card';
 import BaseballAnimation from '@/components/BaseballAnimation';
 import { kboTeams } from '@/data/teams';
-import { Sparkles, Mail } from 'lucide-react';
+import { Sparkles, Mail, BookOpen } from 'lucide-react';
+import BaseballRules from '@/components/BaseballRules';
+import { useState } from 'react';
 
 export default function Home() {
   const router = useRouter();
+  const [showRules, setShowRules] = useState(false);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-50 to-blue-100 py-12 px-4">
@@ -41,19 +44,35 @@ export default function Home() {
           </p>
         </motion.div>
 
-        {/* 시작 버튼 */}
+        {/* 시작 버튼 & 야구룰 버튼 */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.6 }}
-          className="text-center"
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
           <Button
             onClick={() => router.push('/quiz')}
-            className="text-xl px-12 py-6 shadow-2xl hover:shadow-pink-300/50"
+            className="text-xl px-12 py-6 shadow-2xl hover:shadow-pink-300/50 w-full sm:w-auto"
           >
             <Sparkles className="mr-2" size={24} />
             시작하기
+          </Button>
+          <Button
+            variant="secondary"
+            onClick={() => {
+              setShowRules(!showRules);
+              setTimeout(() => {
+                const rulesSection = document.getElementById('baseball-rules');
+                if (rulesSection && showRules) {
+                  rulesSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }, 100);
+            }}
+            className="text-xl px-12 py-6 shadow-2xl w-full sm:w-auto bg-white border-2 border-gray-300 hover:border-pink-300"
+          >
+            <BookOpen className="mr-2" size={24} />
+            야구룰 알아보기
           </Button>
         </motion.div>
 
@@ -64,9 +83,12 @@ export default function Home() {
           transition={{ delay: 0.8 }}
         >
           <Card>
-            <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
-              KBO 10개 구단 둘러보기 ⚾
-            </h2>
+            <div className="flex items-center justify-center gap-2 mb-6">
+              <span className="text-2xl">⚾</span>
+              <h2 className="text-2xl font-bold text-gray-800">
+                구단 먼저 알아보기
+              </h2>
+            </div>
             <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
               {kboTeams.map((team, idx) => (
                 <motion.button
@@ -102,6 +124,20 @@ export default function Home() {
             </div>
           </Card>
         </motion.div>
+
+        {/* 야구룰 가이드 */}
+        {showRules && (
+          <motion.div
+            id="baseball-rules"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ delay: 0.8 }}
+            className="mt-8"
+          >
+            <BaseballRules />
+          </motion.div>
+        )}
 
         {/* 하단 설명 */}
         <motion.div
