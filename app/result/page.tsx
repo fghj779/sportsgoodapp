@@ -7,15 +7,12 @@ import { MatchResult } from '@/types';
 import Button from '@/components/Button';
 import Card from '@/components/Card';
 import BaseballRules from '@/components/BaseballRules';
-import { Share2, Home, RotateCcw, Heart, MapPin, Shirt, Music, Trophy, Star, Users, History, Palette, Download, Camera } from 'lucide-react';
-import html2canvas from 'html2canvas';
+import { Share2, Home, RotateCcw, Heart, MapPin, Shirt, Music, Trophy, Star, Users, History, Palette } from 'lucide-react';
 
 export default function ResultPage() {
   const router = useRouter();
   const [result, setResult] = useState<MatchResult | null>(null);
   const [showRules, setShowRules] = useState(false);
-  const [isCapturing, setIsCapturing] = useState(false);
-  const captureRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const savedResult = localStorage.getItem('matchResult');
@@ -50,208 +47,6 @@ export default function ResultPage() {
     router.push('/quiz');
   };
 
-  const downloadBlob = (blob: Blob, filename: string) => {
-    try {
-      // iOS Safari 및 모바일 브라우저 호환성 개선
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = filename;
-      link.style.display = 'none';
-      
-      document.body.appendChild(link);
-      
-      // iOS Safari 처리
-      if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
-        link.target = '_blank';
-      }
-      
-      link.click();
-      
-      setTimeout(() => {
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
-      }, 100);
-      
-      return true;
-    } catch (error) {
-      console.error('다운로드 오류:', error);
-      return false;
-    }
-  };
-
-  const handleDownloadImage = async () => {
-    if (!captureRef.current || !result) {
-      alert('❌ 결과 데이터를 찾을 수 없습니다.');
-      return;
-    }
-
-    setIsCapturing(true);
-    
-    try {
-      const element = captureRef.current;
-      
-      // 스크롤을 맨 위로 이동 (캡처 안정성)
-      const scrollY = window.scrollY;
-      element.scrollIntoView({ behavior: 'instant', block: 'start' });
-      
-      // 약간의 딜레이 (렌더링 완료 대기)
-      await new Promise(resolve => setTimeout(resolve, 300));
-      
-      console.log('🎨 이미지 캡처 시작...');
-      
-      const canvas = await html2canvas(element, {
-        backgroundColor: '#fdf4ff',
-        scale: 2, // 3에서 2로 낮춤 (안정성)
-        logging: true, // 디버깅용 로그 활성화
-        useCORS: true,
-        allowTaint: false,
-        removeContainer: true,
-        imageTimeout: 15000,
-        width: element.offsetWidth,
-        height: element.offsetHeight,
-      });
-
-      console.log('✅ 캡처 완료:', canvas.width, 'x', canvas.height);
-
-      // 스크롤 복원
-      window.scrollTo(0, scrollY);
-
-      // 즉시 dataURL 방식으로 다운로드 (더 호환성 높음)
-      try {
-        const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
-        const link = document.createElement('a');
-        link.download = `KBO-TI_${result.team.name}_결과.jpg`;
-        link.href = dataUrl;
-        link.click();
-        
-        console.log('✅ 다운로드 성공');
-        
-        setTimeout(() => {
-          alert('✅ 이미지가 저장되었습니다!\n📱 갤러리/다운로드 폴더를 확인해주세요');
-        }, 200);
-      } catch (downloadError) {
-        console.error('다운로드 오류:', downloadError);
-        throw downloadError;
-      }
-
-    } catch (error: any) {
-      console.error('❌ 이미지 저장 실패:', error);
-      alert(`❌ 이미지 저장 실패\n\n오류: ${error.message || '알 수 없는 오류'}\n\n스크린샷을 찍어서 공유해주세요!`);
-    } finally {
-      setIsCapturing(false);
-    }
-  };
-
-  const handleShareAsImage = async () => {
-    if (!captureRef.current || !result) {
-      alert('❌ 결과 데이터를 찾을 수 없습니다.');
-      return;
-    }
-
-    setIsCapturing(true);
-    
-    try {
-      const element = captureRef.current;
-      
-      // 스크롤을 맨 위로 이동
-      const scrollY = window.scrollY;
-      element.scrollIntoView({ behavior: 'instant', block: 'start' });
-      
-      // 약간의 딜레이
-      await new Promise(resolve => setTimeout(resolve, 300));
-      
-      console.log('🎨 이미지 캡처 시작 (공유)...');
-
-      const canvas = await html2canvas(element, {
-        backgroundColor: '#fdf4ff',
-        scale: 2,
-        logging: true,
-        useCORS: true,
-        allowTaint: false,
-        removeContainer: true,
-        imageTimeout: 15000,
-        width: element.offsetWidth,
-        height: element.offsetHeight,
-      });
-
-      console.log('✅ 캡처 완료 (공유):', canvas.width, 'x', canvas.height);
-
-      // 스크롤 복원
-      window.scrollTo(0, scrollY);
-
-      // Blob 생성
-      const blob = await new Promise<Blob>((resolve, reject) => {
-        canvas.toBlob((b) => {
-          if (b) resolve(b);
-          else reject(new Error('Blob 생성 실패'));
-        }, 'image/jpeg', 0.9);
-      });
-
-      console.log('✅ Blob 생성 완료:', blob.size, 'bytes');
-
-      const filename = `KBO-TI_${result.team.name}_결과.jpg`;
-      const file = new File([blob], filename, { type: 'image/jpeg' });
-
-      // Web Share API 지원 확인
-      if (navigator.share) {
-        console.log('📤 Web Share API 지원됨');
-        
-        try {
-          // 파일 공유 가능 여부 확인
-          const canShareFiles = navigator.canShare && navigator.canShare({ files: [file] });
-          
-          if (canShareFiles) {
-            console.log('📸 파일 공유 가능');
-            await navigator.share({
-              title: `나는 ${result.team.name} 팬!`,
-              text: `KBO-TI로 내 운명의 야구팀을 찾았어요! ⚾💖\n궁합도 ${result.compatibility}%`,
-              files: [file],
-            });
-            console.log('✅ 공유 완료');
-          } else {
-            console.log('💾 파일 공유 불가 - 다운로드 시도');
-            // 다운로드
-            const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
-            const link = document.createElement('a');
-            link.download = filename;
-            link.href = dataUrl;
-            link.click();
-            
-            alert('✅ 이미지가 저장되었습니다!\n📱 갤러리에서 확인 후 공유해주세요');
-          }
-        } catch (err: any) {
-          if (err.name === 'AbortError') {
-            console.log('ℹ️ 사용자가 공유 취소');
-          } else {
-            console.error('공유 오류:', err);
-            // 폴백: 다운로드
-            const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
-            const link = document.createElement('a');
-            link.download = filename;
-            link.href = dataUrl;
-            link.click();
-            alert('✅ 이미지가 저장되었습니다!\n📱 갤러리에서 확인 후 공유해주세요');
-          }
-        }
-      } else {
-        console.log('💾 Web Share API 미지원 - 다운로드');
-        // Web Share API 미지원 - 다운로드
-        const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
-        const link = document.createElement('a');
-        link.download = filename;
-        link.href = dataUrl;
-        link.click();
-        alert('✅ 이미지가 저장되었습니다!\n📱 갤러리/다운로드 폴더를 확인해주세요');
-      }
-
-    } catch (error: any) {
-      console.error('❌ 이미지 공유 실패:', error);
-      alert(`❌ 이미지 공유 실패\n\n오류: ${error.message || '알 수 없는 오류'}\n\n대신 스크린샷을 찍어서 공유해주세요!`);
-    } finally {
-      setIsCapturing(false);
-    }
-  };
 
   if (!result) {
     return (
@@ -273,28 +68,10 @@ export default function ResultPage() {
   const { team, compatibility, aiMessage } = result;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-50 to-blue-100 py-12 px-4 relative">
-      {/* 이미지 생성 중 오버레이 */}
-      {isCapturing && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-2xl p-8 text-center shadow-2xl">
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-              className="text-6xl mb-4"
-            >
-              📸
-            </motion.div>
-            <p className="text-xl font-bold text-gray-800 mb-2">이미지 생성 중...</p>
-            <p className="text-sm text-gray-600">잠시만 기다려주세요 ✨</p>
-          </div>
-        </div>
-      )}
-
+    <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-50 to-blue-100 py-12 px-4">
       <div className="max-w-4xl mx-auto space-y-6">
-        {/* 메인 결과 카드 (공유용 이미지로 캡처됨) */}
+        {/* 메인 결과 카드 */}
         <motion.div
-          ref={captureRef}
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
@@ -354,28 +131,6 @@ export default function ResultPage() {
               <p className="text-lg text-gray-700 leading-relaxed whitespace-pre-line">
                 {aiMessage}
               </p>
-            </motion.div>
-
-            {/* 팀 키워드 미리보기 */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9 }}
-              className="pb-4"
-            >
-              <div className="flex flex-wrap justify-center gap-2">
-                {team.keywords.slice(0, 4).map((keyword) => (
-                  <span
-                    key={keyword}
-                    className="px-3 py-1 bg-gradient-to-r from-pink-100 to-purple-100 text-gray-700 rounded-full text-sm font-medium"
-                  >
-                    #{keyword}
-                  </span>
-                ))}
-              </div>
-              <div className="mt-4 text-xs text-gray-500">
-                sportsgoodapp.vercel.app
-              </div>
             </motion.div>
           </Card>
         </motion.div>
@@ -647,71 +402,34 @@ export default function ResultPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.8 }}
-          className="space-y-4"
+          className="grid grid-cols-1 md:grid-cols-3 gap-4"
         >
-          {/* 공유 버튼들 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Button
-              variant="primary"
-              onClick={handleShareAsImage}
-              disabled={isCapturing}
-              className="flex items-center justify-center gap-2"
-            >
-              <Camera size={20} />
-              <span>{isCapturing ? '이미지 생성 중...' : '이미지로 공유하기 📸'}</span>
-            </Button>
-            
-            <Button
-              variant="primary"
-              onClick={handleDownloadImage}
-              disabled={isCapturing}
-              className="flex items-center justify-center gap-2 bg-gradient-to-r from-purple-400 to-purple-500 hover:from-purple-500 hover:to-purple-600"
-            >
-              <Download size={20} />
-              <span>{isCapturing ? '저장 중...' : '이미지 저장하기 💾'}</span>
-            </Button>
-          </div>
-
-          {/* 기본 버튼들 */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Button
-              variant="secondary"
-              onClick={handleShare}
-              className="flex items-center justify-center gap-2"
-            >
-              <Share2 size={20} />
-              <span>텍스트 공유</span>
-            </Button>
-            
-            <Button
-              variant="secondary"
-              onClick={handleRetry}
-              className="flex items-center justify-center gap-2"
-            >
-              <RotateCcw size={20} />
-              <span>다시 해보기</span>
-            </Button>
-            
-            <Button
-              variant="secondary"
-              onClick={() => router.push('/')}
-              className="flex items-center justify-center gap-2"
-            >
-              <Home size={20} />
-              <span>홈으로</span>
-            </Button>
-          </div>
-
-          {/* 안내 메시지 */}
-          <Card className="bg-gradient-to-r from-pink-50 to-purple-50">
-            <div className="text-center text-sm text-gray-600">
-              <p className="font-semibold mb-2">💡 SNS 공유 TIP</p>
-              <p className="text-xs leading-relaxed">
-                <span className="font-medium text-pink-600">이미지로 공유하기</span>: 카카오톡, 인스타 스토리에 바로 공유<br/>
-                <span className="font-medium text-purple-600">이미지 저장하기</span>: 갤러리에 저장 후 자유롭게 업로드
-              </p>
-            </div>
-          </Card>
+          <Button
+            variant="secondary"
+            onClick={handleShare}
+            className="flex items-center justify-center gap-2"
+          >
+            <Share2 size={20} />
+            <span>결과 공유하기</span>
+          </Button>
+          
+          <Button
+            variant="secondary"
+            onClick={handleRetry}
+            className="flex items-center justify-center gap-2"
+          >
+            <RotateCcw size={20} />
+            <span>다시 해보기</span>
+          </Button>
+          
+          <Button
+            variant="secondary"
+            onClick={() => router.push('/')}
+            className="flex items-center justify-center gap-2"
+          >
+            <Home size={20} />
+            <span>홈으로</span>
+          </Button>
         </motion.div>
 
         {/* 푸터 메시지 */}
