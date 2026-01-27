@@ -27,6 +27,7 @@ export interface KBOTeam {
   mascot: string;
   logo: string;
   stadium: string;
+  homeCity: string;  // 연고지
   cheerSongUrl: string;
   uniformStyle: string;
   fashion: string;

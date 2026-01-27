@@ -293,12 +293,13 @@ export default function ResultPage() {
                 <p className="text-gray-600 text-sm mt-2 italic">"{team.meme}"</p>
               </div>
 
-              {/* 홈구장 */}
+              {/* 홈구장 & 연고지 */}
               <div className="flex items-start gap-4 p-4 bg-blue-50 rounded-xl">
                 <MapPin className="text-blue-500 flex-shrink-0 mt-1" size={24} />
-                <div>
-                  <h3 className="font-semibold text-gray-800 mb-1">홈구장</h3>
-                  <p className="text-gray-700">{team.stadium}</p>
+                <div className="flex-1">
+                  <h3 className="font-semibold text-gray-800 mb-2">홈구장 & 연고지</h3>
+                  <p className="text-gray-700 mb-1">🏟️ {team.stadium}</p>
+                  <p className="text-sm text-blue-600">📍 연고지: {team.homeCity}</p>
                 </div>
               </div>
 
@@ -313,19 +314,31 @@ export default function ResultPage() {
               </div>
 
               {/* 응원가 */}
-              <div className="flex items-start gap-4 p-4 bg-pink-50 rounded-xl">
-                <Music className="text-pink-500 flex-shrink-0 mt-1" size={24} />
-                <div className="flex-1">
-                  <h3 className="font-semibold text-gray-800 mb-2">응원가</h3>
-                  <a
-                    href={team.cheerSongUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block px-4 py-2 bg-pink-500 text-white rounded-full text-sm hover:bg-pink-600 transition-colors"
-                  >
-                    유튜브에서 듣기 🎵
-                  </a>
+              <div className="p-4 bg-pink-50 rounded-xl">
+                <div className="flex items-center gap-2 mb-3">
+                  <Music className="text-pink-500" size={24} />
+                  <h3 className="font-semibold text-gray-800">응원가</h3>
                 </div>
+                <div className="aspect-video rounded-lg overflow-hidden shadow-lg">
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src={team.cheerSongUrl.replace('watch?v=', 'embed/')}
+                    title="응원가"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="w-full h-full"
+                  />
+                </div>
+                <a
+                  href={team.cheerSongUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block mt-3 px-4 py-2 bg-pink-500 text-white rounded-full text-sm hover:bg-pink-600 transition-colors"
+                >
+                  유튜브에서 보기 🎵
+                </a>
               </div>
 
               {/* 키워드 태그 */}
