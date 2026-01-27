@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import OpenAI from 'openai';
 import { kboTeams } from '@/data/teams';
 import { Answer } from '@/types';
 import { rateLimit } from '@/lib/rateLimit';
@@ -10,14 +10,15 @@ import { ZodError } from 'zod';
 // Edge Runtime 설정
 export const runtime = 'edge';
 
-// Gemini 클라이언트 싱글톤 (메모리 효율)
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
-const model = genAI.getGenerativeModel({ model: API_CONFIG.GEMINI_MODEL });
+// OpenAI 클라이언트 싱글톤 (메모리 효율)
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY || '',
+});
 
 export async function POST(request: NextRequest) {
   try {
     // ============================================
-    // 1. Rate Limiting (IP 기반)
+    // 1. Rate Limiting (IP 기반) - 요금 폭탄 방지
     // ============================================
     const ip = request.headers.get('x-forwarded-for') || 
                request.headers.get('x-real-ip') || 
@@ -53,7 +54,7 @@ export async function POST(request: NextRequest) {
     const userProfile = analyzeAnswers(answers);
 
     // ============================================
-    // 4. Gemini API 호출 (타임아웃 적용)
+    // 4. OpenAI API 호출 (타임아웃 적용)
     // ============================================
     const prompt = `당신은 20대 여성을 위한 친근한 언니 같은 KBO 야구팀 매칭 전문가입니다.
 사용자의 성향을 분석해서 가장 잘 맞는 KBO 구단을 추천해주세요.
@@ -80,39 +81,41 @@ KBO 10개 구단 (색깔 계열 포함):
 사용자 프로필:
 ${userProfile}
 
-다음 JSON 형식으로만 응답해주세요 (다른 텍스트 없이):
+다음 JSON 형식으로만 응답해주세요:
 {
   "teamId": "구단 영문 소문자 id (doosan, lg, kt, ssg, nc, kiwoom, samsung, lotte, hanwha, kia 중 하나)",
   "compatibility": 호환도 숫자 (75-99),
   "reason": "3줄 요약으로 왜 이 팀이 맞는지 재치있게 설명 (각 줄은 30자 이내, 이모지 포함)"
-}
-
-예시:
-{
-  "teamId": "lg",
-  "compatibility": 95,
-  "reason": "🔥 트렌디하고 열정적인 너는 LG 찐팬감!\\n✨ 잠실을 붉게 물들이는 우승팀과 함께해\\n💖 인싸 야구팬의 시작은 여기서부터야"
 }`;
 
-    const result = await Promise.race([
-      model.generateContent(prompt),
+    const completion = await Promise.race([
+      openai.chat.completions.create({
+        model: API_CONFIG.MODEL,
+        messages: [
+          {
+            role: 'system',
+            content: '당신은 친근한 20대 여성 언니 같은 KBO 팀 매칭 전문가입니다.'
+          },
+          {
+            role: 'user',
+            content: prompt
+          }
+        ],
+        temperature: API_CONFIG.TEMPERATURE,
+        max_tokens: API_CONFIG.MAX_TOKENS,
+        response_format: { type: "json_object" }, // JSON 출력 보장
+      }),
       new Promise<never>((_, reject) =>
         setTimeout(() => reject(new Error('API 타임아웃')), API_CONFIG.TIMEOUT_MS)
       ),
     ]);
 
-    const text = result.response.text();
+    const aiResponseText = completion.choices[0].message.content || '{}';
 
     // ============================================
     // 5. 응답 파싱 및 검증
     // ============================================
-    // JSON만 추출 (Gemini가 추가 텍스트를 붙일 수 있음)
-    const jsonMatch = text.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) {
-      throw new Error('AI 응답에서 JSON을 찾을 수 없습니다.');
-    }
-
-    const aiResponse = AIResponseSchema.parse(JSON.parse(jsonMatch[0]));
+    const aiResponse = AIResponseSchema.parse(JSON.parse(aiResponseText));
 
     // ============================================
     // 6. 팀 정보 매칭
@@ -152,8 +155,8 @@ ${userProfile}
     console.error('Error details:', {
       message: error.message,
       status: error.status,
-      statusText: error.statusText,
-      stack: error.stack,
+      type: error.type,
+      code: error.code,
     });
 
     // ============================================
@@ -180,8 +183,8 @@ ${userProfile}
     }
 
     // API 키 에러
-    if (error.message?.includes('API_KEY') || error.message?.includes('API key') || error.status === 401 || error.status === 403) {
-      console.error('API Key Error - Current key:', process.env.GEMINI_API_KEY ? '(설정됨)' : '(없음)');
+    if (error.status === 401 || error.code === 'invalid_api_key') {
+      console.error('API Key Error - Current key:', process.env.OPENAI_API_KEY ? '(설정됨)' : '(없음)');
       return NextResponse.json(
         { error: 'AI 서비스 설정 오류입니다. 관리자에게 문의해주세요.' },
         { status: 500 }
@@ -189,7 +192,7 @@ ${userProfile}
     }
 
     // 할당량 초과 에러
-    if (error.status === 429 || error.message?.includes('quota') || error.message?.includes('limit')) {
+    if (error.status === 429 || error.code === 'rate_limit_exceeded') {
       return NextResponse.json(
         { error: 'API 할당량이 초과되었어요. 😭\n잠시 후 다시 시도해주세요!' },
         { status: 429 }

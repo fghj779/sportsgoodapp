@@ -8,18 +8,18 @@ export const QUESTION_IDS = {
   WARDROBE_STYLE: 15,      // 옷장 스타일 질문
 } as const;
 
-// Rate Limiting 설정
+// Rate Limiting 설정 (요금 폭탄 방지)
 export const RATE_LIMIT = {
-  MAX_REQUESTS: 5,          // 최대 요청 횟수
+  MAX_REQUESTS: 3,          // 최대 요청 횟수 (5→3으로 강화)
   WINDOW_MS: 60 * 1000,     // 1분
 } as const;
 
-// API 설정
+// OpenAI API 설정
 export const API_CONFIG = {
-  GEMINI_MODEL: 'gemini-1.5-flash',  // 빠르고 저렴한 모델
-  MAX_TOKENS: 500,
+  MODEL: 'gpt-4o-mini',      // 저렴하고 빠른 모델
+  MAX_TOKENS: 300,           // 토큰 제한 (비용 절감)
   TEMPERATURE: 0.8,
-  TIMEOUT_MS: 30000,        // 30초 타임아웃
+  TIMEOUT_MS: 30000,         // 30초 타임아웃
 } as const;
 
 // 캐시 설정
