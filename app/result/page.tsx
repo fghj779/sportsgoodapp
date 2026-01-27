@@ -51,137 +51,203 @@ export default function ResultPage() {
   };
 
   const downloadBlob = (blob: Blob, filename: string) => {
-    // iOS Safari 및 모바일 브라우저 호환성 개선
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = filename;
-    link.style.display = 'none';
-    
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    
-    // 메모리 해제
-    setTimeout(() => URL.revokeObjectURL(url), 100);
+    try {
+      // iOS Safari 및 모바일 브라우저 호환성 개선
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      link.style.display = 'none';
+      
+      document.body.appendChild(link);
+      
+      // iOS Safari 처리
+      if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
+        link.target = '_blank';
+      }
+      
+      link.click();
+      
+      setTimeout(() => {
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      }, 100);
+      
+      return true;
+    } catch (error) {
+      console.error('다운로드 오류:', error);
+      return false;
+    }
   };
 
   const handleDownloadImage = async () => {
-    if (!captureRef.current || !result) return;
+    if (!captureRef.current || !result) {
+      alert('❌ 결과 데이터를 찾을 수 없습니다.');
+      return;
+    }
 
     setIsCapturing(true);
+    
     try {
-      // 스크롤 위치 저장
-      const scrollY = window.scrollY;
-      
-      // 캡처할 요소 찾기
       const element = captureRef.current;
+      
+      // 스크롤을 맨 위로 이동 (캡처 안정성)
+      const scrollY = window.scrollY;
+      element.scrollIntoView({ behavior: 'instant', block: 'start' });
+      
+      // 약간의 딜레이 (렌더링 완료 대기)
+      await new Promise(resolve => setTimeout(resolve, 300));
+      
+      console.log('🎨 이미지 캡처 시작...');
       
       const canvas = await html2canvas(element, {
         backgroundColor: '#fdf4ff',
-        scale: 3, // 고화질
-        logging: false,
+        scale: 2, // 3에서 2로 낮춤 (안정성)
+        logging: true, // 디버깅용 로그 활성화
         useCORS: true,
-        allowTaint: true,
-        windowWidth: element.scrollWidth,
-        windowHeight: element.scrollHeight,
+        allowTaint: false,
+        removeContainer: true,
+        imageTimeout: 15000,
+        width: element.offsetWidth,
+        height: element.offsetHeight,
       });
+
+      console.log('✅ 캡처 완료:', canvas.width, 'x', canvas.height);
 
       // 스크롤 복원
       window.scrollTo(0, scrollY);
 
-      // Blob으로 변환 (더 안정적)
-      canvas.toBlob((blob) => {
-        if (!blob) {
-          alert('이미지 생성에 실패했습니다.');
-          return;
-        }
-
-        const filename = `KBO-TI_${result.team.name}_결과.jpg`;
-        downloadBlob(blob, filename);
+      // 즉시 dataURL 방식으로 다운로드 (더 호환성 높음)
+      try {
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+        const link = document.createElement('a');
+        link.download = `KBO-TI_${result.team.name}_결과.jpg`;
+        link.href = dataUrl;
+        link.click();
         
-        // 성공 메시지
+        console.log('✅ 다운로드 성공');
+        
         setTimeout(() => {
-          alert('✅ 이미지가 저장되었습니다!\n갤러리/다운로드 폴더를 확인해주세요 📸');
-        }, 100);
-      }, 'image/jpeg', 0.95);
+          alert('✅ 이미지가 저장되었습니다!\n📱 갤러리/다운로드 폴더를 확인해주세요');
+        }, 200);
+      } catch (downloadError) {
+        console.error('다운로드 오류:', downloadError);
+        throw downloadError;
+      }
 
-    } catch (error) {
-      console.error('이미지 저장 실패:', error);
-      alert('❌ 이미지 저장에 실패했습니다.\n다시 시도해주세요.');
+    } catch (error: any) {
+      console.error('❌ 이미지 저장 실패:', error);
+      alert(`❌ 이미지 저장 실패\n\n오류: ${error.message || '알 수 없는 오류'}\n\n스크린샷을 찍어서 공유해주세요!`);
     } finally {
       setIsCapturing(false);
     }
   };
 
   const handleShareAsImage = async () => {
-    if (!captureRef.current || !result) return;
+    if (!captureRef.current || !result) {
+      alert('❌ 결과 데이터를 찾을 수 없습니다.');
+      return;
+    }
 
     setIsCapturing(true);
+    
     try {
-      // 스크롤 위치 저장
-      const scrollY = window.scrollY;
-      
       const element = captureRef.current;
+      
+      // 스크롤을 맨 위로 이동
+      const scrollY = window.scrollY;
+      element.scrollIntoView({ behavior: 'instant', block: 'start' });
+      
+      // 약간의 딜레이
+      await new Promise(resolve => setTimeout(resolve, 300));
+      
+      console.log('🎨 이미지 캡처 시작 (공유)...');
 
       const canvas = await html2canvas(element, {
         backgroundColor: '#fdf4ff',
-        scale: 3, // 고화질
-        logging: false,
+        scale: 2,
+        logging: true,
         useCORS: true,
-        allowTaint: true,
-        windowWidth: element.scrollWidth,
-        windowHeight: element.scrollHeight,
+        allowTaint: false,
+        removeContainer: true,
+        imageTimeout: 15000,
+        width: element.offsetWidth,
+        height: element.offsetHeight,
       });
+
+      console.log('✅ 캡처 완료 (공유):', canvas.width, 'x', canvas.height);
 
       // 스크롤 복원
       window.scrollTo(0, scrollY);
 
-      canvas.toBlob(async (blob) => {
-        if (!blob) {
-          alert('이미지 생성에 실패했습니다.');
-          return;
-        }
+      // Blob 생성
+      const blob = await new Promise<Blob>((resolve, reject) => {
+        canvas.toBlob((b) => {
+          if (b) resolve(b);
+          else reject(new Error('Blob 생성 실패'));
+        }, 'image/jpeg', 0.9);
+      });
 
-        const filename = `KBO-TI_${result.team.name}_결과.jpg`;
-        const file = new File([blob], filename, { type: 'image/jpeg' });
+      console.log('✅ Blob 생성 완료:', blob.size, 'bytes');
 
-        // Web Share API 지원 확인
-        if (navigator.share) {
-          try {
-            // 파일 공유 지원 확인
-            if (navigator.canShare && navigator.canShare({ files: [file] })) {
-              await navigator.share({
-                title: `나는 ${result.team.name} 팬!`,
-                text: `KBO-TI로 내 운명의 야구팀을 찾았어요! ⚾💖\n궁합도 ${result.compatibility}%\n\n${window.location.origin}`,
-                files: [file],
-              });
-            } else {
-              // 파일 공유 불가능하면 텍스트만 공유하고 이미지는 다운로드
-              downloadBlob(blob, filename);
-              await navigator.share({
-                title: `나는 ${result.team.name} 팬!`,
-                text: `KBO-TI로 내 운명의 야구팀을 찾았어요! ⚾💖\n궁합도 ${result.compatibility}%\n\n${window.location.origin}`,
-              });
-            }
-          } catch (err: any) {
-            if (err.name !== 'AbortError') {
-              console.log('공유 오류:', err);
-              // 공유 실패 시 다운로드
-              downloadBlob(blob, filename);
-              alert('📸 이미지가 저장되었습니다!\n갤러리에서 확인 후 공유해주세요.');
-            }
+      const filename = `KBO-TI_${result.team.name}_결과.jpg`;
+      const file = new File([blob], filename, { type: 'image/jpeg' });
+
+      // Web Share API 지원 확인
+      if (navigator.share) {
+        console.log('📤 Web Share API 지원됨');
+        
+        try {
+          // 파일 공유 가능 여부 확인
+          const canShareFiles = navigator.canShare && navigator.canShare({ files: [file] });
+          
+          if (canShareFiles) {
+            console.log('📸 파일 공유 가능');
+            await navigator.share({
+              title: `나는 ${result.team.name} 팬!`,
+              text: `KBO-TI로 내 운명의 야구팀을 찾았어요! ⚾💖\n궁합도 ${result.compatibility}%`,
+              files: [file],
+            });
+            console.log('✅ 공유 완료');
+          } else {
+            console.log('💾 파일 공유 불가 - 다운로드 시도');
+            // 다운로드
+            const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = dataUrl;
+            link.click();
+            
+            alert('✅ 이미지가 저장되었습니다!\n📱 갤러리에서 확인 후 공유해주세요');
           }
-        } else {
-          // Web Share API 미지원 브라우저 - 다운로드만
-          downloadBlob(blob, filename);
-          alert('✅ 이미지가 저장되었습니다!\n갤러리/다운로드 폴더를 확인해주세요 📸');
+        } catch (err: any) {
+          if (err.name === 'AbortError') {
+            console.log('ℹ️ 사용자가 공유 취소');
+          } else {
+            console.error('공유 오류:', err);
+            // 폴백: 다운로드
+            const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = dataUrl;
+            link.click();
+            alert('✅ 이미지가 저장되었습니다!\n📱 갤러리에서 확인 후 공유해주세요');
+          }
         }
-      }, 'image/jpeg', 0.95);
+      } else {
+        console.log('💾 Web Share API 미지원 - 다운로드');
+        // Web Share API 미지원 - 다운로드
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+        const link = document.createElement('a');
+        link.download = filename;
+        link.href = dataUrl;
+        link.click();
+        alert('✅ 이미지가 저장되었습니다!\n📱 갤러리/다운로드 폴더를 확인해주세요');
+      }
 
-    } catch (error) {
-      console.error('이미지 공유 실패:', error);
-      alert('❌ 이미지 공유에 실패했습니다.\n다시 시도해주세요.');
+    } catch (error: any) {
+      console.error('❌ 이미지 공유 실패:', error);
+      alert(`❌ 이미지 공유 실패\n\n오류: ${error.message || '알 수 없는 오류'}\n\n대신 스크린샷을 찍어서 공유해주세요!`);
     } finally {
       setIsCapturing(false);
     }
