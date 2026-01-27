@@ -15,10 +15,14 @@ export default function QuizPage() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Answer[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string>('');
 
   const progress = ((currentQuestion + 1) / questions.length) * 100;
 
   const handleAnswer = async (selected: 'A' | 'B') => {
+    // 에러 메시지 초기화
+    setError('');
+    
     // 중복 답변 방지: 같은 questionId가 있으면 제거하고 새로 추가
     const currentQuestionId = questions[currentQuestion].id;
     const filteredAnswers = answers.filter(a => a.questionId !== currentQuestionId);
@@ -85,7 +89,7 @@ export default function QuizPage() {
         console.error('매칭 API 에러:', error);
 
         // 사용자 친화적인 에러 메시지
-        alert(error.message || '매칭 중 오류가 발생했어요. 😢\n다시 시도해주세요!');
+        setError(error.message || '매칭 중 오류가 발생했어요. 😢\n다시 시도해주세요!');
         setIsLoading(false);
       }
     }
@@ -142,6 +146,17 @@ export default function QuizPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-50 to-blue-100 py-8 px-4">
       <div className="max-w-3xl mx-auto">
+        {/* 에러 메시지 */}
+        {error && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg"
+          >
+            <p className="font-semibold">⚠️ {error}</p>
+          </motion.div>
+        )}
+        
         {/* 헤더 */}
         <div className="mb-6">
           <button
