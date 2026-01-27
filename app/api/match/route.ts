@@ -101,8 +101,7 @@ ${userProfile}
       ),
     ]);
 
-    const response = await result.response;
-    const text = response.text();
+    const text = result.response.text();
 
     // ============================================
     // 5. 응답 파싱 및 검증
@@ -150,6 +149,12 @@ ${userProfile}
 
   } catch (error: any) {
     console.error('Match API Error:', error);
+    console.error('Error details:', {
+      message: error.message,
+      status: error.status,
+      statusText: error.statusText,
+      stack: error.stack,
+    });
 
     // ============================================
     // 에러 핸들링
@@ -175,10 +180,19 @@ ${userProfile}
     }
 
     // API 키 에러
-    if (error.message?.includes('API key') || error.status === 401) {
+    if (error.message?.includes('API_KEY') || error.message?.includes('API key') || error.status === 401 || error.status === 403) {
+      console.error('API Key Error - Current key:', process.env.GEMINI_API_KEY ? '(설정됨)' : '(없음)');
       return NextResponse.json(
         { error: 'AI 서비스 설정 오류입니다. 관리자에게 문의해주세요.' },
         { status: 500 }
+      );
+    }
+
+    // 할당량 초과 에러
+    if (error.status === 429 || error.message?.includes('quota') || error.message?.includes('limit')) {
+      return NextResponse.json(
+        { error: 'API 할당량이 초과되었어요. 😭\n잠시 후 다시 시도해주세요!' },
+        { status: 429 }
       );
     }
 
@@ -186,6 +200,7 @@ ${userProfile}
     return NextResponse.json(
       { 
         error: '매칭 중 오류가 발생했어요. 😢\n잠시 후 다시 시도해주세요!',
+        debug: process.env.NODE_ENV === 'development' ? error.message : undefined,
       },
       { status: 500 }
     );
