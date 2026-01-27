@@ -41,7 +41,6 @@ export const kboTeams: KBOTeam[] = [
       recentAchievements: ['2015-2021 7년 연속 KS 진출', '2016 한국시리즈 우승'],
       majorEvents: ['1982 원년 우승', '1995 통합 우승', '2015 미라클 두산']
     },
-    ticketPlatform: '인터파크 티켓',
     transportation: {
       subway: { line: '2호선/9호선', station: '종합운동장역', exit: '5번/6번 출구', walkTime: '도보 3분' },
       parking: '주차 가능 (유료, 경기 당일 매우 혼잡)'
@@ -98,7 +97,6 @@ export const kboTeams: KBOTeam[] = [
       recentAchievements: ['2024 한국시리즈 우승', '2017 한국시리즈 우승'],
       majorEvents: ['최다 우승 (12회)', '1980년대 황금기', '2024 통합 우승']
     },
-    ticketPlatform: '티켓링크',
     transportation: {
       ktx: { station: '광주송정역/광주역', distance: '택시/버스 이동', transport: '버스 10-20분 소요' },
       parking: '주차 가능 (넓음)'
@@ -155,7 +153,6 @@ export const kboTeams: KBOTeam[] = [
       recentAchievements: ['1999 우승 이후 도전 중', '2025 신구장 개장'],
       majorEvents: ['1999 한국시리즈 우승', 'V2를 향한 기다림']
     },
-    ticketPlatform: '티켓링크',
     transportation: {
       subway: { line: '대전 1호선', station: '중구청역', exit: '1번 출구', walkTime: '도보 20분 이상 (버스 환승 권장)' },
       parking: '주차 가능 (신구장 시설)'
@@ -213,7 +210,6 @@ export const kboTeams: KBOTeam[] = [
       recentAchievements: ['2011-2014 통합 4연패', '2014 한국시리즈 우승'],
       majorEvents: ['2002-2006 5연패', 'KBO 최초 3000승', '8회 우승']
     },
-    ticketPlatform: '티켓링크',
     transportation: {
       subway: { line: '대구 2호선', station: '대공원역', exit: '4번/5번 출구', walkTime: '도보 1분 (역 바로 앞)' },
       parking: '주차 가능'
@@ -269,7 +265,6 @@ export const kboTeams: KBOTeam[] = [
       recentAchievements: ['2025 한국시리즈 우승', '2023 한국시리즈 우승'],
       majorEvents: ['1990, 1994 우승', '2025 디펜딩 챔피언']
     },
-    ticketPlatform: '티켓링크',
     transportation: {
       subway: { line: '2호선/9호선', station: '종합운동장역', exit: '5번/6번 출구', walkTime: '도보 3분' },
       parking: '주차 가능 (유료, 경기 당일 혼잡)'
@@ -325,7 +320,6 @@ export const kboTeams: KBOTeam[] = [
       recentAchievements: ['준우승 3회', '항상 언더독이지만 상위권 위협'],
       majorEvents: ['2018 정규시즌 우승', 'MLB 수출 기업']
     },
-    ticketPlatform: '인터파크 티켓',
     transportation: {
       subway: { line: '1호선', station: '구일역', exit: '2번 출구', walkTime: '도보 5분 (돔구장 바로 보임)' },
       parking: '주차 가능 (지하주차장)'
@@ -437,7 +431,6 @@ export const kboTeams: KBOTeam[] = [
       recentAchievements: ['2022 통합 우승', '2021 정규시즌 우승'],
       majorEvents: ['2007-2010 4연패', '2022 우승']
     },
-    ticketPlatform: '티켓링크',
     transportation: {
       subway: { line: '인천 1호선', station: '문학경기장역', exit: '1번 출구', walkTime: '도보 10~15분 (패밀리길 이용)' },
       parking: '주차 가능 (넓음)'
@@ -550,7 +543,6 @@ export const kboTeams: KBOTeam[] = [
       recentAchievements: ['2021 통합 우승', '2024 정규시즌 2위'],
       majorEvents: ['2015년 첫 포스트시즌', '2021 우승']
     },
-    ticketPlatform: '티켓링크',
     transportation: {
       subway: { line: '1호선', station: '화서역/수원역', exit: '-', walkTime: '지하철 하차 후 버스 환승 필수' },
       parking: '주차 가능 (사전 예약 권장)'
