@@ -499,10 +499,10 @@ export const kboTeams: KBOTeam[] = [
       { name: '김성근', position: '감독', description: '야구의 신(야신). 왕조의 창시자.' }
     ],
     history: {
-      founded: '2000년 (SK) → 2021년 (SSG)',
+      founded: '2000년 (SK 와이번스) → 2021년 (SSG 랜더스)',
       championships: 5,
-      recentAchievements: ['2022 통합 우승', '2021 정규시즌 우승'],
-      majorEvents: ['2007-2010 4연패', '2022 우승']
+      recentAchievements: ['2022 통합 우승 (SSG)', '2018 한국시리즈 우승 (SK)'],
+      majorEvents: ['2007, 2008, 2010, 2018, 2022 한국시리즈 우승 (5회)', '2007~2012 SK왕조', '2021 모기업 변경: SK와이번스 → SSG랜더스']
     },
     transportation: {
       subway: { line: '인천 1호선', station: '문학경기장역', exit: '1번 출구', walkTime: '도보 10~15분 (패밀리길 이용)' },
