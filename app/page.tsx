@@ -13,6 +13,7 @@ export default function Home() {
   const router = useRouter();
   const [showRules, setShowRules] = useState(false);
   const [showContact, setShowContact] = useState(false);
+  const [showTeamTable, setShowTeamTable] = useState(false);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-50 to-blue-100 py-12 px-4">
@@ -108,46 +109,85 @@ export default function Home() {
           )}
         </AnimatePresence>
 
-        {/* 10개 구단 미리보기 (간소화) */}
+        {/* 10개 구단 미리보기 (테이블 토글) */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8 }}
         >
           <Card>
-            <div className="flex items-center justify-center gap-2 mb-6">
+            <button
+              onClick={() => setShowTeamTable(!showTeamTable)}
+              className="w-full flex items-center justify-center gap-2 mb-4 hover:opacity-80 transition-opacity"
+            >
               <span className="text-2xl">⚾</span>
               <h2 className="text-2xl font-bold text-gray-800">
                 구단 먼저 알아보기
               </h2>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-              {kboTeams.map((team, idx) => (
+              <span className="text-xl">{showTeamTable ? '▼' : '▶'}</span>
+            </button>
+
+            <AnimatePresence>
+              {showTeamTable && (
                 <motion.div
-                  key={team.id}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.9 + idx * 0.05 }}
-                  whileHover={{ scale: 1.03 }}
-                  className="p-4 rounded-xl bg-gradient-to-br from-white to-gray-50 border-2 border-gray-100 hover:border-pink-200 transition-all cursor-default"
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="overflow-hidden"
                 >
-                  <div className="text-center">
-                    <div className="text-4xl mb-2">{team.logo}</div>
-                    <div className="text-sm font-bold text-gray-800 mb-1">
-                      {team.name}
-                    </div>
-                    <div className="text-xs text-gray-500 space-y-0.5">
-                      <p>📍 {team.homeCity}</p>
-                      <p>🏆 우승 {team.history.championships}회</p>
-                      <p>{team.mascot}</p>
-                    </div>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm">
+                      <thead>
+                        <tr className="bg-gradient-to-r from-pink-100 to-purple-100">
+                          <th className="px-3 py-2 text-left font-bold text-gray-700">구단명</th>
+                          <th className="px-3 py-2 text-center font-bold text-gray-700">창단</th>
+                          <th className="px-3 py-2 text-center font-bold text-gray-700">우승</th>
+                          <th className="px-3 py-2 text-center font-bold text-gray-700">최근 우승</th>
+                          <th className="px-3 py-2 text-center font-bold text-gray-700">연고지</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {[
+                          { name: 'KIA 타이거즈', emoji: '🐯', founded: '1982', wins: '12회', lastWin: '2024', city: '광주' },
+                          { name: '삼성 라이온즈', emoji: '🦁', founded: '1982', wins: '8회', lastWin: '2014', city: '대구' },
+                          { name: '두산 베어스', emoji: '🐻', founded: '1982', wins: '6회', lastWin: '2019', city: '서울' },
+                          { name: 'SSG 랜더스', emoji: '🛸', founded: '2000', wins: '5회', lastWin: '2022', city: '인천' },
+                          { name: 'LG 트윈스', emoji: '⚾', founded: '1982', wins: '4회', lastWin: '2025', city: '서울' },
+                          { name: '롯데 자이언츠', emoji: '⚓', founded: '1982', wins: '2회', lastWin: '1992', city: '부산' },
+                          { name: '한화 이글스', emoji: '🦅', founded: '1986', wins: '1회', lastWin: '1999', city: '대전' },
+                          { name: 'NC 다이노스', emoji: '🦕', founded: '2011', wins: '1회', lastWin: '2020', city: '창원' },
+                          { name: 'KT 위즈', emoji: '🧙', founded: '2013', wins: '1회', lastWin: '2021', city: '수원' },
+                          { name: '키움 히어로즈', emoji: '🦸', founded: '2008', wins: '0회', lastWin: '-', city: '서울' },
+                        ].map((team, idx) => (
+                          <tr
+                            key={team.name}
+                            className={idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
+                          >
+                            <td className="px-3 py-2 font-medium whitespace-nowrap">
+                              <span className="mr-1">{team.emoji}</span>
+                              {team.name}
+                            </td>
+                            <td className="px-3 py-2 text-center text-gray-600">{team.founded}</td>
+                            <td className="px-3 py-2 text-center font-semibold text-pink-600">{team.wins}</td>
+                            <td className="px-3 py-2 text-center text-gray-600">{team.lastWin}</td>
+                            <td className="px-3 py-2 text-center text-gray-600">{team.city}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
                   </div>
+                  <p className="text-center text-xs text-gray-400 mt-3">
+                    * KIA 타이거즈가 최다 12회 우승으로 KBO 리그 최강! 🏆
+                  </p>
                 </motion.div>
-              ))}
-            </div>
-            <p className="text-center text-sm text-gray-400 mt-4">
-              테스트를 완료하면 각 팀에 대해 더 자세히 알아볼 수 있어요! 💕
-            </p>
+              )}
+            </AnimatePresence>
+
+            {!showTeamTable && (
+              <p className="text-center text-sm text-gray-400">
+                👆 클릭하면 10개 구단 정보를 한눈에 볼 수 있어요!
+              </p>
+            )}
           </Card>
         </motion.div>
 
