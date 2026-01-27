@@ -43,6 +43,36 @@ export interface KBOTeam {
     recentAchievements: string[];
     majorEvents: string[];
   };
+  // 신규 추가 기능
+  officialWebsite: string;  // 공식 홈페이지
+  ticketUrl: string;  // 티켓 예매 링크
+  ticketPlatform: string;  // 예매 플랫폼 (티켓링크, 인터파크 등)
+  transportation: {  // 교통편 정보
+    subway?: {
+      line: string;
+      station: string;
+      exit: string;
+      walkTime: string;
+    };
+    ktx?: {
+      station: string;
+      distance: string;
+      transport: string;  // 버스/택시
+    };
+    parking: string;
+  };
+  seatPrices: {  // 좌석별 가격
+    premium?: string;
+    table?: string;
+    box?: string;
+    infield: string;  // 내야
+    outfield: string;  // 외야
+  };
+  personality: {  // 성향별 꿀팁
+    keywords: string[];
+    tip: string;
+    bestFor: string;
+  };
 }
 
 export interface MatchResult {

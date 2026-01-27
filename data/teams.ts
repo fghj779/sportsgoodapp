@@ -34,6 +34,30 @@ export const kboTeams: KBOTeam[] = [
       championships: 6,
       recentAchievements: ['2015-2021 7년 연속 KS 진출 (왕조)', '2016 한국시리즈 우승'],
       majorEvents: ['1982 원년 우승', '1995 통합 우승', '2015 미라클 두산']
+    },
+    // 신규 정보
+    officialWebsite: 'https://www.doosanbears.com/',
+    ticketUrl: 'https://www.doosanbears.com/ticket/reserve',
+    ticketPlatform: '공식 홈페이지 + 인터파크 티켓',
+    transportation: {
+      subway: {
+        line: '2호선/8호선',
+        station: '잠실역',
+        exit: '3번/4번 출구',
+        walkTime: '도보 5분'
+      },
+      parking: '주차 가능 (유료, 경기 당일 혼잡)'
+    },
+    seatPrices: {
+      premium: '35,000원',
+      table: '30,000원',
+      infield: '14,000원',
+      outfield: '8,000원'
+    },
+    personality: {
+      keywords: ['역전', '끈기', '미라클', '여성팬'],
+      tip: '💡 지고 있어도 끝까지 보는 재미! 9회말 역전극 DNA',
+      bestFor: '드라마틱한 전개를 좋아하는 사람'
     }
   },
 
@@ -70,6 +94,35 @@ export const kboTeams: KBOTeam[] = [
       championships: 12,
       recentAchievements: ['2024 한국시리즈 우승', '2017 한국시리즈 우승'],
       majorEvents: ['최다 우승 (12회)', '1980년대 황금기 5연패', '2024 우승']
+    },
+    // 신규 정보
+    officialWebsite: 'https://www.tigers.co.kr/',
+    ticketUrl: 'https://ticketlink.co.kr/',
+    ticketPlatform: '티켓링크',
+    transportation: {
+      subway: {
+        line: '1호선',
+        station: '광주송정역',
+        exit: '1번 출구',
+        walkTime: '버스 10분 or 택시 5분'
+      },
+      ktx: {
+        station: '광주송정역',
+        distance: '경기장까지 3km',
+        transport: '버스 187번 or 택시'
+      },
+      parking: '주차 가능 (매우 넓음)'
+    },
+    seatPrices: {
+      premium: '32,000원',
+      table: '27,000원',
+      infield: '13,000원',
+      outfield: '7,000원'
+    },
+    personality: {
+      keywords: ['전통', '우승', '자부심', '챔피언'],
+      tip: '💡 최다 우승팀의 자부심! 분위기 최고, 응원 문화 끝판왕',
+      bestFor: '승리의 짜릿함과 전통을 중시하는 사람'
     }
   },
 
@@ -106,6 +159,29 @@ export const kboTeams: KBOTeam[] = [
       championships: 1,
       recentAchievements: ['1999 우승 이후 27년째 도전 중', '2025 신구장 개장'],
       majorEvents: ['1999 한국시리즈 우승', 'V2를 향한 27년의 기다림', '2026 우승 도전']
+    },
+    // 신규 정보
+    officialWebsite: 'https://www.hanwhaeagles.co.kr/',
+    ticketUrl: 'https://ticketlink.co.kr/',
+    ticketPlatform: '티켓링크',
+    transportation: {
+      ktx: {
+        station: '대전역',
+        distance: '경기장까지 3.5km',
+        transport: '버스 102번 or 택시 10분'
+      },
+      parking: '주차 가능 (신구장 넓음)'
+    },
+    seatPrices: {
+      premium: '30,000원',
+      table: '25,000원',
+      infield: '12,000원',
+      outfield: '7,000원'
+    },
+    personality: {
+      keywords: ['의리', '인내', '슈퍼팀', '신구장'],
+      tip: '💡 27년 기다린 의리파! 2026년 우승 가능성 최고',
+      bestFor: '끝까지 함께하는 의리와 믿음을 중시하는 사람'
     }
   },
 
@@ -142,6 +218,34 @@ export const kboTeams: KBOTeam[] = [
       championships: 8,
       recentAchievements: ['2011-2014 통합 4연패 왕조', '2014 한국시리즈 우승'],
       majorEvents: ['2002-2006 5연패', 'KBO 최초 통산 3000승', '8회 우승']
+    },
+    // 신규 정보
+    officialWebsite: 'https://www.samsunglions.com/',
+    ticketUrl: 'https://ticketlink.co.kr/',
+    ticketPlatform: '티켓링크',
+    transportation: {
+      subway: {
+        line: '1호선',
+        station: '대구역',
+        exit: '동광장',
+        walkTime: '버스 10분 or 택시 10분'
+      },
+      ktx: {
+        station: '대구역/동대구역',
+        distance: '경기장까지 5~7km',
+        transport: '버스 101번 or 택시'
+      },
+      parking: '주차 가능'
+    },
+    seatPrices: {
+      premium: '28,000원',
+      infield: '12,000원',
+      outfield: '7,000원'
+    },
+    personality: {
+      keywords: ['전통', '명문', '왕조', '자존심'],
+      tip: '💡 8회 우승 명문의 품격! 엘도라도의 영광',
+      bestFor: '전통과 근본을 중시하는 사람'
     }
   },
 
@@ -178,6 +282,30 @@ export const kboTeams: KBOTeam[] = [
       championships: 4,
       recentAchievements: ['2025 한국시리즈 우승', '2023 한국시리즈 우승'],
       majorEvents: ['1990 한국시리즈 우승', '1994 한국시리즈 우승', '2025 디펜딩 챔피언']
+    },
+    // 신규 정보
+    officialWebsite: 'https://www.lgtwins.com/',
+    ticketUrl: 'https://ticketlink.co.kr/',
+    ticketPlatform: '티켓링크',
+    transportation: {
+      subway: {
+        line: '2호선/8호선',
+        station: '잠실역',
+        exit: '3번/4번 출구',
+        walkTime: '도보 5분'
+      },
+      parking: '주차 가능 (유료, 경기 당일 혼잡)'
+    },
+    seatPrices: {
+      premium: '35,000원',
+      table: '30,000원',
+      infield: '14,000원',
+      outfield: '8,000원'
+    },
+    personality: {
+      keywords: ['힙', '트렌디', '서울', '인싸'],
+      tip: '💡 서울의 인싸 야구! 2025 우승팀의 위엄',
+      bestFor: '트렌디하고 세련된 것을 좋아하는 사람'
     }
   },
 
@@ -214,6 +342,30 @@ export const kboTeams: KBOTeam[] = [
       championships: 0,
       recentAchievements: ['준우승 3회 (준우승 맛집)', '항상 언더독이지만 상위권 위협'],
       majorEvents: ['2018 정규시즌 우승', '2019 한국시리즈 준우승', 'MLB 수출 기업']
+    },
+    // 신규 정보
+    officialWebsite: 'https://www.heroesbaseball.co.kr/',
+    ticketUrl: 'https://www.interpark.com/',
+    ticketPlatform: '인터파크 티켓',
+    transportation: {
+      subway: {
+        line: '1호선/경의중앙선',
+        station: '디지털미디어시티역',
+        exit: '2번 출구',
+        walkTime: '도보 10분'
+      },
+      parking: '주차 가능 (돔구장 지하주차장)'
+    },
+    seatPrices: {
+      premium: '30,000원',
+      box: '25,000원',
+      infield: '12,000원',
+      outfield: '7,000원'
+    },
+    personality: {
+      keywords: ['유망주', 'MLB', '성장', '미래'],
+      tip: '💡 MLB 사관학교! 유망주 크는 맛 최고',
+      bestFor: '성장형 콘텐츠와 미래 가능성을 좋아하는 사람'
     }
   },
 
@@ -250,6 +402,34 @@ export const kboTeams: KBOTeam[] = [
       championships: 2,
       recentAchievements: ['1992년 마지막 우승', '응답하라 1992...'],
       majorEvents: ['1984 한국시리즈 우승', '1992 한국시리즈 우승', '최고의 팬심']
+    },
+    // 신규 정보
+    officialWebsite: 'https://www.giantsclub.com/',
+    ticketUrl: 'https://www.giantsclub.com/',
+    ticketPlatform: '자체 예매 시스템',
+    transportation: {
+      subway: {
+        line: '2호선',
+        station: '사직역',
+        exit: '5번 출구',
+        walkTime: '도보 3분'
+      },
+      ktx: {
+        station: '부산역',
+        distance: '경기장까지 3km',
+        transport: '버스 or 택시 10분'
+      },
+      parking: '주차 가능 (유료)'
+    },
+    seatPrices: {
+      premium: '27,000원',
+      infield: '12,000원',
+      outfield: '6,000원'
+    },
+    personality: {
+      keywords: ['낭만', '열정', '부산', '팬심'],
+      tip: '💡 부산의 심장! 사직 노래방 분위기 최고',
+      bestFor: '열정적이고 낭만적인 야구를 좋아하는 사람'
     }
   },
 
@@ -286,6 +466,35 @@ export const kboTeams: KBOTeam[] = [
       championships: 5,
       recentAchievements: ['2022 와이어 투 와이어 통합 우승', '2021 정규시즌 우승'],
       majorEvents: ['2007-2010 4연패', '2018 한국시리즈 우승', '2022 한국시리즈 우승']
+    },
+    // 신규 정보
+    officialWebsite: 'https://www.ssglanders.com/',
+    ticketUrl: 'https://ticketlink.co.kr/',
+    ticketPlatform: '티켓링크',
+    transportation: {
+      subway: {
+        line: '1호선/수인분당선',
+        station: '인천역/문학경기장역',
+        exit: '1번 출구',
+        walkTime: '도보 5~10분'
+      },
+      ktx: {
+        station: '인천역',
+        distance: '경기장까지 1km',
+        transport: '도보 15분 or 택시 5분'
+      },
+      parking: '주차 가능 (넓음)'
+    },
+    seatPrices: {
+      premium: '32,000원',
+      table: '28,000원',
+      infield: '13,000원',
+      outfield: '7,000원'
+    },
+    personality: {
+      keywords: ['럭셔리', '홈런', '스타벅스', '부자구단'],
+      tip: '💡 홈런 군단! 스타벅스 마시며 시원한 장타',
+      bestFor: '화끈한 공격야구와 럭셔리함을 좋아하는 사람'
     }
   },
 
@@ -322,6 +531,28 @@ export const kboTeams: KBOTeam[] = [
       championships: 1,
       recentAchievements: ['2020 통합 우승 (집행검 들어올림)', '2019 준우승'],
       majorEvents: ['2015년 첫 포스트시즌', '2020 정규시즌 우승', '2020 한국시리즈 우승']
+    },
+    // 신규 정보
+    officialWebsite: 'https://www.ncdinos.com/',
+    ticketUrl: 'https://www.ncdinos.com/',
+    ticketPlatform: '자체 예매 시스템',
+    transportation: {
+      ktx: {
+        station: '창원중앙역',
+        distance: '경기장까지 5km',
+        transport: '버스 or 택시 15분'
+      },
+      parking: '주차 가능 (최신 시설)'
+    },
+    seatPrices: {
+      premium: '29,000원',
+      infield: '12,000원',
+      outfield: '6,000원'
+    },
+    personality: {
+      keywords: ['세련됨', '데이터', '신생팀', 'IT'],
+      tip: '💡 최신 시설의 세련된 야구! 데이터 기반 스마트함',
+      bestFor: '세련되고 새로운 것을 좋아하는 사람'
     }
   },
 
@@ -358,6 +589,34 @@ export const kboTeams: KBOTeam[] = [
       championships: 1,
       recentAchievements: ['2021 통합 우승', '2024 정규시즌 2위'],
       majorEvents: ['2015년 첫 포스트시즌', '2021 한국시리즈 우승', '신생팀의 기적']
+    },
+    // 신규 정보
+    officialWebsite: 'https://www.ktwiz.co.kr/',
+    ticketUrl: 'https://ticketlink.co.kr/',
+    ticketPlatform: '티켓링크',
+    transportation: {
+      subway: {
+        line: '1호선/수인분당선',
+        station: '수원역',
+        exit: '8번 출구',
+        walkTime: '버스 10분 or 택시 10분'
+      },
+      ktx: {
+        station: '수원역',
+        distance: '경기장까지 4km',
+        transport: '버스 or 택시'
+      },
+      parking: '주차 가능'
+    },
+    seatPrices: {
+      premium: '30,000원',
+      infield: '12,000원',
+      outfield: '7,000원'
+    },
+    personality: {
+      keywords: ['마법', '역전', '언더독', '여름성'],
+      tip: '💡 마법 같은 역전극! 롤러코스터 즐기기',
+      bestFor: '드라마틱한 반전과 언더독을 응원하는 사람'
     }
   }
 ];
