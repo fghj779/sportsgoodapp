@@ -19,9 +19,12 @@ export default function QuizPage() {
   const progress = ((currentQuestion + 1) / questions.length) * 100;
 
   const handleAnswer = async (selected: 'A' | 'B') => {
+    // 중복 답변 방지: 같은 questionId가 있으면 제거하고 새로 추가
+    const currentQuestionId = questions[currentQuestion].id;
+    const filteredAnswers = answers.filter(a => a.questionId !== currentQuestionId);
     const newAnswers = [
-      ...answers,
-      { questionId: questions[currentQuestion].id, selected }
+      ...filteredAnswers,
+      { questionId: currentQuestionId, selected }
     ];
     setAnswers(newAnswers);
 
@@ -30,6 +33,14 @@ export default function QuizPage() {
     } else {
       // 모든 질문 완료 - AI 매칭 시작
       setIsLoading(true);
+      
+      // 안전장치: 정확히 20개의 답변만 전송
+      if (newAnswers.length !== 20) {
+        console.error('답변 개수 오류:', newAnswers.length, newAnswers);
+        setError('답변 개수가 올바르지 않습니다. 처음부터 다시 시도해주세요.');
+        setIsLoading(false);
+        return;
+      }
       
       try {
         // 재시도 로직 적용 (최대 3회)
