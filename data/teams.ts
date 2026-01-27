@@ -52,6 +52,9 @@ export const kboTeams: KBOTeam[] = [
       { name: '통삼겹 바베큐', description: '야구장에서 즐기는 삼겹살 파티.' }
     ],
     seatPrices: { premium: '35,000원', table: '30,000원', infield: '14,000원', outfield: '8,000원' },
+    ticketPlatform: '인터파크 티켓',
+    ticketUrl: 'https://tickets.interpark.com/',
+    officialWebsite: 'https://www.doosanbears.com/',
     personality: { keywords: ['역전', '끈기', '미라클', '여성팬'], tip: '💡 먹산의 위엄! 김치말이국수 필수', bestFor: '드라마틱한 전개를 좋아하는 사람' }
   },
 
@@ -105,6 +108,9 @@ export const kboTeams: KBOTeam[] = [
       { name: '광주 기아 샌드', description: '직관 기념품 겸 간식으로 인기 만점.' }
     ],
     seatPrices: { premium: '32,000원', table: '27,000원', infield: '13,000원', outfield: '7,000원' },
+    ticketPlatform: '티켓링크',
+    ticketUrl: 'https://www.ticketlink.co.kr/',
+    officialWebsite: 'https://www.tigers.co.kr/',
     personality: { keywords: ['전통', '우승', '자부심', '챔피언'], tip: '💡 크림새우 오픈런 필수!', bestFor: '승리의 짜릿함과 전통을 중시하는 사람' }
   },
 
@@ -160,6 +166,9 @@ export const kboTeams: KBOTeam[] = [
       { name: '성심당', description: '구장 내 입점은 아니지만(대전역), 모두가 들고 오는 필수템.' }
     ],
     seatPrices: { premium: '30,000원', table: '25,000원', infield: '12,000원', outfield: '7,000원' },
+    ticketPlatform: '티켓링크',
+    ticketUrl: 'https://www.ticketlink.co.kr/',
+    officialWebsite: 'https://www.hanwhaeagles.co.kr/',
     personality: { keywords: ['의리', '슈퍼팀', '신구장', '떡볶이'], tip: '💡 농심가락 떡볶이+열무국수 국룰!', bestFor: '끝까지 함께하는 의리와 맛집을 중시하는 사람' }
   },
 
@@ -214,6 +223,9 @@ export const kboTeams: KBOTeam[] = [
       { name: '대구 8번식당', description: '든든한 수육과 국밥 한 그릇.' }
     ],
     seatPrices: { premium: '28,000원', infield: '12,000원', outfield: '7,000원' },
+    ticketPlatform: '티켓링크',
+    ticketUrl: 'https://www.ticketlink.co.kr/',
+    officialWebsite: 'https://www.samsunglions.com/',
     personality: { keywords: ['전통', '명문', '접근성최고', '해치스'], tip: '💡 지하철 내리자마자 라팍! 해치스 떡볶이 강추', bestFor: '전통과 쾌적한 접근성을 중시하는 사람' }
   },
 
@@ -267,6 +279,9 @@ export const kboTeams: KBOTeam[] = [
       { name: '잠실원샷', description: '맥주와 치킨을 한 손에. 응원 필수템.' }
     ],
     seatPrices: { premium: '35,000원', table: '30,000원', infield: '14,000원', outfield: '8,000원' },
+    ticketPlatform: '티켓링크',
+    ticketUrl: 'https://www.ticketlink.co.kr/',
+    officialWebsite: 'https://www.lgtwins.com/',
     personality: { keywords: ['힙', '트렌디', '서울', '김말국'], tip: '💡 3루에서 먹는 김치말이국수의 맛!', bestFor: '트렌디하고 세련된 것을 좋아하는 사람' }
   },
 
@@ -320,6 +335,9 @@ export const kboTeams: KBOTeam[] = [
       { name: '떡볶이', description: '쾌적한 실내에서 즐기는 분식.' }
     ],
     seatPrices: { premium: '30,000원', box: '25,000원', infield: '12,000원', outfield: '7,000원' },
+    ticketPlatform: '인터파크 티켓',
+    ticketUrl: 'https://tickets.interpark.com/',
+    officialWebsite: 'https://www.heroesbaseball.co.kr/',
     personality: { keywords: ['유망주', '쾌적함', '크림새우', '미래'], tip: '💡 여름엔 시원하고 비 오면 뽀송한 돔구장 + 크림새우', bestFor: '쾌적한 환경과 맛집을 선호하는 사람' }
   },
 
@@ -364,6 +382,8 @@ export const kboTeams: KBOTeam[] = [
       majorEvents: ['1984, 1992 한국시리즈 우승', '최고의 팬심']
     },
     ticketPlatform: '자체 예매 시스템',
+    ticketUrl: 'https://www.giantsclub.com/',
+    officialWebsite: 'https://www.giantsclub.com/',
     transportation: {
       subway: { line: '부산 3호선', station: '종합운동장역', exit: '9번 출구', walkTime: '도보 10분' },
       ktx: { station: '부산역', distance: '경기장까지 3km', transport: '버스/택시 10분' },
@@ -428,6 +448,9 @@ export const kboTeams: KBOTeam[] = [
       { name: '스타벅스', description: '랜더스 전용 슬래머 음료 판매 (딜리버리 가능).' }
     ],
     seatPrices: { premium: '32,000원', table: '28,000원', infield: '13,000원', outfield: '7,000원' },
+    ticketPlatform: '티켓링크',
+    ticketUrl: 'https://www.ticketlink.co.kr/',
+    officialWebsite: 'https://www.ssglanders.com/',
     personality: { keywords: ['럭셔리', '맛집', '스타벅스', '물회'], tip: '💡 크림새우+물회 조합! 스타벅스 딜리버리로 편하게', bestFor: '미식과 야구를 동시에 즐기는 럭셔리파' }
   },
 
@@ -472,6 +495,8 @@ export const kboTeams: KBOTeam[] = [
       majorEvents: ['2020 첫 우승 (집행검)']
     },
     ticketPlatform: '구단 자체 앱',
+    ticketUrl: 'https://www.ncdinos.com/',
+    officialWebsite: 'https://www.ncdinos.com/',
     transportation: {
       ktx: { station: '마산역', distance: '버스/택시 이동', transport: '마산고속터미널/마산역에서 버스 이동' },
       parking: '주차 가능 (최신 시설)'
@@ -535,6 +560,9 @@ export const kboTeams: KBOTeam[] = [
       { name: '진미통닭', description: '수원 통닭거리의 맛을 그대로. 식어도 맛있는 치킨.' }
     ],
     seatPrices: { premium: '30,000원', infield: '12,000원', outfield: '7,000원' },
+    ticketPlatform: '티켓링크',
+    ticketUrl: 'https://www.ticketlink.co.kr/',
+    officialWebsite: 'https://www.ktwiz.co.kr/',
     personality: { keywords: ['마법', '맛집', '보영만두', '여름성'], tip: '💡 쫄면+군만두(보영만두) & 진미통닭 풀코스', bestFor: '먹거리가 풍성한 직관을 원하는 사람' }
   }
 ];
