@@ -50,25 +50,65 @@ export default function ResultPage() {
     router.push('/quiz');
   };
 
+  const downloadBlob = (blob: Blob, filename: string) => {
+    // iOS Safari 및 모바일 브라우저 호환성 개선
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    link.style.display = 'none';
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    // 메모리 해제
+    setTimeout(() => URL.revokeObjectURL(url), 100);
+  };
+
   const handleDownloadImage = async () => {
     if (!captureRef.current || !result) return;
 
     setIsCapturing(true);
     try {
-      const canvas = await html2canvas(captureRef.current, {
-        backgroundColor: '#f3e8ff',
-        scale: 2,
+      // 스크롤 위치 저장
+      const scrollY = window.scrollY;
+      
+      // 캡처할 요소 찾기
+      const element = captureRef.current;
+      
+      const canvas = await html2canvas(element, {
+        backgroundColor: '#fdf4ff',
+        scale: 3, // 고화질
         logging: false,
         useCORS: true,
+        allowTaint: true,
+        windowWidth: element.scrollWidth,
+        windowHeight: element.scrollHeight,
       });
 
-      const link = document.createElement('a');
-      link.download = `KBO-TI_${result.team.name}_결과.jpg`;
-      link.href = canvas.toDataURL('image/jpeg', 0.95);
-      link.click();
+      // 스크롤 복원
+      window.scrollTo(0, scrollY);
+
+      // Blob으로 변환 (더 안정적)
+      canvas.toBlob((blob) => {
+        if (!blob) {
+          alert('이미지 생성에 실패했습니다.');
+          return;
+        }
+
+        const filename = `KBO-TI_${result.team.name}_결과.jpg`;
+        downloadBlob(blob, filename);
+        
+        // 성공 메시지
+        setTimeout(() => {
+          alert('✅ 이미지가 저장되었습니다!\n갤러리/다운로드 폴더를 확인해주세요 📸');
+        }, 100);
+      }, 'image/jpeg', 0.95);
+
     } catch (error) {
       console.error('이미지 저장 실패:', error);
-      alert('이미지 저장에 실패했습니다. 다시 시도해주세요.');
+      alert('❌ 이미지 저장에 실패했습니다.\n다시 시도해주세요.');
     } finally {
       setIsCapturing(false);
     }
@@ -79,39 +119,69 @@ export default function ResultPage() {
 
     setIsCapturing(true);
     try {
-      const canvas = await html2canvas(captureRef.current, {
-        backgroundColor: '#f3e8ff',
-        scale: 2,
+      // 스크롤 위치 저장
+      const scrollY = window.scrollY;
+      
+      const element = captureRef.current;
+
+      const canvas = await html2canvas(element, {
+        backgroundColor: '#fdf4ff',
+        scale: 3, // 고화질
         logging: false,
         useCORS: true,
+        allowTaint: true,
+        windowWidth: element.scrollWidth,
+        windowHeight: element.scrollHeight,
       });
 
+      // 스크롤 복원
+      window.scrollTo(0, scrollY);
+
       canvas.toBlob(async (blob) => {
-        if (!blob) return;
+        if (!blob) {
+          alert('이미지 생성에 실패했습니다.');
+          return;
+        }
 
-        const file = new File([blob], `KBO-TI_${result.team.name}.jpg`, { type: 'image/jpeg' });
+        const filename = `KBO-TI_${result.team.name}_결과.jpg`;
+        const file = new File([blob], filename, { type: 'image/jpeg' });
 
-        if (navigator.share && navigator.canShare({ files: [file] })) {
+        // Web Share API 지원 확인
+        if (navigator.share) {
           try {
-            await navigator.share({
-              title: `나는 ${result.team.name} 팬!`,
-              text: `KBO-TI로 내 운명의 야구팀을 찾았어요! 궁합도 ${result.compatibility}%`,
-              files: [file],
-            });
-          } catch (err) {
-            console.log('공유 취소됨');
+            // 파일 공유 지원 확인
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+              await navigator.share({
+                title: `나는 ${result.team.name} 팬!`,
+                text: `KBO-TI로 내 운명의 야구팀을 찾았어요! ⚾💖\n궁합도 ${result.compatibility}%\n\n${window.location.origin}`,
+                files: [file],
+              });
+            } else {
+              // 파일 공유 불가능하면 텍스트만 공유하고 이미지는 다운로드
+              downloadBlob(blob, filename);
+              await navigator.share({
+                title: `나는 ${result.team.name} 팬!`,
+                text: `KBO-TI로 내 운명의 야구팀을 찾았어요! ⚾💖\n궁합도 ${result.compatibility}%\n\n${window.location.origin}`,
+              });
+            }
+          } catch (err: any) {
+            if (err.name !== 'AbortError') {
+              console.log('공유 오류:', err);
+              // 공유 실패 시 다운로드
+              downloadBlob(blob, filename);
+              alert('📸 이미지가 저장되었습니다!\n갤러리에서 확인 후 공유해주세요.');
+            }
           }
         } else {
-          // Web Share API를 지원하지 않으면 다운로드
-          const link = document.createElement('a');
-          link.download = `KBO-TI_${result.team.name}_결과.jpg`;
-          link.href = canvas.toDataURL('image/jpeg', 0.95);
-          link.click();
+          // Web Share API 미지원 브라우저 - 다운로드만
+          downloadBlob(blob, filename);
+          alert('✅ 이미지가 저장되었습니다!\n갤러리/다운로드 폴더를 확인해주세요 📸');
         }
       }, 'image/jpeg', 0.95);
+
     } catch (error) {
       console.error('이미지 공유 실패:', error);
-      alert('이미지 공유에 실패했습니다. 다시 시도해주세요.');
+      alert('❌ 이미지 공유에 실패했습니다.\n다시 시도해주세요.');
     } finally {
       setIsCapturing(false);
     }
@@ -137,9 +207,26 @@ export default function ResultPage() {
   const { team, compatibility, aiMessage } = result;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-50 to-blue-100 py-12 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-50 to-blue-100 py-12 px-4 relative">
+      {/* 이미지 생성 중 오버레이 */}
+      {isCapturing && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-2xl p-8 text-center shadow-2xl">
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+              className="text-6xl mb-4"
+            >
+              📸
+            </motion.div>
+            <p className="text-xl font-bold text-gray-800 mb-2">이미지 생성 중...</p>
+            <p className="text-sm text-gray-600">잠시만 기다려주세요 ✨</p>
+          </div>
+        </div>
+      )}
+
       <div className="max-w-4xl mx-auto space-y-6">
-        {/* 메인 결과 카드 */}
+        {/* 메인 결과 카드 (공유용 이미지로 캡처됨) */}
         <motion.div
           ref={captureRef}
           initial={{ opacity: 0, scale: 0.9 }}
@@ -149,10 +236,12 @@ export default function ResultPage() {
           <Card className="text-center space-y-6 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-2" style={{ backgroundColor: team.color }} />
             
+            {/* 상단 로고 */}
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
+              className="pt-4"
             >
               <div className="text-8xl mb-4">{team.logo}</div>
               <h1 className="text-4xl font-bold text-gray-800 mb-2">
@@ -199,6 +288,28 @@ export default function ResultPage() {
               <p className="text-lg text-gray-700 leading-relaxed whitespace-pre-line">
                 {aiMessage}
               </p>
+            </motion.div>
+
+            {/* 팀 키워드 미리보기 */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.9 }}
+              className="pb-4"
+            >
+              <div className="flex flex-wrap justify-center gap-2">
+                {team.keywords.slice(0, 4).map((keyword) => (
+                  <span
+                    key={keyword}
+                    className="px-3 py-1 bg-gradient-to-r from-pink-100 to-purple-100 text-gray-700 rounded-full text-sm font-medium"
+                  >
+                    #{keyword}
+                  </span>
+                ))}
+              </div>
+              <div className="mt-4 text-xs text-gray-500">
+                sportsgoodapp.vercel.app
+              </div>
             </motion.div>
           </Card>
         </motion.div>
