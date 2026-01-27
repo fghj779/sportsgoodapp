@@ -9,30 +9,30 @@ export const kboTeams: KBOTeam[] = [
     colorScheme: 'warm',
     mascot: '트윈스 ⚾',
     logo: '⚾',
-    stadium: '잠실야구장',
+    stadium: '서울 잠실야구장',
     homeCity: '서울',
     cheerSongUrl: 'https://www.youtube.com/watch?v=xr6wPZxyhxI',
-    uniformStyle: '레드 & 화이트 시크',
-    fashion: '세련되고 모던한 레드 컬러. 도시적이고 힙한 느낌',
-    meme: '잠실을 붉게 물들이는 열정! 압도적 팬덤 파워',
-    description: '2023 우승! 뜨거운 열정과 트렌디함의 결합',
-    vibe: '열정적이고 트렌디한 분위기. 젊고 활기찬 팬 문화',
-    keywords: ['열정', '트렌디', '우승', '잠실', '레드', '인싸', '힙'],
+    uniformStyle: '핀스트라이프 & 블랙',
+    fashion: '도시적이고 세련된 서울깍쟁이 느낌. 줄무늬 유니폼의 원조',
+    meme: '서울의 자존심, 세련된 야구! 유광잠바는 이제 패션이야',
+    description: '2025 우승팀의 여유! 신바람 야구의 전설',
+    vibe: '팬들의 목소리가 크고 열정적임. 신바람 야구가 불면 아무도 못 말림',
+    keywords: ['서울의주인', '무적LG', '유광잠바', '신바람', '핀스트라이프', '2025우승'],
     starPlayers: [
-      { name: '오스틴', position: '외야수', description: '2023 MVP, 파워 히터' },
-      { name: '문보경', position: '투수', description: '에이스 좌완' },
-      { name: '박해민', position: '외야수', description: '리드오프 스피드스터' }
+      { name: '김현수', position: '외야수', description: '타격 기계, 맹구' },
+      { name: '홍창기', position: '외야수', description: '출루 머신, 1루 베이스의 주인' },
+      { name: '박해민', position: '외야수', description: '수비의 심장, 람보르미니' }
     ],
     legends: [
-      { name: '이종범', position: '외야수', description: '전설의 리드오프, 일본 진출' },
-      { name: '박용택', position: '외야수', description: '안타 제조기, 통산 2000안타' },
-      { name: '양승관', position: '투수', description: '불펜의 전설' }
+      { name: '이병규', position: '외야수', description: '라뱅, 적토마' },
+      { name: '김용수', position: '투수', description: '노송, 영구결번 41' },
+      { name: '박용택', position: '외야수', description: 'KBO 최다 안타, 팬사랑 1위' }
     ],
     history: {
-      founded: '1982년',
-      championships: 2,
-      recentAchievements: ['2023 한국시리즈 우승', '2022 정규시즌 2위'],
-      majorEvents: ['1990 한국시리즈 우승', '1994 한국시리즈 우승', '2023 한국시리즈 우승']
+      founded: '1982년 (MBC 청룡)',
+      championships: 4,
+      recentAchievements: ['2025 한국시리즈 우승', '2023 한국시리즈 우승'],
+      majorEvents: ['1990 한국시리즈 우승', '1994 한국시리즈 우승', '2023 한국시리즈 우승', '2025 디펜딩 챔피언']
     }
   },
   {
@@ -46,27 +46,163 @@ export const kboTeams: KBOTeam[] = [
     stadium: '광주-기아 챔피언스필드',
     homeCity: '광주',
     cheerSongUrl: 'https://www.youtube.com/watch?v=dudVNSG9foc',
-    uniformStyle: '레드 & 블랙 타이거',
-    fashion: '정열의 레드 컬러. 호랑이의 강렬함',
-    meme: '2024 우승! 광주의 자부심, 호랑이 군단',
-    description: '우승 DNA와 불굴의 승부사 기질',
-    vibe: '열정적이고 전통 있는 분위기. 광주 지역 자부심',
-    keywords: ['우승', '호랑이', '광주', '레드', '열정', '강렬', '전통'],
+    uniformStyle: '블러디 레드 & 블랙',
+    fashion: '호랑이의 맹렬함. 전통의 검빨 포스',
+    meme: '압도하라! 호랑이의 기세로! 느그가 프로가? 우린 챔피언이다!',
+    description: '광주의 열기, 빨간 맛에 중독될 준비 됐어?',
+    vibe: '우승 아니면 실패. 자부심이 하늘을 찌르는 2024 챔피언의 위엄',
+    keywords: ['최다우승', '호랑이', '남행열차', '김도영보유국', '2024우승', '광주'],
     starPlayers: [
-      { name: '김도영', position: '내야수', description: '2024 MVP, 천재 타자' },
-      { name: '양현종', position: '투수', description: '에이스 좌완, 메이저리거' },
-      { name: '소크라테스', position: '외야수', description: '파워 히터' }
+      { name: '김도영', position: '내야수', description: 'KBO 생태계 파괴종, 제2의 이종범' },
+      { name: '양현종', position: '투수', description: '살아있는 역사, 대투수' },
+      { name: '정해영', position: '투수', description: '뒷문을 잠그는 최연소 세이브 기록 제조기' }
     ],
     legends: [
-      { name: '선동열', position: '투수', description: '불멸의 에이스, 국민투수' },
-      { name: '이종범', position: '외야수', description: '안타 제조기' },
-      { name: '김성한', position: '내야수', description: '전설의 유격수' }
+      { name: '선동열', position: '투수', description: '무등산 폭격기, 불멸의 에이스' },
+      { name: '이종범', position: '외야수', description: '바람의 아들' },
+      { name: '김성한', position: '내야수', description: '오리궁뎅이 타법의 시초, 전설의 유격수' }
     ],
     history: {
       founded: '1982년 (해태 타이거즈)',
-      championships: 11,
+      championships: 12,
       recentAchievements: ['2024 한국시리즈 우승', '2017 한국시리즈 우승'],
-      majorEvents: ['1980년대 황금기 (5연패)', '2024 한국시리즈 우승']
+      majorEvents: ['1980년대 황금기 (5연패)', '2024 한국시리즈 우승', 'KBO 최다 우승 구단']
+    }
+  },
+  {
+    id: 'hanwha',
+    name: '한화 이글스',
+    englishName: 'Hanwha Eagles',
+    color: '#FF6600',
+    colorScheme: 'warm',
+    mascot: '독수리 🦅',
+    logo: '🦅',
+    stadium: '대전 베이스볼 드림파크',
+    homeCity: '대전',
+    cheerSongUrl: 'https://www.youtube.com/watch?v=ucNR9zLqmDs',
+    uniformStyle: '다이너마이트 오렌지',
+    fashion: '강렬한 오렌지 컬러. 독수리의 날카로움. 폭발적인 화력',
+    meme: '비상하라! 슈퍼 팀의 탄생! 강백호+노시환+류현진 = 우주 방위대',
+    description: '새 집(신구장)에서 우승 파티 열자! 2026년 가장 핫한 팀',
+    vibe: '보살 팬은 옛말. 이제는 성적을 내놓으라 외치는 성난 독수리들',
+    keywords: ['신구장', '슈퍼팀', '강백호영입', '철벽수비', '우주방위대', '대전'],
+    starPlayers: [
+      { name: '강백호', position: '내야수/지명', description: '2026 FA 최대어, 대전의 새로운 아이돌' },
+      { name: '류현진', position: '투수', description: '코리안 몬스터, 돌아온 에이스' },
+      { name: '노시환', position: '내야수', description: '차세대 거포, 국가대표 4번 타자' }
+    ],
+    legends: [
+      { name: '송진우', position: '투수', description: '회장님, 최다승/최다이닝' },
+      { name: '정민철', position: '투수', description: '이글스의 영구결번 에이스' },
+      { name: '장종훈', position: '내야수', description: '연습생 신화' }
+    ],
+    history: {
+      founded: '1986년 (빙그레 이글스)',
+      championships: 1,
+      recentAchievements: ['2025 신구장 개장', '슈퍼팀 출범'],
+      majorEvents: ['1999 한국시리즈 우승', 'V2를 향한 27년의 기다림', '2026 우승 도전']
+    }
+  },
+  {
+    id: 'samsung',
+    name: '삼성 라이온즈',
+    englishName: 'Samsung Lions',
+    color: '#074CA1',
+    colorScheme: 'cool',
+    mascot: '사자 🦁',
+    logo: '🦁',
+    stadium: '대구 삼성 라이온즈파크',
+    homeCity: '대구',
+    cheerSongUrl: 'https://www.youtube.com/watch?v=euO5P5XtXF0',
+    uniformStyle: '로얄 블루 & 화이트',
+    fashion: '차갑고 이성적인 명문가의 색. 라이온 킹의 위엄',
+    meme: '클래식은 영원하다, 왕조의 품격. 조용히 강하다',
+    description: '푸른 피가 흐르는 대구의 심장! 전통의 명가',
+    vibe: '흥분하지 않는 귀족. 하지만 약팀 취급받으면 참지 않음',
+    keywords: ['왕조', '엘도라도', '라팍', '푸른피', '명문', '대구'],
+    starPlayers: [
+      { name: '구자욱', position: '외야수', description: '팀 그 자체, 라이온 킹' },
+      { name: '원태인', position: '투수', description: '푸른 피의 에이스' },
+      { name: '김영웅', position: '내야수', description: '이름처럼 난세의 영웅이 될 거포' }
+    ],
+    legends: [
+      { name: '이승엽', position: '내야수', description: '국민타자, 아시아 홈런왕' },
+      { name: '양준혁', position: '외야수', description: '만세 타법, 배트에 공을 맞히는 신' },
+      { name: '오승환', position: '투수', description: '끝판대장, 돌부처' }
+    ],
+    history: {
+      founded: '1982년',
+      championships: 8,
+      recentAchievements: ['2014 한국시리즈 우승', '2012-2014 3연패'],
+      majorEvents: ['2002-2006 5연패', '2011-2014 4연패', '통산 최다 우승 (8회)']
+    }
+  },
+  {
+    id: 'kiwoom',
+    name: '키움 히어로즈',
+    englishName: 'Kiwoom Heroes',
+    color: '#820024',
+    colorScheme: 'warm',
+    mascot: '히어로 🦸',
+    logo: '🦸‍♂️',
+    stadium: '고척 스카이돔',
+    homeCity: '서울',
+    cheerSongUrl: 'https://www.youtube.com/watch?v=4YNAvO63mVA',
+    uniformStyle: '버건디 & 실버',
+    fashion: '고급스러운 와인빛, 도전정신. 히어로 컨셉의 카리스마',
+    meme: '미래를 보는 눈, MLB 사관학교! 우리 애(김혜성) 다저스 갔다!',
+    description: '젊은 영웅들의 성장 드라마를 직관해!',
+    vibe: '주축 선수가 떠나도 새로운 영웅이 솟아나는 화수분. 육아일기 쓰는 마음으로 응원',
+    keywords: ['돔구장', '수출기업', 'MLB사관학교', '영웅군단', '실내구장', '서울'],
+    starPlayers: [
+      { name: '송성문', position: '내야수', description: '캡틴, 가을만 되면 미쳐 날뛰는 남자' },
+      { name: '이주형', position: '외야수', description: '포스트 이정후, 천재적인 타격 재능' },
+      { name: '김건희', position: '내야수/투수', description: '만화 야구, 투타 겸업 도전' }
+    ],
+    legends: [
+      { name: '김하성', position: 'MLB 진출', description: 'SD 골드글러브 내야수' },
+      { name: '이정후', position: 'MLB 진출', description: 'SF 바람의 손자' },
+      { name: '김혜성', position: 'MLB 진출', description: 'LAD 다저스 2026 입단' }
+    ],
+    history: {
+      founded: '2008년',
+      championships: 0,
+      recentAchievements: ['항상 언더독이지만 상위권 위협', '준우승 맛집'],
+      majorEvents: ['2018 정규시즌 우승', '2019 한국시리즈 준우승', 'MLB 수출 기업']
+    }
+  },
+  {
+    id: 'lotte',
+    name: '롯데 자이언츠',
+    englishName: 'Lotte Giants',
+    color: '#002955',
+    colorScheme: 'cool',
+    mascot: '자이언츠 🏔️',
+    logo: '⚾',
+    stadium: '부산 사직야구장',
+    homeCity: '부산',
+    cheerSongUrl: 'https://www.youtube.com/watch?v=n5FY9EBaGWs',
+    uniformStyle: '네이비 & 샴페인 골드',
+    fashion: '항구 도시의 자존심. 부산 감성 네이비. 바다를 닮은 시원한 블루',
+    meme: '낭만 그 자체, 부산의 심장! 사직 노래방 갈 사람 구함',
+    description: '파도처럼 밀려오는 기세, 마 함 해보입시더!',
+    vibe: '지구상에서 가장 열정적인 팬덤. 이기면 부산 축제. 비주얼 구단',
+    keywords: ['부산갈매기', '봉다리응원', '마', '기세', '사직', '낭만'],
+    starPlayers: [
+      { name: '윤동희', position: '외야수', description: '사직 아이돌, 야구 잘하고 잘생김' },
+      { name: '나승엽', position: '내야수', description: '부드러운 스윙, 차세대 프랜차이즈' },
+      { name: '박세웅', position: '투수', description: '안경 에이스, 롯데의 1선발' }
+    ],
+    legends: [
+      { name: '최동원', position: '투수', description: '무쇠팔, 부산의 영원한 영웅' },
+      { name: '이대호', position: '내야수', description: '조선의 4번 타자' },
+      { name: '손아섭', position: '외야수', description: '자이언츠의 악바리' }
+    ],
+    history: {
+      founded: '1982년',
+      championships: 2,
+      recentAchievements: ['1992 마지막 우승', '응답하라 1992...'],
+      majorEvents: ['1984 한국시리즈 우승', '1992 한국시리즈 우승', '최고의 팬심']
     }
   },
   {
@@ -77,29 +213,29 @@ export const kboTeams: KBOTeam[] = [
     colorScheme: 'cool',
     mascot: '베어스 🐻',
     logo: '🐻',
-    stadium: '잠실야구장',
+    stadium: '서울 잠실야구장',
     homeCity: '서울',
     cheerSongUrl: 'https://www.youtube.com/watch?v=MvwELezoZy4',
-    uniformStyle: '네이비 & 레드 클래식',
-    fashion: '단정하고 정통적인 명문가 스타일. 네이비 블루 체크 패턴',
-    meme: '역전의 명가! 9회말 두산의 전설',
-    description: '명문 구단의 자부심과 역전 DNA',
-    vibe: '차분하고 클래식한 분위기. 명문가의 품격',
-    keywords: ['명문', '역전', '클래식', '전통', '잠실', '안정감', '프라이드'],
+    uniformStyle: '네이비 & 화이트',
+    fashion: '깔끔하고 단단한 느낌. 단정하고 정통적인 명문가 스타일',
+    meme: '끝날 때까지 끝난 게 아니다! 미라클 두산? 아니, 좀비 베어스!',
+    description: '탄탄한 수비와 끈기의 야구를 원해?',
+    vibe: '화려하진 않아도 기본기가 탄탄함. 지고 있어도 역전할 것 같은 믿음',
+    keywords: ['미라클두산', '허슬두', '최강두산', '여자팬많음', '역전', '서울'],
     starPlayers: [
-      { name: '양의지', position: '포수', description: '베테랑 주장, 리더십' },
-      { name: '김재환', position: '내야수', description: '중심 타자' },
-      { name: '최원준', position: '투수', description: '에이스 우완' }
+      { name: '양의지', position: '포수', description: '곰의 탈을 쓴 여우, 그라운드의 사령관' },
+      { name: '곽빈', position: '투수', description: '국가대표 우완 에이스' },
+      { name: '김택연', position: '투수', description: '신인왕 출신, 차기 마무리 대장' }
     ],
     legends: [
-      { name: '김동주', position: '투수', description: '전설의 에이스' },
-      { name: '박철순', position: '내야수', description: '미스터 베어스' },
-      { name: '김재호', position: '외야수', description: '홈런왕' }
+      { name: '박철순', position: '투수', description: '불사조' },
+      { name: '김동주', position: '내야수', description: '두목곰' },
+      { name: '허경민', position: '내야수', description: '영원한 3루수' }
     ],
     history: {
       founded: '1982년 (OB 베어스)',
       championships: 6,
-      recentAchievements: ['2019-2020 연속 준우승', '2016 한국시리즈 우승'],
+      recentAchievements: ['2015-2021 7년 연속 한국시리즈 진출', '2016 한국시리즈 우승'],
       majorEvents: ['1982년 창단 우승', '1995년 통합 우승', '2015-2016 연속 우승']
     }
   },
@@ -114,94 +250,27 @@ export const kboTeams: KBOTeam[] = [
     stadium: '인천 SSG 랜더스필드',
     homeCity: '인천',
     cheerSongUrl: 'https://www.youtube.com/watch?v=E39BlC99Tck',
-    uniformStyle: '레드 & 화이트 럭셔리',
-    fashion: '럭셔리한 레드 컬러. 프리미엄 느낌의 세련된 디자인',
-    meme: '2022 우승! 돈맥이 철철 흐르는 부자 구단',
-    description: '프리미엄 야구의 정수, 신흥 강호',
-    vibe: '세련되고 럭셔리한 분위기. 프리미엄 야구',
-    keywords: ['우승', '럭셔리', '프리미엄', '인천', '부자', '세련', '신흥'],
+    uniformStyle: '카리스마틱 레드',
+    fashion: '타오르는 열정. 럭셔리한 레드 컬러. 프리미엄 느낌의 세련된 디자인',
+    meme: '상남자의 야구, 화끈한 홈런쇼! 야구장에서 스벅 마시며 홈런 볼래?',
+    description: '인천 상륙 작전, 우승을 향해 쏘아라!',
+    vibe: '홈런 1위 팀답게 시원시원함. 스포테인먼트(스포츠+엔터)의 선두주자',
+    keywords: ['홈런군단', '연안부두', '이마트', '최정랜더스', '스벅', '인천'],
     starPlayers: [
-      { name: '최정', position: '내야수', description: '국가대표 주장, 홈런왕' },
-      { name: '김광현', position: '투수', description: '에이스, 메이저리거' },
-      { name: '추신수', position: '외야수', description: '레전드 메이저리거' }
+      { name: '최정', position: '내야수', description: '리빙 레전드, 홈런 공장장' },
+      { name: '김광현', position: '투수', description: '영원한 에이스, 미소 천사' },
+      { name: '박성한', position: '내야수', description: '짠물 수비, 공격형 유격수' }
     ],
     legends: [
-      { name: '박재홍', position: '내야수', description: 'SK 시절 전설' },
-      { name: '김광현', position: '투수', description: '현역 레전드' },
-      { name: '최정', position: '내야수', description: '현역 레전드' }
+      { name: '박경완', position: '포수', description: '포수 조련사' },
+      { name: '김강민', position: '외야수', description: '짐승 수비 (은퇴)' },
+      { name: '추신수', position: '외야수', description: '메이저리거의 귀환 (2025 은퇴)' }
     ],
     history: {
-      founded: '2000년 (SK 와이번스), 2021년 SSG 인수',
+      founded: '2000년 (SK 와이번스) → 2021년 SSG',
       championships: 5,
-      recentAchievements: ['2022 한국시리즈 우승', '2021 정규시즌 우승'],
+      recentAchievements: ['2022 통합 우승 (와이어 투 와이어)', '2021 정규시즌 우승'],
       majorEvents: ['2007-2010 4연패', '2018 한국시리즈 우승', '2022 한국시리즈 우승']
-    }
-  },
-  {
-    id: 'kt',
-    name: 'KT 위즈',
-    englishName: 'KT Wiz',
-    color: '#000000',
-    colorScheme: 'neutral',
-    mascot: '마법사 🧙',
-    logo: '🧙‍♂️',
-    stadium: '수원 KT 위즈파크',
-    homeCity: '수원',
-    cheerSongUrl: 'https://www.youtube.com/watch?v=TiZOu5M3Zdk',
-    uniformStyle: '블랙 & 레드 모던',
-    fashion: '세련된 블랙 컬러로 시크함 폭발. 마법사 컨셉의 판타지 무드',
-    meme: '신생팀의 기적! 2021 한국시리즈 우승',
-    description: '새로운 역사를 쓰는 마법사들',
-    vibe: '쿨하고 모던한 분위기. 젊은 에너지',
-    keywords: ['신생', '마법', '우승', '수원', '블랙', '쿨함', '모던'],
-    starPlayers: [
-      { name: '강백호', position: '외야수', description: '4번 타자, 파워 히터' },
-      { name: '엄상백', position: '투수', description: '에이스 좌완' },
-      { name: '김민혁', position: '내야수', description: '천재 유격수' }
-    ],
-    legends: [
-      { name: '박경수', position: '투수', description: '창단 멤버, 에이스' },
-      { name: '황재균', position: '내야수', description: '초대 주장' }
-    ],
-    history: {
-      founded: '2013년',
-      championships: 1,
-      recentAchievements: ['2021 한국시리즈 우승', '2024 정규시즌 2위'],
-      majorEvents: ['2015년 첫 포스트시즌', '2021 한국시리즈 우승']
-    }
-  },
-  {
-    id: 'samsung',
-    name: '삼성 라이온즈',
-    englishName: 'Samsung Lions',
-    color: '#074CA1',
-    colorScheme: 'cool',
-    mascot: '사자 🦁',
-    logo: '🦁',
-    stadium: '대구 삼성 라이온즈파크',
-    homeCity: '대구',
-    cheerSongUrl: 'https://www.youtube.com/watch?v=euO5P5XtXF0',
-    uniformStyle: '블루 & 화이트 킹',
-    fashion: '정통 블루 컬러의 왕자 스타일. 라이온 킹의 위엄',
-    meme: '한국시리즈 최다 우승(8회)! 대구의 자부심',
-    description: '전통의 명가, 사자왕의 품격',
-    vibe: '전통과 품격의 분위기. 명문가의 자부심',
-    keywords: ['명가', '우승', '사자', '대구', '전통', '품격', '블루'],
-    starPlayers: [
-      { name: '구자욱', position: '외야수', description: '프랜차이즈 스타' },
-      { name: '원태인', position: '투수', description: '에이스 우완' },
-      { name: '김헌곤', position: '외야수', description: '리드오프' }
-    ],
-    legends: [
-      { name: '이승엽', position: '내야수', description: '아시아 홈런왕' },
-      { name: '양준혁', position: '외야수', description: '미스터 삼성' },
-      { name: '진갑용', position: '투수', description: '전설의 에이스' }
-    ],
-    history: {
-      founded: '1982년',
-      championships: 8,
-      recentAchievements: ['2014 한국시리즈 우승', '2012-2014 3연패'],
-      majorEvents: ['2002-2006 5연패', '2011-2014 4연패', '통산 최다 우승']
     }
   },
   {
@@ -215,127 +284,61 @@ export const kboTeams: KBOTeam[] = [
     stadium: '창원 NC파크',
     homeCity: '창원',
     cheerSongUrl: 'https://www.youtube.com/watch?v=-k1QchhdvAc',
-    uniformStyle: '네이비 블루 & 골드',
-    fashion: '시원한 네이비 블루. 공룡 테마의 파워풀한 느낌',
-    meme: '창원의 자부심! 열정적인 경상도 응원 문화',
-    description: '공룡처럼 강력한 파워와 끈기',
-    vibe: '열정적이고 파워풀한 분위기. 경상도 특유의 끈기',
-    keywords: ['공룡', '파워', '창원', '경상도', '열정', '끈기', '블루'],
+    uniformStyle: '마린 블루 & 골드',
+    fashion: '바다와 황금의 조화. 시원한 네이비 블루. 공룡 테마의 파워풀한 느낌',
+    meme: '거침없이 가자! 공룡의 발걸음! 데이터 야구와 집행검의 만남!',
+    description: '창원의 자존심, 강한 타구의 맛!',
+    vibe: 'IT 기업 구단답게 데이터를 중시함. 팬덤은 조용하지만 강함. 집행검 세리머니의 원조',
+    keywords: ['집행검', '엔씨소프트', '단디쎄리', '창원', 'IT야구', '데이터'],
     starPlayers: [
-      { name: '박민우', position: '내야수', description: '주장, 리더십' },
-      { name: '손아섭', position: '투수', description: '에이스 좌완' },
-      { name: '서호철', position: '외야수', description: '파워 히터' }
+      { name: '박건우', position: '외야수', description: '잘생긴 안타 기계, 꾸준함의 대명사' },
+      { name: '김주원', position: '내야수', description: '스위치 히터, 국가대표 유격수' },
+      { name: '김형준', position: '포수', description: '공룡 군단의 안방마님' }
     ],
     legends: [
-      { name: '이호준', position: '내야수', description: '초대 주장' },
-      { name: '에릭 테임즈', position: '외야수', description: '전설의 용병' }
+      { name: '나성범', position: '외야수', description: '창단 프랜차이즈 (현 KIA)' },
+      { name: '에릭 테임즈', position: '내야수', description: 'KBO 역사상 최고의 외인 타자' },
+      { name: '양의지', position: '포수', description: '우승 청부사 (현 두산)' }
     ],
     history: {
-      founded: '2011년',
-      championships: 0,
-      recentAchievements: ['2020 정규시즌 우승', '2019 준우승'],
-      majorEvents: ['2015년 첫 포스트시즌', '2020 정규시즌 우승']
-    }
-  },
-  {
-    id: 'kiwoom',
-    name: '키움 히어로즈',
-    englishName: 'Kiwoom Heroes',
-    color: '#820024',
-    colorScheme: 'warm',
-    mascot: '히어로 🦸',
-    logo: '🦸‍♂️',
-    stadium: '고척 스카이돔',
-    homeCity: '서울',
-    cheerSongUrl: 'https://www.youtube.com/watch?v=4YNAvO63mVA',
-    uniformStyle: '버건디 & 골드 히어로',
-    fashion: '고급스러운 버건디 컬러. 히어로 컨셉의 카리스마',
-    meme: '고척돔의 히어로들! 실내 구장의 쾌적함',
-    description: '영웅들의 도시, 서울의 프라이드',
-    vibe: '카리스마 있고 고급스러운 분위기. 실내 구장의 쾌적함',
-    keywords: ['히어로', '버건디', '고척', '실내', '서울', '카리스마', '고급'],
-    starPlayers: [
-      { name: '이정후', position: '외야수', description: '메이저리거, 프랜차이즈 스타' },
-      { name: '송성문', position: '외야수', description: '중심 타자' },
-      { name: '후라도', position: '투수', description: '에이스 외국인' }
-    ],
-    legends: [
-      { name: '박병호', position: '내야수', description: '홈런왕' },
-      { name: '이정후', position: '외야수', description: '현역 레전드' }
-    ],
-    history: {
-      founded: '2008년 (넥센 히어로즈)',
-      championships: 0,
-      recentAchievements: ['2019 준우승', '2018 정규시즌 우승'],
-      majorEvents: ['2018 정규시즌 우승', '2019 한국시리즈 준우승']
-    }
-  },
-  {
-    id: 'lotte',
-    name: '롯데 자이언츠',
-    englishName: 'Lotte Giants',
-    color: '#002955',
-    colorScheme: 'cool',
-    mascot: '자이언츠 🏔️',
-    logo: '⚾',
-    stadium: '사직야구장',
-    homeCity: '부산',
-    cheerSongUrl: 'https://www.youtube.com/watch?v=n5FY9EBaGWs',
-    uniformStyle: '네이비 & 레드 클래식',
-    fashion: '부산 감성 네이비. 바다를 닮은 시원한 블루',
-    meme: '부산의 자부심! 우승은 못 해도 팬심은 1등',
-    description: '영원한 부산의 심장, 최고의 팬심',
-    vibe: '열정적이고 충성스러운 분위기. 부산 지역 자부심',
-    keywords: ['부산', '팬심', '사직', '열정', '네이비', '바다', '애정'],
-    starPlayers: [
-      { name: '전준우', position: '외야수', description: '프랜차이즈 스타' },
-      { name: '박세웅', position: '투수', description: '에이스 좌완' },
-      { name: '나균안', position: '외야수', description: '리드오프' }
-    ],
-    legends: [
-      { name: '최동원', position: '투수', description: '불멸의 에이스' },
-      { name: '이대호', position: '내야수', description: '국민타자' },
-      { name: '손민한', position: '외야수', description: '미스터 롯데' }
-    ],
-    history: {
-      founded: '1982년',
-      championships: 2,
-      recentAchievements: ['2017 준우승', '1992 한국시리즈 우승'],
-      majorEvents: ['1984 한국시리즈 우승', '1992 한국시리즈 우승', '최고의 팬심']
-    }
-  },
-  {
-    id: 'hanwha',
-    name: '한화 이글스',
-    englishName: 'Hanwha Eagles',
-    color: '#FF6600',
-    colorScheme: 'warm',
-    mascot: '독수리 🦅',
-    logo: '🦅',
-    stadium: '대전 한화생명 이글스파크',
-    homeCity: '대전',
-    cheerSongUrl: 'https://www.youtube.com/watch?v=ucNR9zLqmDs',
-    uniformStyle: '오렌지 & 블랙 파워',
-    fashion: '강렬한 오렌지 컬러. 독수리의 날카로움',
-    meme: '해탈의 경지! 고통을 즐기는 팬들의 열정',
-    description: '인내심의 끝은 승리. 기다림의 미학',
-    vibe: '끈기 있고 인내심 강한 분위기. 해탈의 경지',
-    keywords: ['해탈', '인내', '대전', '오렌지', '끈기', '열정', '독수리'],
-    starPlayers: [
-      { name: '노시환', position: '내야수', description: '천재 타자' },
-      { name: '문동주', position: '투수', description: '에이스 우완' },
-      { name: '채은성', position: '내야수', description: '주장' }
-    ],
-    legends: [
-      { name: '송진우', position: '투수', description: '전설의 에이스' },
-      { name: '김태균', position: '내야수', description: '홈런왕' },
-      { name: '정민철', position: '내야수', description: '미스터 한화' }
-    ],
-    history: {
-      founded: '1986년 (빙그레 이글스)',
+      founded: '2011년 (9구단)',
       championships: 1,
-      recentAchievements: ['1999 한국시리즈 우승', '2006-2007 준우승'],
-      majorEvents: ['1999 한국시리즈 우승', '2000년대 초반 전성기']
+      recentAchievements: ['2020 통합 우승 (집행검 들어올림)', '2019 준우승'],
+      majorEvents: ['2015년 첫 포스트시즌', '2020 정규시즌 우승', '2020 한국시리즈 우승']
+    }
+  },
+  {
+    id: 'kt',
+    name: 'KT 위즈',
+    englishName: 'KT Wiz',
+    color: '#000000',
+    colorScheme: 'neutral',
+    mascot: '마법사 🧙',
+    logo: '🧙‍♂️',
+    stadium: '수원 KT 위즈파크',
+    homeCity: '수원',
+    cheerSongUrl: 'https://www.youtube.com/watch?v=TiZOu5M3Zdk',
+    uniformStyle: '블랙 & 빅토리 레드',
+    fashion: '강인함과 마법의 신비로움. 세련된 블랙 컬러로 시크함 폭발',
+    meme: '마법 같은 역전승, 언더독의 반란! 롤러코스터 즐길 준비 됐어?',
+    description: '수원의 마법사들, 끈기의 야구!',
+    vibe: '강백호 이적 후 이 없는 잇몸으로 싸우는 비장함. 여름만 되면 귀신같이 잘해지는 여름성 팀',
+    keywords: ['마법사', '여름성', '수원', '워터페스티벌', '롤러코스터', '끈기'],
+    starPlayers: [
+      { name: '고영표', position: '투수', description: '마구(체인지업)를 던지는 잠수함 에이스' },
+      { name: '박영현', position: '투수', description: '돌직구 마무리, 차세대 국대 클로저' },
+      { name: '배정대', position: '외야수', description: '끝내기의 사나이' }
+    ],
+    legends: [
+      { name: '유한준', position: '외야수', description: '소리 없이 강한 형님' },
+      { name: '박경수', position: '내야수', description: '수원 거포, 2루수의 전설' },
+      { name: '황재균', position: '내야수', description: '첫 우승의 주역' }
+    ],
+    history: {
+      founded: '2013년 (10구단, 막내)',
+      championships: 1,
+      recentAchievements: ['2021 통합 우승', '2024 정규시즌 2위'],
+      majorEvents: ['2015년 첫 포스트시즌', '2021 한국시리즈 우승', '신생팀의 기적']
     }
   }
 ];
