@@ -42,10 +42,10 @@ export const kboTeams: KBOTeam[] = [
     ticketPlatform: '공식 홈페이지 + 인터파크 티켓',
     transportation: {
       subway: {
-        line: '2호선/9호선',
-        station: '종합운동장역',
-        exit: '5번/6번 출구',
-        walkTime: '도보 3분'
+        line: '2호선/8호선',
+        station: '잠실역',
+        exit: '3번/4번 출구',
+        walkTime: '도보 5분'
       },
       parking: '주차 가능 (유료, 경기 당일 혼잡)'
     },
@@ -102,9 +102,16 @@ export const kboTeams: KBOTeam[] = [
     ticketUrl: 'https://ticketlink.co.kr/',
     ticketPlatform: '티켓링크',
     transportation: {
-      train: {
-        station: '광주역 / 광주송정역',
-        note: '지하철 없음 / 버스·택시'
+      subway: {
+        line: '1호선',
+        station: '광주송정역',
+        exit: '1번 출구',
+        walkTime: '버스 10분 or 택시 5분'
+      },
+      ktx: {
+        station: '광주송정역',
+        distance: '경기장까지 3km',
+        transport: '버스 187번 or 택시'
       },
       parking: '주차 가능 (매우 넓음)'
     },
@@ -131,7 +138,7 @@ export const kboTeams: KBOTeam[] = [
     mascot: '독수리 🦅',
     logo: '🦅',
     teamPhoto: '/teamphoto/hanwha.png',
-    stadium: '대전 한화생명 이글스파크',
+    stadium: '대전 베이스볼 드림파크',
     homeCity: '대전',
     cheerSongUrl: 'https://www.youtube.com/watch?v=ucNR9zLqmDs',
     uniformStyle: '다이너마이트 오렌지',
@@ -161,11 +168,10 @@ export const kboTeams: KBOTeam[] = [
     ticketUrl: 'https://ticketlink.co.kr/',
     ticketPlatform: '티켓링크',
     transportation: {
-      subway: {
-        line: '대전 1호선',
-        station: '중구청역',
-        exit: '1번 출구',
-        walkTime: '도보 20분 이상 (버스 권장)'
+      ktx: {
+        station: '대전역',
+        distance: '경기장까지 3.5km',
+        transport: '버스 102번 or 택시 10분'
       },
       parking: '주차 가능 (신구장 넓음)'
     },
@@ -223,10 +229,15 @@ export const kboTeams: KBOTeam[] = [
     ticketPlatform: '티켓링크',
     transportation: {
       subway: {
-        line: '대구 2호선',
-        station: '대공원역',
-        exit: '4번/5번 출구',
-        walkTime: '도보 1분 (역 바로 앞)'
+        line: '1호선',
+        station: '대구역',
+        exit: '동광장',
+        walkTime: '버스 10분 or 택시 10분'
+      },
+      ktx: {
+        station: '대구역/동대구역',
+        distance: '경기장까지 5~7km',
+        transport: '버스 101번 or 택시'
       },
       parking: '주차 가능'
     },
@@ -283,10 +294,10 @@ export const kboTeams: KBOTeam[] = [
     ticketPlatform: '티켓링크',
     transportation: {
       subway: {
-        line: '2호선/9호선',
-        station: '종합운동장역',
-        exit: '5번/6번 출구',
-        walkTime: '도보 3분'
+        line: '2호선/8호선',
+        station: '잠실역',
+        exit: '3번/4번 출구',
+        walkTime: '도보 5분'
       },
       parking: '주차 가능 (유료, 경기 당일 혼잡)'
     },
@@ -344,10 +355,10 @@ export const kboTeams: KBOTeam[] = [
     ticketPlatform: '인터파크 티켓',
     transportation: {
       subway: {
-        line: '1호선',
-        station: '구일역',
+        line: '1호선/경의중앙선',
+        station: '디지털미디어시티역',
         exit: '2번 출구',
-        walkTime: '도보 5분'
+        walkTime: '도보 10분'
       },
       parking: '주차 가능 (돔구장 지하주차장)'
     },
@@ -405,10 +416,15 @@ export const kboTeams: KBOTeam[] = [
     ticketPlatform: '자체 예매 시스템',
     transportation: {
       subway: {
-        line: '부산 3호선',
-        station: '종합운동장역',
-        exit: '9번 출구',
-        walkTime: '도보 10분'
+        line: '2호선',
+        station: '사직역',
+        exit: '5번 출구',
+        walkTime: '도보 3분'
+      },
+      ktx: {
+        station: '부산역',
+        distance: '경기장까지 3km',
+        transport: '버스 or 택시 10분'
       },
       parking: '주차 가능 (유료)'
     },
@@ -451,13 +467,13 @@ export const kboTeams: KBOTeam[] = [
     legends: [
       { name: '박경완', position: '포수', description: '포수 조련사.' },
       { name: '김강민', position: '외야수', description: '짐승 수비 (은퇴).' },
-      { name: '추신수', position: '외야수', description: '메이저리거의 귀환 (2024 은퇴).' }
+      { name: '추신수', position: '외야수', description: '메이저리거의 귀환 (2025 은퇴).' }
     ],
     history: {
       founded: '2000년 (SK) → 2021년 (SSG)',
       championships: 5,
       recentAchievements: ['2022 와이어 투 와이어 통합 우승', '2021 정규시즌 우승'],
-      majorEvents: ['2007, 2008, 2010, 2018, 2022 우승 (총 5번 우승)', '2007-2012 6년 연속 한국시리즈', '단기 임팩트 GOAT인 왕조']
+      majorEvents: ['2007-2010 4연패', '2018 한국시리즈 우승', '2022 한국시리즈 우승']
     },
     // 신규 정보
     officialWebsite: 'https://www.ssglanders.com/',
@@ -465,10 +481,15 @@ export const kboTeams: KBOTeam[] = [
     ticketPlatform: '티켓링크',
     transportation: {
       subway: {
-        line: '인천 1호선',
-        station: '문학경기장역',
+        line: '1호선/수인분당선',
+        station: '인천역/문학경기장역',
         exit: '1번 출구',
-        walkTime: '도보 10~15분'
+        walkTime: '도보 5~10분'
+      },
+      ktx: {
+        station: '인천역',
+        distance: '경기장까지 1km',
+        transport: '도보 15분 or 택시 5분'
       },
       parking: '주차 가능 (넓음)'
     },
@@ -525,13 +546,10 @@ export const kboTeams: KBOTeam[] = [
     ticketUrl: 'https://www.ncdinos.com/',
     ticketPlatform: '자체 예매 시스템',
     transportation: {
-      train: {
-        station: '마산역',
-        note: '지하철 없음 / 버스·택시'
-      },
-      bus: {
-        station: '마산고속터미널',
-        note: '버스·택시'
+      ktx: {
+        station: '창원중앙역',
+        distance: '경기장까지 5km',
+        transport: '버스 or 택시 15분'
       },
       parking: '주차 가능 (최신 시설)'
     },
@@ -588,10 +606,15 @@ export const kboTeams: KBOTeam[] = [
     ticketPlatform: '티켓링크',
     transportation: {
       subway: {
-        line: '1호선',
-        station: '화서역 / 수원역',
-        exit: '',
-        walkTime: '지하철 후 버스 환승 필수'
+        line: '1호선/수인분당선',
+        station: '수원역',
+        exit: '8번 출구',
+        walkTime: '버스 10분 or 택시 10분'
+      },
+      ktx: {
+        station: '수원역',
+        distance: '경기장까지 4km',
+        transport: '버스 or 택시'
       },
       parking: '주차 가능'
     },

@@ -8,7 +8,7 @@ import { kboTeams } from '@/data/teams';
 import Button from '@/components/Button';
 import Card from '@/components/Card';
 import BaseballRules from '@/components/BaseballRules';
-import { Share2, Home, RotateCcw, Heart, MapPin, Shirt, Music, Trophy, Star, Users, History, Palette, Mail } from 'lucide-react';
+import { Share2, Home, RotateCcw, Heart, MapPin, Shirt, Music, Trophy, Star, Users, History, Palette } from 'lucide-react';
 
 function ResultContent() {
   const router = useRouter();
@@ -317,22 +317,6 @@ function ResultContent() {
                   ))}
                 </ul>
               </div>
-              
-              {/* 뎁스차트 버튼 */}
-              <div className="mt-6 text-center">
-                <Button
-                  variant="primary"
-                  onClick={() => {
-                    // 뎁스차트 페이지로 이동 (추후 구현)
-                    window.open(`https://www.koreabaseball.com/Team/PlayerList.aspx?team=${team.id}`, '_blank');
-                  }}
-                  className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all"
-                >
-                  <span className="flex items-center justify-center gap-2">
-                    ⚾ 2026 시즌 뎁스차트 보기
-                  </span>
-                </Button>
-              </div>
             </div>
           </Card>
         </motion.div>
@@ -404,22 +388,6 @@ function ResultContent() {
                       <p className="text-sm font-semibold text-blue-600">🚄 KTX</p>
                       <p className="text-gray-700 text-sm">
                         {team.transportation.ktx.station} → {team.transportation.ktx.transport}
-                      </p>
-                    </div>
-                  )}
-                  {team.transportation.train && (
-                    <div className="mb-2">
-                      <p className="text-sm font-semibold text-blue-600">🚄 기차</p>
-                      <p className="text-gray-700 text-sm">
-                        {team.transportation.train.station} - {team.transportation.train.note}
-                      </p>
-                    </div>
-                  )}
-                  {team.transportation.bus && (
-                    <div className="mb-2">
-                      <p className="text-sm font-semibold text-green-600">🚌 버스</p>
-                      <p className="text-gray-700 text-sm">
-                        {team.transportation.bus.station} - {team.transportation.bus.note}
                       </p>
                     </div>
                   )}
@@ -626,31 +594,6 @@ function ResultContent() {
           <p className="text-sm text-gray-500">
             야구장에서 만나요! 💕
           </p>
-        </motion.div>
-
-        {/* 비즈니스 문의 */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.0 }}
-        >
-          <Card className="bg-gradient-to-r from-purple-50 to-pink-50">
-            <div className="flex items-center justify-center gap-3 mb-3">
-              <Mail className="text-purple-500" size={24} />
-              <h3 className="text-xl font-bold text-gray-800">제휴문의</h3>
-            </div>
-            <p className="text-gray-600 mb-4 text-center">
-              비즈니스 제휴나 협업 문의가 있으시면 언제든지 연락주세요! 💼
-            </p>
-            <div className="text-center">
-              <a
-                href="mailto:contact@sportsgoodapp.com"
-                className="inline-block px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-full hover:from-purple-600 hover:to-pink-600 transition-all shadow-lg hover:shadow-xl"
-              >
-                📧 이메일 보내기
-              </a>
-            </div>
-          </Card>
         </motion.div>
       </div>
     </div>
