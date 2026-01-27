@@ -317,6 +317,22 @@ function ResultContent() {
                   ))}
                 </ul>
               </div>
+              
+              {/* 뎁스차트 버튼 */}
+              <div className="mt-6 text-center">
+                <Button
+                  variant="primary"
+                  onClick={() => {
+                    // 뎁스차트 페이지로 이동 (추후 구현)
+                    window.open(`https://www.koreabaseball.com/Team/PlayerList.aspx?team=${team.id}`, '_blank');
+                  }}
+                  className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all"
+                >
+                  <span className="flex items-center justify-center gap-2">
+                    ⚾ 2026 시즌 뎁스차트 보기
+                  </span>
+                </Button>
+              </div>
             </div>
           </Card>
         </motion.div>
