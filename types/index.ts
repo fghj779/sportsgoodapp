@@ -78,7 +78,6 @@ export interface KBOTeam {
 
 export interface MatchResult {
   team: KBOTeam;
-  reason: string;
   compatibility: number;
   aiMessage: string;
 }

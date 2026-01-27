@@ -20,7 +20,6 @@ export default function QuizPage() {
   const progress = ((currentQuestion + 1) / questions.length) * 100;
 
   const handleAnswer = async (selected: 'A' | 'B') => {
-    // 에러 메시지 초기화
     setError('');
     
     // 중복 답변 방지: 같은 questionId가 있으면 제거하고 새로 추가
@@ -47,7 +46,6 @@ export default function QuizPage() {
       }
       
       try {
-        // 재시도 로직 적용 (최대 3회)
         const result = await retry(
           async () => {
             const response = await fetch('/api/match', {
@@ -69,7 +67,7 @@ export default function QuizPage() {
             return data;
           },
           {
-            retries: 2,  // 최대 2회 재시도 (총 3번 시도)
+            retries: 2,
             delay: 1000,
             onRetry: (attempt) => {
               console.log(`재시도 중... (${attempt}/3)`);
@@ -77,7 +75,6 @@ export default function QuizPage() {
           }
         );
 
-        // URL 파라미터로 결과 전달 (localStorage 제거!)
         const params = new URLSearchParams({
           teamId: result.team.id,
           compatibility: String(result.compatibility),

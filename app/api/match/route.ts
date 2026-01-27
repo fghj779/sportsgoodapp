@@ -10,16 +10,13 @@ import { ZodError } from 'zod';
 // Edge Runtime 설정
 export const runtime = 'edge';
 
-// OpenAI 클라이언트 싱글톤 (메모리 효율)
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY || '',
 });
 
 export async function POST(request: NextRequest) {
   try {
-    // ============================================
-    // 1. Rate Limiting (IP 기반) - 요금 폭탄 방지
-    // ============================================
+    // Rate Limiting (IP 기반)
     const ip = request.headers.get('x-forwarded-for') || 
                request.headers.get('x-real-ip') || 
                'unknown';
@@ -42,20 +39,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // ============================================
-    // 2. 입력 검증 (Zod)
-    // ============================================
+    // 입력 검증
     const body = await request.json();
     const answers = AnswersSchema.parse(body.answers);
 
-    // ============================================
-    // 3. 답변 분석
-    // ============================================
+    // 답변 분석
     const userProfile = analyzeAnswers(answers);
 
-    // ============================================
-    // 4. OpenAI API 호출 (타임아웃 적용)
-    // ============================================
+    // OpenAI API 호출
     const prompt = `당신은 20대 여성을 위한 친근한 언니 같은 KBO 야구팀 매칭 전문가입니다.
 사용자의 성향을 분석해서 가장 잘 맞는 KBO 구단을 추천해주세요.
 재치있고 귀엽게, 밈과 문화를 활용해서 설명해주세요.
@@ -85,7 +76,7 @@ ${userProfile}
 {
   "teamId": "구단 영문 소문자 id (doosan, lg, kt, ssg, nc, kiwoom, samsung, lotte, hanwha, kia 중 하나)",
   "compatibility": 호환도 숫자 (75-99),
-  "reason": "3줄 요약으로 왜 이 팀이 맞는지 재치있게 설명 (각 줄은 30자 이내, 이모지 포함)"
+  "aiMessage": "3줄 요약으로 왜 이 팀이 맞는지 재치있게 설명 (각 줄은 30자 이내, 이모지 포함)"
 }`;
 
     const completion = await Promise.race([
@@ -103,7 +94,7 @@ ${userProfile}
         ],
         temperature: API_CONFIG.TEMPERATURE,
         max_tokens: API_CONFIG.MAX_TOKENS,
-        response_format: { type: "json_object" }, // JSON 출력 보장
+        response_format: { type: "json_object" },
       }),
       new Promise<never>((_, reject) =>
         setTimeout(() => reject(new Error('API 타임아웃')), API_CONFIG.TIMEOUT_MS)
@@ -112,14 +103,10 @@ ${userProfile}
 
     const aiResponseText = completion.choices[0].message.content || '{}';
 
-    // ============================================
-    // 5. 응답 파싱 및 검증
-    // ============================================
+    // 응답 파싱 및 검증
     const aiResponse = AIResponseSchema.parse(JSON.parse(aiResponseText));
 
-    // ============================================
-    // 6. 팀 정보 매칭
-    // ============================================
+    // 팀 정보 매칭
     const matchedTeam = kboTeams.find(team => team.id === aiResponse.teamId);
 
     if (!matchedTeam) {
@@ -129,7 +116,7 @@ ${userProfile}
       return NextResponse.json({
         team: defaultTeam,
         compatibility: aiResponse.compatibility,
-        aiMessage: aiResponse.reason,
+        aiMessage: aiResponse.aiMessage,
       }, {
         headers: {
           'X-RateLimit-Remaining': String(remaining),
@@ -137,9 +124,7 @@ ${userProfile}
       });
     }
 
-    // ============================================
-    // 7. 성공 응답
-    // ============================================
+    // 성공 응답
     return NextResponse.json({
       team: matchedTeam,
       compatibility: aiResponse.compatibility,
@@ -159,9 +144,7 @@ ${userProfile}
       code: error.code,
     });
 
-    // ============================================
     // 에러 핸들링
-    // ============================================
     
     // Zod 검증 에러
     if (error instanceof ZodError) {
@@ -210,9 +193,6 @@ ${userProfile}
   }
 }
 
-/**
- * 답변 분석 함수
- */
 function analyzeAnswers(answers: Answer[]): string {
   const aCount = answers.filter(a => a.selected === 'A').length;
   const bCount = answers.filter(a => a.selected === 'B').length;

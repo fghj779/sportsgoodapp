@@ -8,7 +8,7 @@ import { kboTeams } from '@/data/teams';
 import Button from '@/components/Button';
 import Card from '@/components/Card';
 import BaseballRules from '@/components/BaseballRules';
-import { Share2, Home, RotateCcw, Heart, MapPin, Shirt, Music, Trophy, Star, Users, History, Palette } from 'lucide-react';
+import { Share2, Home, RotateCcw, Heart, MapPin, Shirt, Music, Trophy, Star, History, Palette } from 'lucide-react';
 
 function ResultContent() {
   const router = useRouter();
@@ -17,30 +17,24 @@ function ResultContent() {
   const [showRules, setShowRules] = useState(false);
 
   useEffect(() => {
-    // URL 파라미터에서 결과 가져오기 (localStorage 대신!)
     const teamId = searchParams.get('teamId');
     const compatibility = searchParams.get('compatibility');
     const message = searchParams.get('message');
 
     if (!teamId || !compatibility || !message) {
-      // 파라미터가 없으면 홈으로
       router.push('/');
       return;
     }
 
-    // 팀 정보 찾기
     const team = kboTeams.find(t => t.id === teamId);
     if (!team) {
       router.push('/');
       return;
     }
-
-    // 결과 설정
     setResult({
       team,
       compatibility: parseInt(compatibility),
       aiMessage: decodeURIComponent(message),
-      reason: '',  // deprecated
     });
   }, [router, searchParams]);
 
@@ -64,7 +58,6 @@ function ResultContent() {
   };
 
   const handleRetry = () => {
-    // localStorage 사용 안 함!
     router.push('/quiz');
   };
 
