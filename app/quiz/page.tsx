@@ -22,7 +22,7 @@ export default function QuizPage() {
   const handleAnswer = async (selected: 'A' | 'B') => {
     setError('');
     
-    // 중복 답변 방지: 같은 questionId가 있으면 제거하고 새로 추가
+    // 중복 답변 방지
     const currentQuestionId = questions[currentQuestion].id;
     const filteredAnswers = answers.filter(a => a.questionId !== currentQuestionId);
     const newAnswers = [
