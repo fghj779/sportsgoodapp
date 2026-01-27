@@ -8,6 +8,7 @@ import { Answer } from '@/types';
 import Button from '@/components/Button';
 import Card from '@/components/Card';
 import { Sparkles, ArrowLeft } from 'lucide-react';
+import { retry } from '@/lib/retry';
 
 export default function QuizPage() {
   const router = useRouter();
@@ -29,38 +30,51 @@ export default function QuizPage() {
     } else {
       // 모든 질문 완료 - AI 매칭 시작
       setIsLoading(true);
+      
       try {
-        const response = await fetch('/api/match', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ answers: newAnswers }),
+        // 재시도 로직 적용 (최대 3회)
+        const result = await retry(
+          async () => {
+            const response = await fetch('/api/match', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ answers: newAnswers }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+              // Rate Limit 에러는 재시도하지 않음
+              if (response.status === 429) {
+                throw new Error(data.error || '너무 많은 요청이에요. 1분 후 다시 시도해주세요!');
+              }
+              throw new Error(data.error || '매칭에 실패했습니다.');
+            }
+
+            return data;
+          },
+          {
+            retries: 2,  // 최대 2회 재시도 (총 3번 시도)
+            delay: 1000,
+            onRetry: (attempt) => {
+              console.log(`재시도 중... (${attempt}/3)`);
+            },
+          }
+        );
+
+        // URL 파라미터로 결과 전달 (localStorage 제거!)
+        const params = new URLSearchParams({
+          teamId: result.team.id,
+          compatibility: String(result.compatibility),
+          message: result.aiMessage,
         });
-
-        const result = await response.json();
-
-        if (!response.ok) {
-          // 서버에서 반환한 에러 메시지 사용
-          throw new Error(result.error || '매칭에 실패했습니다.');
-        }
         
-        // 결과 페이지로 이동
-        localStorage.setItem('matchResult', JSON.stringify(result));
-        router.push('/result');
+        router.push(`/result?${params.toString()}`);
       } catch (error: any) {
         console.error('매칭 API 에러:', error);
-        
+
         // 사용자 친화적인 에러 메시지
-        let errorMessage = '매칭 중 오류가 발생했습니다. 😢\n';
-        
-        if (error.message.includes('API 키')) {
-          errorMessage += 'OpenAI API 키를 확인해주세요.';
-        } else if (error.message.includes('사용량')) {
-          errorMessage += '잠시 후 다시 시도해주세요.';
-        } else {
-          errorMessage += '다시 시도해주세요!';
-        }
-        
-        alert(errorMessage);
+        alert(error.message || '매칭 중 오류가 발생했어요. 😢\n다시 시도해주세요!');
         setIsLoading(false);
       }
     }

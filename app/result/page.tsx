@@ -1,27 +1,48 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { MatchResult } from '@/types';
+import { kboTeams } from '@/data/teams';
 import Button from '@/components/Button';
 import Card from '@/components/Card';
 import BaseballRules from '@/components/BaseballRules';
 import { Share2, Home, RotateCcw, Heart, MapPin, Shirt, Music, Trophy, Star, Users, History, Palette } from 'lucide-react';
 
-export default function ResultPage() {
+function ResultContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [result, setResult] = useState<MatchResult | null>(null);
   const [showRules, setShowRules] = useState(false);
 
   useEffect(() => {
-    const savedResult = localStorage.getItem('matchResult');
-    if (savedResult) {
-      setResult(JSON.parse(savedResult));
-    } else {
+    // URL 파라미터에서 결과 가져오기 (localStorage 대신!)
+    const teamId = searchParams.get('teamId');
+    const compatibility = searchParams.get('compatibility');
+    const message = searchParams.get('message');
+
+    if (!teamId || !compatibility || !message) {
+      // 파라미터가 없으면 홈으로
       router.push('/');
+      return;
     }
-  }, [router]);
+
+    // 팀 정보 찾기
+    const team = kboTeams.find(t => t.id === teamId);
+    if (!team) {
+      router.push('/');
+      return;
+    }
+
+    // 결과 설정
+    setResult({
+      team,
+      compatibility: parseInt(compatibility),
+      aiMessage: decodeURIComponent(message),
+      reason: '',  // deprecated
+    });
+  }, [router, searchParams]);
 
   const handleShare = async () => {
     const shareText = `나는 ${result?.team.name} 팬! ⚾💖\nKBO-TI로 내 운명의 야구팀을 찾았어요!\n\n궁합도: ${result?.compatibility}%`;
@@ -43,7 +64,7 @@ export default function ResultPage() {
   };
 
   const handleRetry = () => {
-    localStorage.removeItem('matchResult');
+    // localStorage 사용 안 함!
     router.push('/quiz');
   };
 
@@ -448,5 +469,26 @@ export default function ResultPage() {
         </motion.div>
       </div>
     </div>
+  );
+}
+
+export default function ResultPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-50 to-blue-100 flex items-center justify-center">
+        <div className="text-center">
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+            className="text-6xl mb-4"
+          >
+            ⚾
+          </motion.div>
+          <p className="text-gray-600">결과 불러오는 중...</p>
+        </div>
+      </div>
+    }>
+      <ResultContent />
+    </Suspense>
   );
 }
