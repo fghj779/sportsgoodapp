@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Noto_Sans_KR } from "next/font/google";
-import Script from "next/script";
 import "./globals.css";
 
 const notoSansKR = Noto_Sans_KR({
@@ -13,6 +12,9 @@ export const metadata: Metadata = {
   title: "KBO-TI 💖 내 운명의 야구팀 찾기",
   description: "20대 여성을 위한 트렌디한 KBO 팀 매칭 서비스! 나와 찰떡인 야구팀을 찾아보세요 ⚾✨",
   keywords: ["KBO", "야구", "팀 매칭", "MBTI", "20대 여성", "야구 입문"],
+  other: {
+    "google-adsense-account": "ca-pub-3426882453514090",
+  },
 };
 
 export default function RootLayout({
@@ -22,14 +24,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <head>
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3426882453514090"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
-      </head>
       <body className={`${notoSansKR.variable} antialiased`}>
         {children}
       </body>
