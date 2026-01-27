@@ -75,9 +75,9 @@ export const questions: Question[] = [
   },
   {
     id: 10,
-    question: "좋아하는 색 계열은?",
-    optionA: "따뜻한 색 (빨강, 주황, 분홍) 🔴",
-    optionB: "차가운 색 (파랑, 보라, 초록) 🔵",
+    question: "좋아하는 색은?",
+    optionA: "화려한 비비드 컬러 🌈",
+    optionB: "차분한 파스텔 컬러 🎨",
     category: 'style',
     emoji: "🎨"
   },
@@ -115,11 +115,11 @@ export const questions: Question[] = [
   },
   {
     id: 15,
-    question: "옷장을 열면?",
-    optionA: "화려하고 밝은 컬러들 가득 🌈",
-    optionB: "베이직한 블랙, 화이트, 네이비 👔",
+    question: "인스타 감성 사진 찍을 때",
+    optionA: "일단 100장 찍고 고르기 📷",
+    optionB: "각 잡고 신중하게 몇 장만 📸",
     category: 'style',
-    emoji: "👗"
+    emoji: "✨"
   },
   {
     id: 16,
