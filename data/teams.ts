@@ -50,7 +50,18 @@ export const kboTeams: KBOTeam[] = [
       { name: '잠실원샷', description: '컵치킨+맥주/콜라 일체형. 한 손에 들고 응원 가능.' },
       { name: '통삼겹 바베큐', description: '야구장에서 즐기는 삼겹살 파티.' }
     ],
-    seatPrices: { premium: '35,000원', table: '30,000원', infield: '14,000원', outfield: '8,000원' },
+    seatPrices: {
+      seats: [
+        { name: '프리미엄석', weekday: '70,000원', weekend: '80,000원', note: '중앙 포수 후면' },
+        { name: '테이블석', weekday: '52,000원', weekend: '58,000원', note: '1, 3루 테이블' },
+        { name: '익사이팅존', weekday: '25,000원', weekend: '30,000원', note: '그라운드 눈높이' },
+        { name: '블루석', weekday: '22,000원', weekend: '24,000원', note: '1, 3루 하단' },
+        { name: '오렌지석', weekday: '20,000원', weekend: '22,000원', note: '응원단상 앞' },
+        { name: '레드석', weekday: '17,000원', weekend: '19,000원', note: '1, 3루 내야' },
+        { name: '네이비석', weekday: '14,000원', weekend: '16,000원', note: '3층 중앙/내야 (가성비)' },
+        { name: '외야 일반석', weekday: '9,000원', weekend: '11,000원' },
+      ],
+    },
     ticketPlatform: '인터파크 티켓',
     ticketUrl: 'https://tickets.interpark.com/',
     officialWebsite: 'https://www.doosanbears.com/',
@@ -105,7 +116,17 @@ export const kboTeams: KBOTeam[] = [
       { name: '크림새우', description: '챔필 스테이션 매장 인기 메뉴. 웨이팅 필수.' },
       { name: '광주 기아 샌드', description: '직관 기념품 겸 간식으로 인기 만점.' }
     ],
-    seatPrices: { premium: '32,000원', table: '27,000원', infield: '13,000원', outfield: '7,000원' },
+    seatPrices: {
+      seats: [
+        { name: '챔피언석', weekday: '45,000원', weekend: '55,000원', note: '포수 후면' },
+        { name: '테이블석', weekday: '40,000원', weekend: '50,000원', note: '중앙/1/3루' },
+        { name: '서프라이즈석', weekday: '22,000원', weekend: '25,000원', note: '익사이팅존' },
+        { name: 'K9석(내야)', weekday: '16,000원', weekend: '19,000원', note: '응원석 포함 핵심 구역' },
+        { name: 'K8석(내야)', weekday: '14,000원', weekend: '17,000원', note: 'K9 외곽' },
+        { name: 'K5석(내야)', weekday: '11,000원', weekend: '14,000원', note: '상단 및 외곽' },
+        { name: '외야석', weekday: '10,000원', weekend: '13,000원', note: '자유석/지정석 혼용' },
+      ],
+    },
     ticketPlatform: '티켓링크',
     ticketUrl: 'https://www.ticketlink.co.kr/',
     officialWebsite: 'https://www.tigers.co.kr/',
@@ -162,7 +183,16 @@ export const kboTeams: KBOTeam[] = [
       { name: '이글스 브루어리', description: '구장에서 즐기는 시원한 수제맥주.' },
       { name: '성심당', description: '구장 내 입점은 아니지만(대전역), 모두가 들고 오는 필수템.' }
     ],
-    seatPrices: { premium: '30,000원', table: '25,000원', infield: '12,000원', outfield: '7,000원' },
+    seatPrices: {
+      seats: [
+        { name: '포수후면(챔피언)', weekday: '60,000원~', weekend: '80,000원~', note: '메이저리그급 뷰' },
+        { name: '중앙 테이블석', weekday: '50,000원', weekend: '70,000원', note: '프리미엄 테이블' },
+        { name: '내야 응원석', weekday: '20,000원', weekend: '25,000원', note: '신규 응원단상 적용' },
+        { name: '인피니티풀', weekday: '별도문의', weekend: '별도문의', note: '외야 수영장 (예약제)' },
+        { name: '외야 지정석', weekday: '12,000원', weekend: '15,000원' },
+      ],
+      note: '2025년 신축 개장 (대전 한화생명 볼파크). 인피니티풀 등 특수 좌석 신설.',
+    },
     ticketPlatform: '티켓링크',
     ticketUrl: 'https://www.ticketlink.co.kr/',
     officialWebsite: 'https://www.hanwhaeagles.co.kr/',
@@ -218,7 +248,18 @@ export const kboTeams: KBOTeam[] = [
       { name: '해피치즈스마일', description: '라팍의 자랑. 떡볶이 맛집.' },
       { name: '대구 8번식당', description: '든든한 수육과 국밥 한 그릇.' }
     ],
-    seatPrices: { premium: '28,000원', infield: '12,000원', outfield: '7,000원' },
+    seatPrices: {
+      seats: [
+        { name: 'VIP석', weekday: '50,000원', weekend: '60,000원', note: '포수 후면' },
+        { name: '테이블석', weekday: '40,000원', weekend: '50,000원', note: '1, 3루 테이블' },
+        { name: '익사이팅존', weekday: '25,000원', weekend: '30,000원', note: '1, 3루 익사이팅' },
+        { name: '블루존', weekday: '15,000원', weekend: '19,000원', note: '3루 응원석 (가장 인기)' },
+        { name: '3루 내야지정석', weekday: '13,000원', weekend: '17,000원', note: '응원석 주변' },
+        { name: '1루 내야지정석', weekday: '11,000원', weekend: '15,000원', note: '원정 응원석' },
+        { name: 'SKY지정석', weekday: '9,000원', weekend: '12,000원', note: '상단 자유/지정' },
+        { name: '외야 지정석', weekday: '9,000원', weekend: '12,000원', note: '외야 테이블 별도' },
+      ],
+    },
     ticketPlatform: '티켓링크',
     ticketUrl: 'https://www.ticketlink.co.kr/',
     officialWebsite: 'https://www.samsunglions.com/',
@@ -273,7 +314,18 @@ export const kboTeams: KBOTeam[] = [
       { name: '김치말이국수', description: '잠실 3루측 명물. 여름철 필수 메뉴.' },
       { name: '잠실원샷', description: '맥주와 치킨을 한 손에. 응원 필수템.' }
     ],
-    seatPrices: { premium: '35,000원', table: '30,000원', infield: '14,000원', outfield: '8,000원' },
+    seatPrices: {
+      seats: [
+        { name: '프리미엄석', weekday: '70,000원', weekend: '80,000원', note: '중앙 포수 후면' },
+        { name: '테이블석', weekday: '52,000원', weekend: '58,000원', note: '1, 3루 테이블' },
+        { name: '익사이팅존', weekday: '25,000원', weekend: '30,000원', note: '그라운드 눈높이' },
+        { name: '블루석', weekday: '22,000원', weekend: '24,000원', note: '1, 3루 하단' },
+        { name: '오렌지석', weekday: '20,000원', weekend: '22,000원', note: '응원단상 앞' },
+        { name: '레드석', weekday: '17,000원', weekend: '19,000원', note: '1, 3루 내야' },
+        { name: '네이비석', weekday: '14,000원', weekend: '16,000원', note: '3층 중앙/내야 (가성비)' },
+        { name: '외야 일반석', weekday: '9,000원', weekend: '11,000원' },
+      ],
+    },
     ticketPlatform: '티켓링크',
     ticketUrl: 'https://www.ticketlink.co.kr/',
     officialWebsite: 'https://www.lgtwins.com/',
@@ -328,7 +380,18 @@ export const kboTeams: KBOTeam[] = [
       { name: '크림새우', description: '고척돔 시그니처. 스테이션 매장에서 판매. 마라/크림 반반 추천.' },
       { name: '떡볶이', description: '쾌적한 실내에서 즐기는 분식.' }
     ],
-    seatPrices: { premium: '30,000원', box: '25,000원', infield: '12,000원', outfield: '7,000원' },
+    seatPrices: {
+      seats: [
+        { name: 'R.d-club(로얄)', weekday: '60,000원', weekend: '90,000원', note: '포수 후면 최고급' },
+        { name: '1층 테이블석', weekday: '55,000원', weekend: '82,000원', note: 'LEXUS 테이블석' },
+        { name: '2층 테이블석', weekday: '45,000원', weekend: '67,000원', note: 'NAVER 테이블석' },
+        { name: '다크버건디석', weekday: '20,000원', weekend: '28,000원', note: '내야 중앙 1,2층' },
+        { name: '버건디석', weekday: '18,000원', weekend: '25,000원', note: '응원석(1루/3루)' },
+        { name: '3층/4층 지정석', weekday: '12,000원', weekend: '15,000원', note: '고층 뷰 (가성비)' },
+        { name: '외야 지정석', weekday: '10,000원', weekend: '15,000원', note: '외야 패밀리석 별도' },
+      ],
+      note: '계절별 요금제 도입. 6월 6일~8월 28일(하절기) 10% 할증.',
+    },
     ticketPlatform: '인터파크 티켓',
     ticketUrl: 'https://tickets.interpark.com/',
     officialWebsite: 'https://www.heroesbaseball.co.kr/',
@@ -387,7 +450,17 @@ export const kboTeams: KBOTeam[] = [
       { name: '직관 순대떡볶이', description: '부산 어묵과 순대의 조화. 사직 명물.' },
       { name: '33떡볶이', description: '부산 스타일의 진한 떡볶이 맛.' }
     ],
-    seatPrices: { premium: '27,000원', infield: '12,000원', outfield: '6,000원' },
+    seatPrices: {
+      seats: [
+        { name: '중앙탁자석', weekday: '45,000원', weekend: '60,000원' },
+        { name: '내야탁자석', weekday: '35,000원', weekend: '50,000원', note: '1루/3루 테이블' },
+        { name: '내야필드석', weekday: '17,000원', weekend: '22,000원', note: '1층 응원석' },
+        { name: '내야상단석', weekday: '14,000원', weekend: '18,000원', note: '2층 일반' },
+        { name: '중앙상단석', weekday: '12,000원', weekend: '15,000원', note: '포수 후면 2층' },
+        { name: '외야석', weekday: '10,000원', weekend: '14,000원' },
+      ],
+      note: '주말/공휴일 및 클래식 시리즈 등 이벤트 경기 시 변동폭이 큼.',
+    },
     personality: { keywords: ['낭만', '열정', '부산', '순대떡볶이'], tip: '💡 사직 노래방에서 순대떡볶이 먹으며 미친 응원', bestFor: '열정적이고 낭만적인 야구를 좋아하는 사람' }
   },
 
@@ -440,7 +513,17 @@ export const kboTeams: KBOTeam[] = [
       { name: '물회', description: '야구장에서 물회를? 더위 날리는 시원한 맛.' },
       { name: '스타벅스', description: '랜더스 전용 슬래머 음료 판매 (딜리버리 가능).' }
     ],
-    seatPrices: { premium: '32,000원', table: '28,000원', infield: '13,000원', outfield: '7,000원' },
+    seatPrices: {
+      seats: [
+        { name: '라이브존', weekday: '55,000원', weekend: '65,000원', note: '포수 후면 라운지 이용' },
+        { name: '테이블석(1층)', weekday: '45,000원', weekend: '55,000원', note: '피크닉게이트 라인' },
+        { name: '프렌들리존', weekday: '25,000원', weekend: '30,000원', note: '그라운드 밀착' },
+        { name: '응원지정석', weekday: '15,000원', weekend: '19,000원', note: '1, 3루 응원단상 앞' },
+        { name: '의자지정석', weekday: '13,000원', weekend: '16,000원', note: '내야 일반' },
+        { name: '외야 일반석', weekday: '10,000원', weekend: '13,000원', note: '노브랜드존 등' },
+        { name: 'SKY박스', weekday: '별도문의', weekend: '별도문의', note: '룸 형태' },
+      ],
+    },
     ticketPlatform: '티켓링크',
     ticketUrl: 'https://www.ticketlink.co.kr/',
     officialWebsite: 'https://www.ssglanders.com/',
@@ -498,7 +581,16 @@ export const kboTeams: KBOTeam[] = [
       { name: '알통떡강정', description: 'NC파크 필수 먹거리. 바삭하고 달콤한 맛.' },
       { name: '코코호도', description: '간식으로 딱 좋은 호두과자.' }
     ],
-    seatPrices: { premium: '29,000원', infield: '12,000원', outfield: '6,000원' },
+    seatPrices: {
+      seats: [
+        { name: '프리미엄석', weekday: '50,000원~', weekend: '70,000원~', note: '라운지 이용 포함 등' },
+        { name: '테이블석', weekday: '35,000원~', weekend: '55,000원~', note: '1, 3루, 중앙' },
+        { name: '내야응원석', weekday: '15,000원~', weekend: '25,000원~', note: '105~108구역 인기' },
+        { name: '내야일반석', weekday: '13,000원~', weekend: '20,000원~', note: '1층/2층' },
+        { name: '외야석', weekday: '10,000원~', weekend: '15,000원~', note: '불펜석 포함' },
+      ],
+      note: '다이나믹 프라이싱(AI 가격제) 운영. 경기별 가격 변동이 가장 심함.',
+    },
     personality: { keywords: ['세련됨', '최신시설', '알통떡강정', 'IT'], tip: '💡 MLB급 구장 뷰 감상하며 떡강정 흡입', bestFor: '쾌적하고 세련된 관람 환경을 선호하는 사람' }
   },
 
@@ -551,7 +643,16 @@ export const kboTeams: KBOTeam[] = [
       { name: '보영만두', description: '수원 쫄면+군만두 최강 조합. 구장 내 입점.' },
       { name: '진미통닭', description: '수원 통닭거리의 맛을 그대로. 식어도 맛있는 치킨.' }
     ],
-    seatPrices: { premium: '30,000원', infield: '12,000원', outfield: '7,000원' },
+    seatPrices: {
+      seats: [
+        { name: '지니존(포수후면)', weekday: '45,000원', weekend: '55,000원', note: '최고급 좌석' },
+        { name: '테이블석', weekday: '40,000원', weekend: '50,000원', note: '1/3루, 중앙' },
+        { name: '응원지정석', weekday: '15,000원', weekend: '20,000원', note: '응원단상 앞' },
+        { name: '내야지정석', weekday: '12,000원', weekend: '17,000원', note: '일반 내야' },
+        { name: '스카이존', weekday: '10,000원', weekend: '13,000원', note: '4, 5층 (시야 좋음)' },
+        { name: '외야잔디/지정', weekday: '10,000원', weekend: '13,000원', note: '자유석 운영 여부 확인' },
+      ],
+    },
     ticketPlatform: '티켓링크',
     ticketUrl: 'https://www.ticketlink.co.kr/',
     officialWebsite: 'https://www.ktwiz.co.kr/',

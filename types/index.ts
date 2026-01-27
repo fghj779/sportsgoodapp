@@ -85,11 +85,13 @@ export interface KBOTeam {
     parking: string;
   };
   seatPrices?: {
-    premium?: string;
-    table?: string;
-    box?: string;
-    infield: string;
-    outfield: string;
+    seats: {
+      name: string;
+      weekday: string;
+      weekend: string;
+      note?: string;
+    }[];
+    note?: string;
   };
 }
 

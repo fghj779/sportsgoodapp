@@ -421,35 +421,33 @@ function ResultContent() {
                 <div className="flex items-start gap-4 p-4 bg-indigo-50 rounded-xl">
                   <span className="text-2xl">🎫</span>
                   <div className="flex-1">
-                    <h3 className="font-semibold text-gray-800 mb-3">좌석별 가격 (2026 시즌)</h3>
-                    <div className="grid grid-cols-2 gap-2 text-sm">
-                      {team.seatPrices.premium && (
-                        <div className="bg-white rounded-lg p-2">
-                          <p className="text-purple-600 font-medium">프리미엄석</p>
-                          <p className="text-gray-800 font-bold">{team.seatPrices.premium}</p>
-                        </div>
-                      )}
-                      {team.seatPrices.table && (
-                        <div className="bg-white rounded-lg p-2">
-                          <p className="text-blue-600 font-medium">테이블석</p>
-                          <p className="text-gray-800 font-bold">{team.seatPrices.table}</p>
-                        </div>
-                      )}
-                      {team.seatPrices.box && (
-                        <div className="bg-white rounded-lg p-2">
-                          <p className="text-orange-600 font-medium">박스석</p>
-                          <p className="text-gray-800 font-bold">{team.seatPrices.box}</p>
-                        </div>
-                      )}
-                      <div className="bg-white rounded-lg p-2">
-                        <p className="text-green-600 font-medium">내야석</p>
-                        <p className="text-gray-800 font-bold">{team.seatPrices.infield}</p>
-                      </div>
-                      <div className="bg-white rounded-lg p-2">
-                        <p className="text-blue-600 font-medium">외야석</p>
-                        <p className="text-gray-800 font-bold">{team.seatPrices.outfield}</p>
-                      </div>
+                    <h3 className="font-semibold text-gray-800 mb-3">좌석별 가격 (2025 시즌)</h3>
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-sm border-collapse">
+                        <thead>
+                          <tr className="text-left text-gray-600">
+                            <th className="py-1.5 pr-2 font-medium">좌석</th>
+                            <th className="py-1.5 px-2 font-medium">주중</th>
+                            <th className="py-1.5 px-2 font-medium">주말</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {team.seatPrices.seats.map((seat, idx) => (
+                            <tr key={idx} className={idx % 2 === 0 ? 'bg-white/60' : ''}>
+                              <td className="py-1.5 pr-2 font-medium text-gray-800">
+                                {seat.name}
+                                {seat.note && <span className="block text-xs text-gray-400 font-normal">{seat.note}</span>}
+                              </td>
+                              <td className="py-1.5 px-2 text-gray-700">{seat.weekday}</td>
+                              <td className="py-1.5 px-2 text-gray-700 font-semibold">{seat.weekend}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
                     </div>
+                    {team.seatPrices.note && (
+                      <p className="text-xs text-amber-600 mt-2">{team.seatPrices.note}</p>
+                    )}
                     <p className="text-xs text-gray-500 mt-2">
                       💳 예매: {team.ticketPlatform}
                     </p>
