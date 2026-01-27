@@ -28,9 +28,8 @@ export interface MascotInfo {
 }
 
 export interface FoodInfo {
-  bestMenu: string;
-  restaurant: string;
-  location: string;
+  name: string;
+  description: string;
 }
 
 export interface KBOTeam {
@@ -45,7 +44,7 @@ export interface KBOTeam {
   logo: string;
   stadium: string;
   homeCity: string;
-  food: FoodInfo;
+  foods: FoodInfo[];
   cheerSongUrl: string;
   uniformStyle: string;
   fashion: string;
