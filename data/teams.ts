@@ -473,7 +473,7 @@ export const kboTeams: KBOTeam[] = [
       founded: '2000년 (SK) → 2021년 (SSG)',
       championships: 5,
       recentAchievements: ['2022 와이어 투 와이어 통합 우승', '2021 정규시즌 우승'],
-      majorEvents: ['2007-2010 4연패', '2018 한국시리즈 우승', '2022 한국시리즈 우승']
+      majorEvents: ['2007, 2008, 2010, 2018, 2022 우승 (총 5번 우승)', '2007-2012 6년 연속 한국시리즈', '단기 임팩트 GOAT인 왕조']
     },
     // 신규 정보
     officialWebsite: 'https://www.ssglanders.com/',
