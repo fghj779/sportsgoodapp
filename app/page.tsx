@@ -151,7 +151,7 @@ export default function Home() {
           <p>⚡ 소요 시간: 약 3분</p>
         </motion.div>
 
-        {/* 비즈니스 문의 */}
+        {/* 비즈니스 문의 - Formspree */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -166,12 +166,42 @@ export default function Home() {
             <p className="text-gray-600 mb-4">
               비즈니스 제휴나 협업 문의가 있으시면 언제든지 연락주세요! 💼
             </p>
-            <a
-              href="mailto:contact@sportsgoodapp.com"
-              className="inline-block px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-full hover:from-purple-600 hover:to-pink-600 transition-all shadow-lg hover:shadow-xl"
+            <form
+              action="https://formspree.io/f/xlgbzgow"
+              method="POST"
+              className="space-y-4 max-w-md mx-auto text-left"
             >
-              📧 이메일 보내기
-            </a>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  이메일 주소
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  placeholder="your@email.com"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  문의 내용
+                </label>
+                <textarea
+                  name="message"
+                  required
+                  rows={4}
+                  placeholder="제휴 관련 문의 내용을 작성해주세요..."
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all resize-none"
+                />
+              </div>
+              <button
+                type="submit"
+                className="w-full px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-xl hover:from-purple-600 hover:to-pink-600 transition-all shadow-lg hover:shadow-xl"
+              >
+                📧 문의하기
+              </button>
+            </form>
           </Card>
         </motion.div>
       </div>

@@ -3,13 +3,15 @@ export interface Question {
   question: string;
   optionA: string;
   optionB: string;
-  category: 'personality' | 'style' | 'preference' | 'emotion' | 'social';
+  optionC: string;
+  optionD: string;
+  category: 'basic_vibe' | 'cheering_culture' | 'fandom' | 'in_game_style';
   emoji: string;
 }
 
 export interface Answer {
   questionId: number;
-  selected: 'A' | 'B';
+  selected: 'A' | 'B' | 'C' | 'D';
 }
 
 export interface Player {
@@ -80,4 +82,36 @@ export interface MatchResult {
   team: KBOTeam;
   compatibility: number;
   aiMessage: string;
+}
+
+// 2026 시즌 뎁스차트
+export interface PositionPlayer {
+  starter: string;
+  backup: string[];
+}
+
+export interface TeamLineup {
+  catcher: PositionPlayer;
+  firstBase: PositionPlayer;
+  secondBase: PositionPlayer;
+  thirdBase: PositionPlayer;
+  shortStop: PositionPlayer;
+  leftField: PositionPlayer;
+  centerField: PositionPlayer;
+  rightField: PositionPlayer;
+  designatedHitter: PositionPlayer;
+}
+
+export interface Bullpen {
+  closer: string;
+  setup: string[];
+  middle: string[];
+}
+
+export interface TeamDepthChart {
+  manager: string;
+  notes: string;
+  lineup: TeamLineup;
+  rotation: string[];
+  bullpen: Bullpen;
 }

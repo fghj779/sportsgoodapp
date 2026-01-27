@@ -9,6 +9,8 @@ import Button from '@/components/Button';
 import Card from '@/components/Card';
 import BaseballRules from '@/components/BaseballRules';
 import { Share2, Home, RotateCcw, Heart, MapPin, Shirt, Music, Trophy, Star, Users, History, Palette } from 'lucide-react';
+import DepthChart from '@/components/DepthChart';
+import { depthCharts } from '@/data/depthCharts';
 
 function ResultContent() {
   const router = useRouter();
@@ -40,13 +42,12 @@ function ResultContent() {
       team,
       compatibility: parseInt(compatibility),
       aiMessage: decodeURIComponent(message),
-      reason: '',  // deprecated
     });
   }, [router, searchParams]);
 
   const handleShare = async () => {
     const shareText = `나는 ${result?.team.name} 팬! ⚾💖\nKBO-TI로 내 운명의 야구팀을 찾았어요!\n\n궁합도: ${result?.compatibility}%`;
-    
+
     if (navigator.share) {
       try {
         await navigator.share({
@@ -99,7 +100,7 @@ function ResultContent() {
         >
           <Card className="text-center space-y-6 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-2" style={{ backgroundColor: team.color }} />
-            
+
             {/* 상단 팀 사진 - 누끼 제거된 큰 이미지 */}
             <motion.div
               initial={{ scale: 0, y: -50 }}
@@ -109,31 +110,31 @@ function ResultContent() {
             >
               {/* 팀 사진 배경 효과 */}
               <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white pointer-events-none" />
-              
+
               {/* 팀 사진 (fallback: 이모지) */}
               <div className="relative z-10 flex justify-center items-center mb-6">
                 <motion.div
-                  animate={{ 
+                  animate={{
                     y: [0, -20, 0],
                     rotate: [0, 5, -5, 0]
                   }}
-                  transition={{ 
-                    duration: 3, 
-                    repeat: Infinity, 
-                    ease: "easeInOut" 
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut"
                   }}
                   className="relative"
                 >
                   {/* 빛나는 효과 */}
                   <div className="absolute inset-0 blur-3xl opacity-30 rounded-full" style={{ backgroundColor: team.color }} />
-                  
+
                   {/* 실제 이미지 or 이모지 */}
                   <div className="relative text-9xl md:text-[12rem] filter drop-shadow-2xl">
                     {team.logo}
                   </div>
                 </motion.div>
               </div>
-              
+
               <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-2">
                 {team.name}
               </h1>
@@ -195,7 +196,7 @@ function ResultContent() {
             </div>
             <div className="space-y-4">
               <div className="flex items-center gap-4">
-                <div 
+                <div
                   className="w-20 h-20 rounded-full shadow-lg"
                   style={{ backgroundColor: team.color }}
                 />
@@ -293,7 +294,7 @@ function ResultContent() {
                   <p className="text-2xl font-bold text-gray-800">{team.history.championships}회</p>
                 </div>
               </div>
-              
+
               <div>
                 <h3 className="font-semibold text-gray-800 mb-2">최근 성적</h3>
                 <ul className="space-y-2">
@@ -306,6 +307,7 @@ function ResultContent() {
                 </ul>
               </div>
 
+              {/* 주요 이벤트 */}
               <div>
                 <h3 className="font-semibold text-gray-800 mb-2">주요 이벤트</h3>
                 <ul className="space-y-2">
@@ -317,24 +319,24 @@ function ResultContent() {
                   ))}
                 </ul>
               </div>
-              
-              {/* 뎁스차트 버튼 */}
-              <div className="mt-6 text-center">
-                <Button
-                  variant="primary"
-                  onClick={() => {
-                    window.open(`https://www.koreabaseball.com/Team/PlayerList.aspx?team=${team.id}`, '_blank');
-                  }}
-                  className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all"
-                >
-                  <span className="flex items-center justify-center gap-2">
-                    ⚾ 2026 시즌 뎁스차트 보기
-                  </span>
-                </Button>
-              </div>
             </div>
           </Card>
         </motion.div>
+
+        {/* 2026 시즌 뎁스차트 */}
+        {depthCharts[team.id] && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.5 }}
+          >
+            <DepthChart
+              depthChart={depthCharts[team.id]}
+              teamColor={team.color}
+              teamName={team.name}
+            />
+          </motion.div>
+        )}
 
         {/* 기존 팀 상세 정보 */}
         <motion.div
@@ -451,16 +453,16 @@ function ResultContent() {
 
               {/* 티켓 예매 버튼 */}
               <div className="text-center">
-                <a 
-                  href={team.ticketUrl} 
-                  target="_blank" 
+                <a
+                  href={team.ticketUrl}
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="inline-block w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white font-bold py-4 px-6 rounded-xl hover:from-pink-600 hover:to-purple-600 transition-all shadow-lg hover:shadow-xl"
                 >
                   🎫 {team.name} 티켓 예매하기
                 </a>
                 <p className="text-xs text-gray-500 mt-2">
-                  📱 {team.ticketPlatform} | 
+                  📱 {team.ticketPlatform} |
                   <a href={team.officialWebsite} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline ml-1">
                     공식 홈페이지
                   </a>
@@ -548,7 +550,7 @@ function ResultContent() {
               </p>
             </div>
           </Card>
-          
+
           {showRules && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
@@ -576,7 +578,7 @@ function ResultContent() {
             <Share2 size={20} />
             <span>결과 공유하기</span>
           </Button>
-          
+
           <Button
             variant="secondary"
             onClick={handleRetry}
@@ -585,7 +587,7 @@ function ResultContent() {
             <RotateCcw size={20} />
             <span>다시 해보기</span>
           </Button>
-          
+
           <Button
             variant="secondary"
             onClick={() => router.push('/')}

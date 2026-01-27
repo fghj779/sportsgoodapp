@@ -19,9 +19,9 @@ export default function QuizPage() {
 
   const progress = ((currentQuestion + 1) / questions.length) * 100;
 
-  const handleAnswer = async (selected: 'A' | 'B') => {
+  const handleAnswer = async (selected: 'A' | 'B' | 'C' | 'D') => {
     setError('');
-    
+
     // 중복 답변 방지
     const currentQuestionId = questions[currentQuestion].id;
     const filteredAnswers = answers.filter(a => a.questionId !== currentQuestionId);
@@ -36,7 +36,7 @@ export default function QuizPage() {
     } else {
       // 모든 질문 완료 - AI 매칭 시작
       setIsLoading(true);
-      
+
       // 안전장치: 정확히 20개의 답변만 전송
       if (newAnswers.length !== 20) {
         console.error('답변 개수 오류:', newAnswers.length, newAnswers);
@@ -44,7 +44,7 @@ export default function QuizPage() {
         setIsLoading(false);
         return;
       }
-      
+
       try {
         const result = await retry(
           async () => {
@@ -80,7 +80,7 @@ export default function QuizPage() {
           compatibility: String(result.compatibility),
           message: result.aiMessage,
         });
-        
+
         router.push(`/result?${params.toString()}`);
       } catch (error: any) {
         console.error('매칭 API 에러:', error);
@@ -153,7 +153,7 @@ export default function QuizPage() {
             <p className="font-semibold">⚠️ {error}</p>
           </motion.div>
         )}
-        
+
         {/* 헤더 */}
         <div className="mb-6">
           <button
@@ -226,7 +226,7 @@ export default function QuizPage() {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => handleAnswer('A')}
-                    className="w-full p-6 bg-gradient-to-r from-pink-400 to-pink-500 text-white rounded-2xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all"
+                    className="w-full p-5 bg-gradient-to-r from-pink-400 to-pink-500 text-white rounded-2xl font-semibold text-base shadow-lg hover:shadow-xl transition-all"
                   >
                     {question.optionA}
                   </motion.button>
@@ -235,9 +235,27 @@ export default function QuizPage() {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => handleAnswer('B')}
-                    className="w-full p-6 bg-gradient-to-r from-purple-400 to-blue-400 text-white rounded-2xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all"
+                    className="w-full p-5 bg-gradient-to-r from-purple-400 to-purple-500 text-white rounded-2xl font-semibold text-base shadow-lg hover:shadow-xl transition-all"
                   >
                     {question.optionB}
+                  </motion.button>
+
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => handleAnswer('C')}
+                    className="w-full p-5 bg-gradient-to-r from-blue-400 to-blue-500 text-white rounded-2xl font-semibold text-base shadow-lg hover:shadow-xl transition-all"
+                  >
+                    {question.optionC}
+                  </motion.button>
+
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => handleAnswer('D')}
+                    className="w-full p-5 bg-gradient-to-r from-teal-400 to-teal-500 text-white rounded-2xl font-semibold text-base shadow-lg hover:shadow-xl transition-all"
+                  >
+                    {question.optionD}
                   </motion.button>
                 </div>
               </div>

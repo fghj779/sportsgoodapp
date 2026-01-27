@@ -17,19 +17,19 @@ const openai = new OpenAI({
 export async function POST(request: NextRequest) {
   try {
     // Rate Limiting (IP 기반)
-    const ip = request.headers.get('x-forwarded-for') || 
-               request.headers.get('x-real-ip') || 
-               'unknown';
-    
+    const ip = request.headers.get('x-forwarded-for') ||
+      request.headers.get('x-real-ip') ||
+      'unknown';
+
     const { success, remaining } = rateLimit(ip);
-    
+
     if (!success) {
       return NextResponse.json(
-        { 
+        {
           error: '너무 많은 요청이에요! 😅\n1분 후에 다시 시도해주세요.',
-          retryAfter: 60 
+          retryAfter: 60
         },
-        { 
+        {
           status: 429,
           headers: {
             'X-RateLimit-Remaining': '0',
@@ -128,7 +128,7 @@ ${userProfile}
     return NextResponse.json({
       team: matchedTeam,
       compatibility: aiResponse.compatibility,
-      aiMessage: aiResponse.reason,
+      aiMessage: aiResponse.aiMessage,
     }, {
       headers: {
         'X-RateLimit-Remaining': String(remaining),
@@ -145,11 +145,11 @@ ${userProfile}
     });
 
     // 에러 핸들링
-    
+
     // Zod 검증 에러
     if (error instanceof ZodError) {
       return NextResponse.json(
-        { 
+        {
           error: '요청 형식이 올바르지 않아요. 😢\n처음부터 다시 시도해주세요!',
           details: error.issues,
         },
@@ -184,7 +184,7 @@ ${userProfile}
 
     // 기타 에러
     return NextResponse.json(
-      { 
+      {
         error: '매칭 중 오류가 발생했어요. 😢\n잠시 후 다시 시도해주세요!',
         debug: process.env.NODE_ENV === 'development' ? error.message : undefined,
       },
@@ -194,47 +194,84 @@ ${userProfile}
 }
 
 function analyzeAnswers(answers: Answer[]): string {
+  // 4지선다 답변 분석
   const aCount = answers.filter(a => a.selected === 'A').length;
   const bCount = answers.filter(a => a.selected === 'B').length;
+  const cCount = answers.filter(a => a.selected === 'C').length;
+  const dCount = answers.filter(a => a.selected === 'D').length;
 
-  // 색깔 관련 질문 분석 (상수 사용)
-  const colorQ = answers.find(a => a.questionId === QUESTION_IDS.COLOR_PREFERENCE);
-  const styleQ = answers.find(a => a.questionId === QUESTION_IDS.WARDROBE_STYLE);
+  // 질문별 성향 분석
+  // Q1: 선수단 구성 선호
+  const q1 = answers.find(a => a.questionId === 1);
+  let rosterPreference = '';
+  if (q1?.selected === 'A') rosterPreference = '유망주 성장형 팀 선호';
+  else if (q1?.selected === 'B') rosterPreference = '베테랑 안정감 팀 선호';
+  else if (q1?.selected === 'C') rosterPreference = '신구조화 밸런스 팀 선호';
+  else if (q1?.selected === 'D') rosterPreference = '실력 중시, 연령 무관';
 
-  let colorPreference = '';
-  if (colorQ?.selected === 'A') {
-    colorPreference = '따뜻한 색 (빨강, 주황, 분홍) 선호';
-  } else if (colorQ?.selected === 'B') {
-    colorPreference = '차가운 색 (파랑, 보라, 초록) 선호';
-  }
+  // Q2: 연고지 선호
+  const q2 = answers.find(a => a.questionId === 2);
+  let regionPreference = '';
+  if (q2?.selected === 'A') regionPreference = '수도권/충청권 선호';
+  else if (q2?.selected === 'B') regionPreference = '영남권(부산/대구/창원) 선호';
+  else if (q2?.selected === 'C') regionPreference = '호남권(광주) 선호';
+  else if (q2?.selected === 'D') regionPreference = '지역 무관, 팀 스타일 중시';
 
-  let wardrobeStyle = '';
-  if (styleQ?.selected === 'A') {
-    wardrobeStyle = '화려하고 밝은 컬러 선호';
-  } else if (styleQ?.selected === 'B') {
-    wardrobeStyle = '베이직하고 차분한 컬러 선호';
-  }
+  // Q4: 성적 마인드
+  const q4 = answers.find(a => a.questionId === 4);
+  let performanceMindset = '';
+  if (q4?.selected === 'A') performanceMindset = '우승 지상주의 (강팀 선호)';
+  else if (q4?.selected === 'B') performanceMindset = '화끈한 타격전 선호 (도파민형)';
+  else if (q4?.selected === 'C') performanceMindset = '언더독 응원형 (모성애형)';
+  else if (q4?.selected === 'D') performanceMindset = '비주얼/케미 중시 (아이돌팬형)';
 
-  let profile = `총 20개 질문 중:\n`;
-  profile += `- A 선택: ${aCount}개 (적극적, 외향적, 트렌디, 열정적 성향)\n`;
-  profile += `- B 선택: ${bCount}개 (신중함, 내향적, 클래식, 차분한 성향)\n\n`;
+  // Q11: 최애 선수 기준
+  const q11 = answers.find(a => a.questionId === 11);
+  let playerPreference = '';
+  if (q11?.selected === 'A') playerPreference = '실력 중시형';
+  else if (q11?.selected === 'B') playerPreference = '비주얼 중시형 (얼빠)';
+  else if (q11?.selected === 'C') playerPreference = '팬서비스/예능감 중시형';
+  else if (q11?.selected === 'D') playerPreference = '팀 충성도 중시형 (프랜차이즈 스타)';
 
-  profile += `색깔 선호도:\n`;
-  profile += `- ${colorPreference}\n`;
-  profile += `- ${wardrobeStyle}\n\n`;
+  // Q14: 팀 분위기 선호
+  const q14 = answers.find(a => a.questionId === 14);
+  let vibePreference = '';
+  if (q14?.selected === 'A') vibePreference = '규율과 카리스마 선호';
+  else if (q14?.selected === 'B') vibePreference = '자유분방 축제형 선호';
+  else if (q14?.selected === 'C') vibePreference = '가족같은 따뜻한 분위기 선호';
+  else if (q14?.selected === 'D') vibePreference = '프로페셔널 비즈니스형 선호';
 
-  // 성향 분석
-  if (aCount > 15) {
-    profile += '매우 외향적이고 열정적인 스타일. 트렌디하고 힙한 것을 좋아함.';
-  } else if (aCount > 12) {
-    profile += '외향적이고 활발한 편. 새로운 것에 도전하는 것을 즐김.';
-  } else if (aCount > 8) {
-    profile += '균형잡힌 성향. 때로는 적극적이고 때로는 신중함.';
-  } else if (aCount > 5) {
-    profile += '신중하고 차분한 편. 안정적인 것을 선호함.';
+  // Q15: 짜릿한 순간
+  const q15 = answers.find(a => a.questionId === 15);
+  let excitementType = '';
+  if (q15?.selected === 'A') excitementType = '홈런 중심 파워야구 선호';
+  else if (q15?.selected === 'B') excitementType = '도루/작전 스마트야구 선호';
+  else if (q15?.selected === 'C') excitementType = '삼진쇼 투수야구 선호';
+  else if (q15?.selected === 'D') excitementType = '호수비 수비야구 선호';
+
+  let profile = `총 20개 질문 분석 결과:\n`;
+  profile += `- A 선택: ${aCount}개 / B 선택: ${bCount}개 / C 선택: ${cCount}개 / D 선택: ${dCount}개\n\n`;
+
+  profile += `세부 성향:\n`;
+  profile += `- ${rosterPreference}\n`;
+  profile += `- ${regionPreference}\n`;
+  profile += `- ${performanceMindset}\n`;
+  profile += `- ${playerPreference}\n`;
+  profile += `- ${vibePreference}\n`;
+  profile += `- ${excitementType}\n\n`;
+
+  // 종합 성향 분석
+  const dominant = Math.max(aCount, bCount, cCount, dCount);
+  if (dominant === aCount) {
+    profile += '종합 성향: 열정적이고 전통을 중시하는 타입. 우승 경쟁팀이나 명문구단에 어울림.';
+  } else if (dominant === bCount) {
+    profile += '종합 성향: 안정감 있고 경험을 중시하는 타입. 노련한 베테랑이 많은 팀에 어울림.';
+  } else if (dominant === cCount) {
+    profile += '종합 성향: 따뜻하고 감성적인 타입. 가족같은 분위기의 팀이나 언더독 팀에 어울림.';
   } else {
-    profile += '매우 신중하고 내향적. 클래식하고 전통적인 것을 좋아함.';
+    profile += '종합 성향: 합리적이고 개방적인 타입. 새로운 시도를 좋아하고 실력 중심으로 판단함.';
   }
 
   return profile;
 }
+
