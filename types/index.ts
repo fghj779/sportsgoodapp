@@ -17,40 +17,61 @@ export interface Answer {
 export interface Player {
   name: string;
   position: string;
+  number?: number;
   description: string;
+}
+
+export interface MascotInfo {
+  name: string;
+  description: string;
+  imageUrl: string;
+}
+
+export interface FoodInfo {
+  bestMenu: string;
+  restaurant: string;
+  location: string;
 }
 
 export interface KBOTeam {
   id: string;
   name: string;
+  sponsor: string;
   englishName: string;
   color: string;
-  colorScheme: 'warm' | 'cool' | 'neutral';  // 색 계열
+  colorScheme: 'warm' | 'cool' | 'neutral';
   mascot: string;
+  mascotInfo: MascotInfo;
   logo: string;
-  teamPhoto: string;  // 팀 대표 사진 (누끼 제거된 PNG)
   stadium: string;
-  homeCity: string;  // 연고지
+  homeCity: string;
+  food: FoodInfo;
   cheerSongUrl: string;
   uniformStyle: string;
   fashion: string;
   meme: string;
   description: string;
   keywords: string[];
-  vibe: string;  // 팀 분위기
-  starPlayers: Player[];  // 현재 스타 플레이어
-  legends: Player[];  // 레전드 선수
+  vibe: string;
+  starPlayers: Player[];
+  legends: Player[];
   history: {
     founded: string;
     championships: number;
     recentAchievements: string[];
     majorEvents: string[];
   };
-  // 신규 추가 기능
-  officialWebsite: string;  // 공식 홈페이지
-  ticketUrl: string;  // 티켓 예매 링크
-  ticketPlatform: string;  // 예매 플랫폼 (티켓링크, 인터파크 등)
-  transportation: {  // 교통편 정보
+  ticketPlatform: string;
+  personality: {
+    keywords: string[];
+    tip: string;
+    bestFor: string;
+  };
+  // Optional legacy fields
+  teamPhoto?: string;
+  officialWebsite?: string;
+  ticketUrl?: string;
+  transportation?: {
     subway?: {
       line: string;
       station: string;
@@ -60,21 +81,16 @@ export interface KBOTeam {
     ktx?: {
       station: string;
       distance: string;
-      transport: string;  // 버스/택시
+      transport: string;
     };
     parking: string;
   };
-  seatPrices: {  // 좌석별 가격
+  seatPrices?: {
     premium?: string;
     table?: string;
     box?: string;
-    infield: string;  // 내야
-    outfield: string;  // 외야
-  };
-  personality: {  // 성향별 꿀팁
-    keywords: string[];
-    tip: string;
-    bestFor: string;
+    infield: string;
+    outfield: string;
   };
 }
 

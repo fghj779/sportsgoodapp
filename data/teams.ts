@@ -1,64 +1,57 @@
 import { KBOTeam } from '@/types';
 
+// 2026년 KBO '야잘알' 가이드 (맛집 리스트 포함 Final Ver.)
 export const kboTeams: KBOTeam[] = [
-  // 🐻 두산 베어스 - 먹산
+  // 🐻 두산 베어스
   {
     id: 'doosan',
     name: '두산 베어스',
+    sponsor: 'Adidas',
     englishName: 'Doosan Bears',
     color: '#131F3E',
     colorScheme: 'cool',
     mascot: '베어스 🐻',
+    mascotInfo: {
+      name: '철웅이',
+      description: '로봇 곰. 귀여움보단 강인함. 두산 야구의 "단단함"을 상징.',
+      imageUrl: '/mascot/doosan-cheolwoong.png'
+    },
     logo: '🐻',
-    teamPhoto: '/teamphoto/doosan.png',  // 누끼 제거된 팀 사진
     stadium: '서울 잠실야구장',
-    homeCity: '서울 (1루)',
+    homeCity: '서울',
+    food: {
+      bestMenu: '김치말이국수',
+      restaurant: '잠실통빱',
+      location: '1루 2층 / 3루 2층 (내야)'
+    },
     cheerSongUrl: 'https://www.youtube.com/watch?v=MvwELezoZy4',
     uniformStyle: '네이비 & 화이트 & 핑크',
-    fashion: '깔끔하고 단단한 느낌. 유니폼 핏이 좋기로 유명함',
-    meme: '🍔 야구보다 먹방? 아니, 먹으면서 이긴다! 압도적인 여성 팬 비율과 잠실 맛집 탐방러! 미라클(좀비) DNA로 끝까지 물고 늘어진다!',
-    description: '5회 클리닝 타임에도 푸드트럭 줄이 안 줄어듦. "야구는 거들 뿐, 우린 먹으러 왔다." 하지만 지고 있으면 눈빛이 변하는 승부사들.',
-    vibe: '화려하진 않아도 기본기가 탄탄함. 지고 있어도 역전할 것 같은 믿음(미라클). 잠실구장 매출의 70%는 두산 팬이 책임진다.',
-    keywords: ['먹산', '허슬두', '미라클', '얼빠생성소', '통삼겹', '여자팬많음'],
+    fashion: '깔끔한 아디다스 핏. 핑크 유니폼은 여심 저격 필수템.',
+    meme: '🍔 **"먹산" 이즈 사이언스.** 5회말 끝나면 관중석보다 햄버거집 줄이 더 김. 하지만 "미라클"이 발동되면 좀비처럼 살아남.',
+    description: '전통적으로 **압도적인 여성 팬 비율**을 자랑함. 아이돌 대포카메라 부대가 야구장에 있는 진풍경. 팬덤 충성도가 매우 높고 응원가가 찰짐.',
+    vibe: '지고 있어도 "어차피 뒤집겠지(미라클)"라고 생각하는 근자감. 박찬호 영입으로 이번 시즌 기대감 뿜뿜! 잠실의 터줏대감.',
+    keywords: ['먹산', '미라클두산', '여초팬덤', '얼빠생성소', '허슬두', '잠실주인'],
     starPlayers: [
-      { name: '양의지', position: '포수', description: '곰의 탈을 쓴 여우. 앉아만 있어도 투수 평자점(ERA)이 내려가는 마법사. 먹방 지분 1위.' },
-      { name: '곽빈', position: '투수', description: '국가대표 우완 에이스. 긁히는 날엔 아무도 못 건드림.' },
-      { name: '김택연', position: '투수', description: '"형들 비켜봐요." 19세에 마무리 접수한 돌직구 괴물.' }
+      { name: '양의지', position: '포수', description: '곰의 탈을 쓴 여우. 전력의 50%.' },
+      { name: '곽빈', position: '투수', description: '베어스 에이스. 긁히는 날은 메이저급.' },
+      { name: '김택연', position: '투수', description: '차기 마무리 황제. 돌직구.' }
     ],
     legends: [
-      { name: '박철순', position: '투수', description: '불사조, 영구결번 21.' },
-      { name: '김동주', position: '내야수', description: '두목곰, 잠실 장외 홈런의 전설.' },
-      { name: '허경민', position: '내야수', description: '(팬들의 아픈 손가락..) 영원했던 3루수.' }
+      { name: '박철순', position: '투수', number: 21, description: '[영구결번] 불사조. 베어스의 영원한 상징.' },
+      { name: '김영신', position: '포수', number: 54, description: '[영구결번] OB 베어스의 아픈 손가락. KBO 최초 영구결번.' },
+      { name: '김동주', position: '내야수', number: 18, description: '[잠정결번] 두목곰. 잠실 장외 홈런의 전설.' }
     ],
     history: {
       founded: '1982년 (OB 베어스)',
       championships: 6,
-      recentAchievements: ['2015-2021 7년 연속 KS 진출 (왕조)', '2016 한국시리즈 우승'],
-      majorEvents: ['1982 원년 우승', '1995 통합 우승', '2015 미라클 두산']
+      recentAchievements: ['2015-2021 7년 연속 한국시리즈 진출(왕조)', '2019 통합 우승'],
+      majorEvents: ['1982 원년 우승', '1995 통합 우승', '2015 미라클 우승']
     },
-    // 신규 정보
-    officialWebsite: 'https://www.doosanbears.com/',
-    ticketUrl: 'https://www.doosanbears.com/ticket/reserve',
-    ticketPlatform: '공식 홈페이지 + 인터파크 티켓',
-    transportation: {
-      subway: {
-        line: '2호선/8호선',
-        station: '잠실역',
-        exit: '3번/4번 출구',
-        walkTime: '도보 5분'
-      },
-      parking: '주차 가능 (유료, 경기 당일 혼잡)'
-    },
-    seatPrices: {
-      premium: '35,000원',
-      table: '30,000원',
-      infield: '14,000원',
-      outfield: '8,000원'
-    },
+    ticketPlatform: '인터파크 티켓',
     personality: {
-      keywords: ['역전', '끈기', '미라클', '여성팬'],
-      tip: '💡 지고 있어도 끝까지 보는 재미! 9회말 역전극 DNA',
-      bestFor: '드라마틱한 전개를 좋아하는 사람'
+      keywords: ['끈기', '역전', '먹방', '여성팬'],
+      tip: '💡 김치말이국수 먹으면서 보는 역전승이 제일 맛있음.',
+      bestFor: '세련된 응원 문화와 드라마틱한 승부를 즐기는 사람'
     }
   },
 
@@ -66,65 +59,52 @@ export const kboTeams: KBOTeam[] = [
   {
     id: 'kia',
     name: 'KIA 타이거즈',
+    sponsor: 'IAB Studio',
     englishName: 'KIA Tigers',
     color: '#EA0029',
     colorScheme: 'warm',
     mascot: '호랑이 🐯',
+    mascotInfo: {
+      name: '호걸이',
+      description: 'KBO 마스코트계의 인싸. 춤신춤왕.',
+      imageUrl: '/mascot/kia-hogurl.png'
+    },
     logo: '🐯',
-    teamPhoto: '/teamphoto/kia.png',
     stadium: '광주-기아 챔피언스필드',
     homeCity: '광주',
+    food: {
+      bestMenu: 'BK버거 (광주제일햄버고)',
+      restaurant: '광주제일햄버고',
+      location: '3루 내야 끝'
+    },
     cheerSongUrl: 'https://www.youtube.com/watch?v=dudVNSG9foc',
-    uniformStyle: '블러디 레드 & 미드나잇 블랙',
-    fashion: '호랑이의 맹렬함과 검빨 유니폼의 위압감',
-    meme: '🐯 아따, 우승 DNA는 못 속인당께! 챔피언스필드는 거대한 노래방! 떼창의 전율! 압도적 1강! 호랑이의 발톱을 확인해봐!',
-    description: '2024 우승 후 팬들의 자부심이 하늘을 찌름. 챔필 매진은 기본, 원정석까지 점령하는 화력.',
-    vibe: '"우승 아니면 실패." 자부심이 하늘을 찌르는 2024 챔피언의 위엄. 라인업 송의 웅장함에 전율.',
-    keywords: ['최다우승', '남행열차', '김도영보유국', '삐끼삐끼', '챔필', '광주'],
+    uniformStyle: '검빨(블랙&레드) 진리의 조합',
+    fashion: 'IAB 스튜디오 콜라보로 굿즈 품절 대란. 힙하고 강렬함.',
+    meme: '🎤 **"챔필은 야구장이 아니라 노래방."** "남행열차" 나오면 상대팀 기가 죽음. 우승 DNA는 과학이다.',
+    description: '**호남 지역 압도적 인기 원탑.** 전국구 인기 구단. 야구 못하면 광주 전체 분위기가 다운됨. 해태 왕조의 후예라는 자부심이 하늘을 찌름.',
+    vibe: '"우승 아니면 의미 없다." 1등 아니면 화가 나는 12회 우승 명문가의 위엄.',
+    keywords: ['최다우승V12', '남행열차', '호남의자존심', '김도영보유국', '검빨', '제2의해태왕조'],
     starPlayers: [
-      { name: '김도영', position: '내야수', description: '제2의 이종범. 타석에 서면 기대감 MAX. 유니폼 품절남.' },
-      { name: '양현종', position: '투수', description: '대투수. 기아 타이거즈 그 자체.' },
-      { name: '정해영', position: '투수', description: '타이거즈의 뒷문을 책임지는 최연소 세이브왕.' }
+      { name: '김도영', position: '내야수', description: '제2의 이종범. KBO의 아이콘. 40-40 클럽.' },
+      { name: '양현종', position: '투수', description: '대투수. 타이거즈 그 자체.' },
+      { name: '정해영', position: '투수', description: '타이거즈의 뒷문을 책임지는 수호신.' }
     ],
     legends: [
-      { name: '선동열', position: '투수', description: '무등산 폭격기, 국보급 투수.' },
-      { name: '이종범', position: '외야수', description: '바람의 아들, 야구 천재.' },
-      { name: '김성한', position: '내야수', description: '오리궁뎅이 타법.' }
+      { name: '선동열', position: '투수', number: 18, description: '[영구결번] 국보급 투수. 무등산 폭격기.' },
+      { name: '이종범', position: '내야수', number: 7, description: '[영구결번] 바람의 아들. 야구 천재.' },
+      { name: '김성한', position: '내야수', number: 11, description: '[레전드] 오리궁뎅이 타법. 해태 왕조의 주역.' }
     ],
     history: {
-      founded: '1982년 (해태 타이거즈)',
+      founded: '1982년 (해태)',
       championships: 12,
-      recentAchievements: ['2024 한국시리즈 우승', '2017 한국시리즈 우승'],
-      majorEvents: ['최다 우승 (12회)', '1980년대 황금기 5연패', '2024 우승']
+      recentAchievements: ['2024 한국시리즈 우승', '2017 통합 우승'],
+      majorEvents: ['KBO 통산 최다 우승(12회)', '80-90년대 해태 왕조']
     },
-    // 신규 정보
-    officialWebsite: 'https://www.tigers.co.kr/',
-    ticketUrl: 'https://ticketlink.co.kr/',
     ticketPlatform: '티켓링크',
-    transportation: {
-      subway: {
-        line: '1호선',
-        station: '광주송정역',
-        exit: '1번 출구',
-        walkTime: '버스 10분 or 택시 5분'
-      },
-      ktx: {
-        station: '광주송정역',
-        distance: '경기장까지 3km',
-        transport: '버스 187번 or 택시'
-      },
-      parking: '주차 가능 (매우 넓음)'
-    },
-    seatPrices: {
-      premium: '32,000원',
-      table: '27,000원',
-      infield: '13,000원',
-      outfield: '7,000원'
-    },
     personality: {
-      keywords: ['전통', '우승', '자부심', '챔피언'],
-      tip: '💡 최다 우승팀의 자부심! 분위기 최고, 응원 문화 끝판왕',
-      bestFor: '승리의 짜릿함과 전통을 중시하는 사람'
+      keywords: ['전통', '우승', '자부심', '압도적'],
+      tip: '💡 야구장 노래방을 즐기고 싶다면, 그리고 "이기는 야구"를 보고 싶다면.',
+      bestFor: '승부욕이 강하고 전통의 강호를 응원하고 싶은 사람'
     }
   },
 
@@ -132,59 +112,53 @@ export const kboTeams: KBOTeam[] = [
   {
     id: 'hanwha',
     name: '한화 이글스',
+    sponsor: 'Spyder',
     englishName: 'Hanwha Eagles',
     color: '#FF6600',
     colorScheme: 'warm',
     mascot: '독수리 🦅',
+    mascotInfo: {
+      name: '수리',
+      description: 'KBO 귀여움 원탑. 알에서 깨어난 아기 독수리.',
+      imageUrl: '/mascot/hanwha-soori.png'
+    },
     logo: '🦅',
-    teamPhoto: '/teamphoto/hanwha.png',
-    stadium: '대전 베이스볼 드림파크',
+    stadium: '대전 한화생명 볼파크',
     homeCity: '대전',
+    food: {
+      bestMenu: '농심가락 떡볶이',
+      restaurant: '농심가락',
+      location: '3루 내야 (구장 이전 후에도 입점)'
+    },
     cheerSongUrl: 'https://www.youtube.com/watch?v=ucNR9zLqmDs',
     uniformStyle: '다이너마이트 오렌지',
-    fashion: '폭발적인 화력. 강렬한 오렌지, 멀리서도 눈에 확 띔',
-    meme: '💣 보살은 죽었다. 이제는 슈퍼팀이다! 류현진-강백호-노시환! 꿈의 라인업! 새 구장에서 펼쳐지는 오렌지빛 축제!',
-    description: '2026년 스토브리그 승자. 강백호 영입으로 "우승 아니면 실패"라는 비장함 감돎. 성심당 빵 봉투 들고 야구장 가는 게 국룰.',
-    vibe: '보살 팬은 옛말. 이제는 "성적"을 내놓으라 외치는 성난 독수리들. 2026년 가장 핫한 팀.',
-    keywords: ['대전신구장', '강백호영입', '슈퍼팀', '나는행복합니다', '성심당', '대전'],
+    fashion: '멀리서 봐도 한화 팬임. 오렌지색의 강렬함.',
+    meme: '💣 **"보살 팬덤"은 옛말.** 이젠 성적 내놓으라고 호통치는 "성난 독수리". 2026 신구장 버프 + 강백호 영입 등 윈나우 탱킹 해제!',
+    description: '오랜 암흑기를 견딘 의리의 팬덤. 2025년 신구장 개장 후 관중 동원력 폭발. 이제는 약팀 이미지를 벗고 강팀으로 도약 중.',
+    vibe: '행복야구 끝, 이제는 승리야구. 대전 시민들의 한이 서린 응원은 화력이 장난 아님. 성심당 빵 봉투 필수.',
+    keywords: ['신구장', '강백호영입', '류현진', '보살탈출', '슈퍼팀', '성심당'],
     starPlayers: [
-      { name: '강백호', position: '내야수/지명', description: '[NEW] 2026 FA 최대어, 대전의 새로운 아이돌.' },
-      { name: '류현진', position: '투수', description: '코리안 몬스터. 등판일은 대전 휴일 선포급.' },
+      { name: '류현진', position: '투수', description: '코리안 몬스터. 등판일은 대전 휴일.' },
+      { name: '강백호', position: '내야수', description: '[2026 FA] 우승 청부사로 온 천재 타자.' },
       { name: '노시환', position: '내야수', description: '한화의 4번 타자. 거포 본능.' }
     ],
     legends: [
-      { name: '송진우', position: '투수', description: '회장님, 통산 최다승/최다이닝.' },
-      { name: '정민철', position: '투수', description: '이글스의 영구결번 에이스.' },
-      { name: '장종훈', position: '내야수', description: '연습생 신화.' }
+      { name: '장종훈', position: '내야수', number: 35, description: '[영구결번] 연습생 신화. 레전드 홈런왕.' },
+      { name: '정민철', position: '투수', number: 23, description: '[영구결번] 이글스의 영원한 에이스.' },
+      { name: '송진우', position: '투수', number: 21, description: '[영구결번] 회장님. 통산 최다승/최다이닝.' },
+      { name: '김태균', position: '내야수', number: 52, description: '[영구결번] 한화의 자존심. 별명왕.' }
     ],
     history: {
-      founded: '1986년 (빙그레 이글스)',
+      founded: '1986년 (빙그레)',
       championships: 1,
-      recentAchievements: ['1999 우승 이후 27년째 도전 중', '2025 신구장 개장'],
-      majorEvents: ['1999 한국시리즈 우승', 'V2를 향한 27년의 기다림', '2026 우승 도전']
+      recentAchievements: ['2025 신구장 개장', '1999 우승 이후 27년 만의 도전'],
+      majorEvents: ['1999 한국시리즈 우승', '2026 대권 도전']
     },
-    // 신규 정보
-    officialWebsite: 'https://www.hanwhaeagles.co.kr/',
-    ticketUrl: 'https://ticketlink.co.kr/',
     ticketPlatform: '티켓링크',
-    transportation: {
-      ktx: {
-        station: '대전역',
-        distance: '경기장까지 3.5km',
-        transport: '버스 102번 or 택시 10분'
-      },
-      parking: '주차 가능 (신구장 넓음)'
-    },
-    seatPrices: {
-      premium: '30,000원',
-      table: '25,000원',
-      infield: '12,000원',
-      outfield: '7,000원'
-    },
     personality: {
-      keywords: ['의리', '인내', '슈퍼팀', '신구장'],
-      tip: '💡 27년 기다린 의리파! 2026년 우승 가능성 최고',
-      bestFor: '끝까지 함께하는 의리와 믿음을 중시하는 사람'
+      keywords: ['의리', '환골탈태', '신구장', '열정'],
+      tip: '💡 떡볶이는 농심가락, 빵은 성심당. 이 공식만 기억할 것.',
+      bestFor: '드라마틱한 성장 스토리와 의리를 중요시하는 사람'
     }
   },
 
@@ -192,125 +166,105 @@ export const kboTeams: KBOTeam[] = [
   {
     id: 'samsung',
     name: '삼성 라이온즈',
+    sponsor: 'Under Armour',
     englishName: 'Samsung Lions',
     color: '#074CA1',
     colorScheme: 'cool',
     mascot: '사자 🦁',
+    mascotInfo: {
+      name: '블레오 패밀리',
+      description: '아빠, 엄마, 아들, 딸 사자 가족. 세계관 최강.',
+      imageUrl: '/mascot/samsung-bleo.png'
+    },
     logo: '🦁',
-    teamPhoto: '/teamphoto/samsung.png',
     stadium: '대구 삼성 라이온즈파크',
     homeCity: '대구',
+    food: {
+      bestMenu: '해피치즈스마일 (떡볶이 등)',
+      restaurant: '해피치즈스마일',
+      location: '3루 내야'
+    },
     cheerSongUrl: 'https://www.youtube.com/watch?v=euO5P5XtXF0',
     uniformStyle: '로얄 블루 & 실버',
-    fashion: '전통의 명가다운 품격과 차가운 승부사 기질',
-    meme: '👑 클래식은 영원하다, 왕조의 품격! 엘도라도가 울려 퍼지면 게임 끝! 대구의 더위보다 뜨거운 라팍의 열기!',
-    description: '"왕조 부활"이라는 단어는 금기어(말하면 부정 탐). 젊은 사자(Young Lions)들의 패기가 넘침. 스케치북 응원의 원조.',
-    vibe: '흥분하지 않는 귀족. 하지만 "약팀" 취급받으면 참지 않음. 푸른 피가 흐르는 대구의 심장.',
-    keywords: ['왕조', '엘도라도', '으쌰라으쌰', '푸른피', '라팍', '대구'],
+    fashion: '삼성 왕조의 품격이 느껴지는 클래식한 블루.',
+    meme: '👑 **"경북 최고 인기팀."** 엘도라도 떼창 나오면 상대 팀 기가 빨림. 여름성(여름에 강함) DNA 보유.',
+    description: 'KBO 원년 명문. 2011-2014 통합 4연패 왕조의 기억. 그 4번타자인 최형우를 2026년시즌 앞두로 영입하면서, 최근 젊은 선수(Young Lions)들이 성장하며 제2의 왕조를 노림.',
+    vibe: '점잖은 듯하지만 화나면 무서운 경상도 아재들. "최강삼성" 구호는 KBO에서 가장 웅장함.',
+    keywords: ['왕조', '엘도라도', '푸른피', '대구의자존심', '라팍', '최강삼성'],
     starPlayers: [
-      { name: '구자욱', position: '외야수', description: '삼성의 심장. 잘생겼는데 야구도 잘함. 캡틴 구.' },
-      { name: '원태인', position: '투수', description: '대구의 아들. 푸른 피의 에이스.' },
-      { name: '김영웅', position: '내야수', description: '난세의 영웅. 거포 유격수/3루수 자원.' }
+      { name: '구자욱', position: '외야수', description: '삼성의 심장. 캡틴 구. 프랜차이즈 스타.' },
+      { name: '원태인', position: '투수', description: '푸른 피의 에이스. 대구의 아들.' },
+      { name: '김영웅', position: '내야수', description: '거포 유격수/3루수. 라팍의 영웅.' }
     ],
     legends: [
-      { name: '이승엽', position: '내야수', description: '국민타자, 라이온 킹.' },
-      { name: '양준혁', position: '외야수', description: '위풍당당, 만세 타법.' },
-      { name: '오승환', position: '투수', description: '끝판대장, 돌부처.' }
+      { name: '이만수', position: '포수', number: 22, description: '[영구결번] 헐크. 프로야구 1호 안타/홈런의 주인공.' },
+      { name: '양준혁', position: '외야수', number: 10, description: '[영구결번] 위풍당당. 만세 타법.' },
+      { name: '이승엽', position: '내야수', number: 36, description: '[영구결번] 국민타자. 라이온 킹.' }
     ],
     history: {
       founded: '1982년 (원년)',
       championships: 8,
-      recentAchievements: ['2011-2014 통합 4연패 왕조', '2014 한국시리즈 우승'],
-      majorEvents: ['2002-2006 5연패', 'KBO 최초 통산 3000승', '8회 우승']
+      recentAchievements: ['2011-2014 통합 4연패', '2024 준우승'],
+      majorEvents: ['2002 첫 한국시리즈 우승', '통합 4연패 왕조']
     },
-    // 신규 정보
-    officialWebsite: 'https://www.samsunglions.com/',
-    ticketUrl: 'https://ticketlink.co.kr/',
     ticketPlatform: '티켓링크',
-    transportation: {
-      subway: {
-        line: '1호선',
-        station: '대구역',
-        exit: '동광장',
-        walkTime: '버스 10분 or 택시 10분'
-      },
-      ktx: {
-        station: '대구역/동대구역',
-        distance: '경기장까지 5~7km',
-        transport: '버스 101번 or 택시'
-      },
-      parking: '주차 가능'
-    },
-    seatPrices: {
-      premium: '28,000원',
-      infield: '12,000원',
-      outfield: '7,000원'
-    },
     personality: {
-      keywords: ['전통', '명문', '왕조', '자존심'],
-      tip: '💡 8회 우승 명문의 품격! 엘도라도의 영광',
-      bestFor: '전통과 근본을 중시하는 사람'
+      keywords: ['전통', '근본', '왕조', '자부심'],
+      tip: '💡 8회말 엘도라도 떼창은 죽기 전에 꼭 들어봐야 함.',
+      bestFor: '역사와 전통, 클래식한 강팀을 선호하는 사람'
     }
   },
 
-  // 🌟 LG 트윈스
+  // 👯 LG 트윈스
   {
     id: 'lg',
     name: 'LG 트윈스',
+    sponsor: 'Pro-Specs',
     englishName: 'LG Twins',
     color: '#C30452',
     colorScheme: 'warm',
-    mascot: '트윈스 ⚾',
-    logo: '⚾',
-    teamPhoto: '/teamphoto/lg.png',
+    mascot: '트윈스 👯',
+    mascotInfo: {
+      name: '럭키/스타',
+      description: '승리의 요정 쌍둥이. 잠실의 아이돌.',
+      imageUrl: '/mascot/lg-lucky-star.png'
+    },
+    logo: '👯',
     stadium: '서울 잠실야구장',
-    homeCity: '서울 (3루)',
+    homeCity: '서울',
+    food: {
+      bestMenu: '김치말이국수',
+      restaurant: '잠실통빱',
+      location: '1루 2층 / 3루 2층 (내야)'
+    },
     cheerSongUrl: 'https://www.youtube.com/watch?v=xr6wPZxyhxI',
-    uniformStyle: '핀스트라이프 & 블랙',
-    fashion: '도시적이고 세련된 서울깍쟁이 느낌. 줄무늬 유니폼의 원조',
-    meme: '🏙️ 서울의 자존심, 세련된 무적 LG! 유광잠바 입고 가을 야구 접수한다! 잠실을 지배하는 압도적인 데시벨!',
-    description: '2025 우승으로 "디펜딩 챔피언"의 여유가 생김. 팬들의 목소리가 KBO에서 가장 큼. 공격적인 응원 스타일.',
-    vibe: '신바람이 불면 아무도 못 말린다. 서울의 진정한 주인. 선수들과 팬들이 어깨동무하고 "서울의 찬가" 부름.',
-    keywords: ['서울의주인', '무적LG', '유광잠바', '신바람야구', '핀스트라이프', '서울'],
+    uniformStyle: '핀스트라이프 & 유광잠바',
+    fashion: '가을야구의 상징 "유광잠바". 서울 깍쟁이들의 세련된 룩.',
+    meme: '🏙️ **"팬덤 연령대는 높지만 마음만은 청춘."** 구매력 최강. 유광잠바 입고 서울의 찬가 부르면 뽕 차오름.',
+    description: '최근(2023, 2025) 우승을 차지한 강팀. 서울 찐팬들이 많음. 응원가 소리가 KBO에서 제일 큼(데시벨 깡패).',
+    vibe: '신바람 야구. 잘할 때 분위기 타면 아무도 못 말림. 팬들의 자부심이 대단함.',
+    keywords: ['서울의주인', '무적LG', '유광잠바', '신바람', '구매력최강', '우승팀'],
     starPlayers: [
-      { name: '김현수', position: '외야수', description: '타격 기계. 맹구. 캡틴의 품격.' },
-      { name: '홍창기', position: '외야수', description: '출루 머신. 눈 야구의 신.' },
-      { name: '박해민', position: '외야수', description: '수비 요정. 잠실 바닥을 지배하는 람보르미니.' }
+      { name: '오스틴', position: '내야수', description: 'LG의 복덩이. 우승 청부사.' },
+      { name: '홍창기', position: '외야수', description: '출루 기계. 1번 타자의 정석.' },
+      { name: '박해민', position: '외야수', description: '수비 요정. 잠실을 지배하는 람보르미니.' }
     ],
     legends: [
-      { name: '이병규', position: '외야수', description: '적토마, 라뱅.' },
-      { name: '박용택', position: '외야수', description: '팬 사랑 1위, 영구결번 33.' },
-      { name: '김용수', position: '투수', description: '노송.' }
+      { name: '김용수', position: '투수', number: 41, description: '[영구결번] 노송. LG의 창단 멤버이자 전설.' },
+      { name: '이병규', position: '외야수', number: 9, description: '[영구결번] 적토마. 라뱅. 타격의 달인.' },
+      { name: '박용택', position: '외야수', number: 33, description: '[영구결번] 팬 사랑 1위. KBO 통산 최다 안타(전).' }
     ],
     history: {
       founded: '1982년 (MBC 청룡)',
-      championships: 4,
+      championships: 5,
       recentAchievements: ['2025 한국시리즈 우승', '2023 한국시리즈 우승'],
-      majorEvents: ['1990 한국시리즈 우승', '1994 한국시리즈 우승', '2025 디펜딩 챔피언']
+      majorEvents: ['1990, 1994 신바람 우승', '29년 만의 2023 우승']
     },
-    // 신규 정보
-    officialWebsite: 'https://www.lgtwins.com/',
-    ticketUrl: 'https://ticketlink.co.kr/',
     ticketPlatform: '티켓링크',
-    transportation: {
-      subway: {
-        line: '2호선/8호선',
-        station: '잠실역',
-        exit: '3번/4번 출구',
-        walkTime: '도보 5분'
-      },
-      parking: '주차 가능 (유료, 경기 당일 혼잡)'
-    },
-    seatPrices: {
-      premium: '35,000원',
-      table: '30,000원',
-      infield: '14,000원',
-      outfield: '8,000원'
-    },
     personality: {
-      keywords: ['힙', '트렌디', '서울', '인싸'],
-      tip: '💡 서울의 인싸 야구! 2025 우승팀의 위엄',
-      bestFor: '트렌디하고 세련된 것을 좋아하는 사람'
+      keywords: ['서울', '힙', '트렌디', '열정'],
+      tip: '💡 서울의 중심에서 "무적 LG"를 외치며 먹는 김말국(김치말이국수)의 맛.',
+      bestFor: '트렌디하고 열정적인 서울 도시 남자/여자의 야구'
     }
   },
 
@@ -318,125 +272,105 @@ export const kboTeams: KBOTeam[] = [
   {
     id: 'kiwoom',
     name: '키움 히어로즈',
+    sponsor: 'Nike',
     englishName: 'Kiwoom Heroes',
     color: '#820024',
     colorScheme: 'warm',
     mascot: '히어로 🦸',
+    mascotInfo: {
+      name: '턱돌이',
+      description: 'KBO 마스코트계의 레전드. 턱 챌린지의 원조.',
+      imageUrl: '/mascot/kiwoom-teokdori.png'
+    },
     logo: '🦸‍♂️',
-    teamPhoto: '/teamphoto/kiwoom.png',
     stadium: '고척 스카이돔',
-    homeCity: '서울 (고척)',
+    homeCity: '서울',
+    food: {
+      bestMenu: '크림새우',
+      restaurant: '쉬림프쉐프',
+      location: '1루 내야 2층'
+    },
     cheerSongUrl: 'https://www.youtube.com/watch?v=4YNAvO63mVA',
-    uniformStyle: '버건디 & 실버',
-    fashion: '고급스러운 와인빛, 도전정신',
-    meme: '💎 MLB 사관학교! 원석을 보석으로! 우리 애(김혜성) 다저스 갔다! 젊은 영웅들의 성장 드라마 맛집!',
-    description: '주축 선수가 떠나도(MLB/FA) 끊임없이 새 얼굴이 등장하는 "화수분". 팬들은 육아일기 쓰는 심정으로 응원함. 고척돔이라 쾌적함 1위.',
-    vibe: '네이밍 스폰서 구단의 반란. 돈이 없지 실력이 없냐? 돔구장 효과로 응원 소리가 천장 치고 울려서 인원수 대비 엄청 시끄러움.',
-    keywords: ['돔구장', '화수분', 'MLB사관학교', '김혜성LAD', '영웅군단', '서울'],
+    uniformStyle: '버건디 & 핑크 (Nike)',
+    fashion: '나이키 유니폼 간지. 핑크 유니폼 입은 여고생 팬들이 많음.',
+    meme: '💎 **"저점 매수의 기회."** 돈은 없지만 안목은 최고. 어린 선수들 키워서 MLB 보내는 맛에 삼. 팬들은 저녁 경기보다 아침 MLB 중계가 더 바쁨.',
+    description: '팬덤 규모는 작지만 알짜배기. **두산과 함께 대표적인 여초 팬덤.** 모기업이 없어 선수를 잘 키워 파는 "화수분" 시스템. 항상 언더독이지만 상위권.',
+    vibe: '젊고 빠름. 돔구장이라 여름에 시원하고 비 와도 경기함. 쾌적함 1티어.',
+    keywords: ['MLB사관학교', '저점매수', '화수분', '돔구장', '여초팬덤', '나이키'],
     starPlayers: [
-      { name: '송성문', position: '내야수', description: '가을의 사나이. 히어로즈의 새로운 심장.' },
-      { name: '이주형', position: '외야수', description: '"포스트 이정후". 천재적인 타격 재능.' },
-      { name: '김건희', position: '투수/타자', description: '투타 겸업의 로망을 실현하는 유망주.' }
+      { name: '이주형', position: '외야수', description: '포스트 이정후. 천재적인 타격 재능.' },
+      { name: '김혜성', position: '내야수', description: '[MLB 진출] 다저스 간 우리 혜성이. 평화왕자의 후계자.' },
+      { name: '송성문', position: '내야수', description: '가을만 되면 미쳐 날뛰는 가을 남자.' }
     ],
     legends: [
-      { name: '김하성', position: 'MLB 진출', description: 'SD 골드글러브 내야수, 어썸 킴.' },
-      { name: '이정후', position: 'MLB 진출', description: 'SF 바람의 손자.' },
-      { name: '김혜성', position: 'MLB 진출', description: '[NEW] LAD 다저스 2026 입단.' }
+      { name: '박병호', position: '내야수', number: 52, description: '[영구결번 유력] 히어로즈의 영원한 4번 타자 (현 삼성/은퇴).' },
+      { name: '강정호', position: '내야수', number: 16, description: '[레전드] 평화왕. KBO 야수 최초 메이저리거.' },
+      { name: '이정후', position: '외야수', number: 51, description: '[레전드] 바람의 손자. 메이저리그 샌프란시스코의 별.' }
     ],
     history: {
       founded: '2008년',
       championships: 0,
-      recentAchievements: ['준우승 3회 (준우승 맛집)', '항상 언더독이지만 상위권 위협'],
-      majorEvents: ['2018 정규시즌 우승', '2019 한국시리즈 준우승', 'MLB 수출 기업']
+      recentAchievements: ['2019/2022 준우승', 'MLB 선수 최다 배출'],
+      majorEvents: ['2019 한국시리즈 준우승', '창단 첫 우승 도전 중']
     },
-    // 신규 정보
-    officialWebsite: 'https://www.heroesbaseball.co.kr/',
-    ticketUrl: 'https://www.interpark.com/',
     ticketPlatform: '인터파크 티켓',
-    transportation: {
-      subway: {
-        line: '1호선/경의중앙선',
-        station: '디지털미디어시티역',
-        exit: '2번 출구',
-        walkTime: '도보 10분'
-      },
-      parking: '주차 가능 (돔구장 지하주차장)'
-    },
-    seatPrices: {
-      premium: '30,000원',
-      box: '25,000원',
-      infield: '12,000원',
-      outfield: '7,000원'
-    },
     personality: {
-      keywords: ['유망주', 'MLB', '성장', '미래'],
-      tip: '💡 MLB 사관학교! 유망주 크는 맛 최고',
-      bestFor: '성장형 콘텐츠와 미래 가능성을 좋아하는 사람'
+      keywords: ['성장', '미래', '유망주', '실리'],
+      tip: '💡 크림새우는 줄 서서라도 꼭 먹어야 함. 고척돔의 명물.',
+      bestFor: '유망주의 성장 스토리를 좋아하고 쾌적함을 중시하는 사람'
     }
   },
 
-  // ⚓ 롯데 자이언츠
+  // 🐦 롯데 자이언츠
   {
     id: 'lotte',
     name: '롯데 자이언츠',
+    sponsor: 'Willbe Play',
     englishName: 'Lotte Giants',
     color: '#002955',
     colorScheme: 'cool',
-    mascot: '자이언츠 🏔️',
-    logo: '⚾',
-    teamPhoto: '/teamphoto/lotte.png',
+    mascot: '갈매기 🐦',
+    mascotInfo: {
+      name: '누리/아라',
+      description: '부산 갈매기. 뱃살 튀어나온 누리가 매력 포인트.',
+      imageUrl: '/mascot/lotte-noori.png'
+    },
+    logo: '🐦',
     stadium: '부산 사직야구장',
     homeCity: '부산',
+    food: {
+      bestMenu: '막국수',
+      restaurant: '주문진막국수',
+      location: '구장 밖 정문 (입장 전 필수 코스)'
+    },
     cheerSongUrl: 'https://www.youtube.com/watch?v=n5FY9EBaGWs',
-    uniformStyle: '네이비 & 샴페인 골드',
-    fashion: '항구 도시의 자존심. 클래식한 디자인, 동백 유니폼(빨강)이 인기',
-    meme: '🌊 마! 살아있네! 부산의 낭만 야구! 사직 노래방 오픈! 봉다리 쓰고 미쳐보자! 성적? 상관없다! 우린 기세로 산다!',
-    description: '지구상에서 가장 열정적인 팬덤. 이기면 부산 축제, 지면... (말잇못). 최근 윤동희 등 얼짱 선수들 덕에 여성 팬 급증.',
-    vibe: '"봄데(봄에만 잘함)"는 잊어라. 팬들의 함성은 메이저리그급. 부산 갈매기 떼창 소리 위성에서도 들림.',
-    keywords: ['부산갈매기', '마!', '봉다리', '윤동희얼빠', '사직', '부산'],
+    uniformStyle: '헤리티지 블루 & 짝짝이',
+    fashion: '주황색 비닐봉다리 머리에 쓰는 게 진정한 패션.',
+    meme: '🌊 **"부산 최고 인기팀."** 근데 우승을 너무 오래 못 함(1992년 이후 無). "봄데(봄에만 잘함)" 설레발은 과학. 이기면 부산 전체가 축제.',
+    description: '세계에서 가장 열정적인 팬덤. 사직구장은 거대한 노래방이자 클럽. 성적 안 나오면 팬들이 감독보다 더 무섭게 변함.',
+    vibe: '낭만 그 자체. "마!" 한마디로 정리 가능. 이대호 은퇴 후 새로운 구심점을 찾는 중.',
+    keywords: ['부산갈매기', '마!', '봉다리', '우승기원', '낭만야구', '화력최강'],
     starPlayers: [
-      { name: '윤동희', position: '외야수', description: '사직 아이돌. 야구 실력 + 외모 겸비.' },
-      { name: '전준우', position: '외야수/지명', description: '월드 스타. 롯데의 영원한 캡틴.' },
+      { name: '윤동희', position: '외야수', description: '사직 아이돌. 롯데의 미래이자 현재.' },
+      { name: '전준우', position: '외야수', description: '월드 스타. 롯데 원클럽맨 캡틴.' },
       { name: '박세웅', position: '투수', description: '안경 에이스. 비 오면 더 잘 던지는 레인맨.' }
     ],
     legends: [
-      { name: '최동원', position: '투수', description: '무쇠팔, 부산의 영웅.' },
-      { name: '이대호', position: '내야수', description: '조선의 4번 타자.' },
-      { name: '손아섭', position: '외야수', description: '자이언츠의 악바리 (현 NC).' }
+      { name: '최동원', position: '투수', number: 11, description: '[영구결번] 불멸의 투수. 롯데의 혼.' },
+      { name: '이대호', position: '내야수', number: 10, description: '[영구결번] 조선의 4번 타자. 거인의 자존심.' },
+      { name: '염종석', position: '투수', number: 68, description: '[레전드] 1992 마지막 우승의 주역.' }
     ],
     history: {
       founded: '1982년 (원년)',
       championships: 2,
-      recentAchievements: ['1992년 마지막 우승', '응답하라 1992...'],
-      majorEvents: ['1984 한국시리즈 우승', '1992 한국시리즈 우승', '최고의 팬심']
+      recentAchievements: ['1992년 마지막 우승', '포스트시즌 진출이 목표'],
+      majorEvents: ['1984 기적의 우승', '1992 우승']
     },
-    // 신규 정보
-    officialWebsite: 'https://www.giantsclub.com/',
-    ticketUrl: 'https://www.giantsclub.com/',
-    ticketPlatform: '자체 예매 시스템',
-    transportation: {
-      subway: {
-        line: '2호선',
-        station: '사직역',
-        exit: '5번 출구',
-        walkTime: '도보 3분'
-      },
-      ktx: {
-        station: '부산역',
-        distance: '경기장까지 3km',
-        transport: '버스 or 택시 10분'
-      },
-      parking: '주차 가능 (유료)'
-    },
-    seatPrices: {
-      premium: '27,000원',
-      infield: '12,000원',
-      outfield: '6,000원'
-    },
+    ticketPlatform: '구단 자체 앱',
     personality: {
-      keywords: ['낭만', '열정', '부산', '팬심'],
-      tip: '💡 부산의 심장! 사직 노래방 분위기 최고',
-      bestFor: '열정적이고 낭만적인 야구를 좋아하는 사람'
+      keywords: ['낭만', '열정', '한', '부산'],
+      tip: '💡 사직구장 앞 주문진막국수 한 그릇 하고 들어가서 "부산 갈매기" 떼창하기.',
+      bestFor: '미친듯한 열정과 낭만을 즐기고 싶은 사람'
     }
   },
 
@@ -444,65 +378,52 @@ export const kboTeams: KBOTeam[] = [
   {
     id: 'ssg',
     name: 'SSG 랜더스',
+    sponsor: 'Dynafit',
     englishName: 'SSG Landers',
     color: '#CE0E2D',
     colorScheme: 'warm',
-    mascot: '랜더스 🦁',
-    logo: '🦁',
-    teamPhoto: '/teamphoto/ssg.png',
+    mascot: '랜디 🛸',
+    mascotInfo: {
+      name: '랜디',
+      description: '우주선 타고 온 카네코르소. 근육질 강아지.',
+      imageUrl: '/mascot/ssg-landy.png'
+    },
+    logo: '🛸',
     stadium: '인천 SSG 랜더스필드',
     homeCity: '인천',
+    food: {
+      bestMenu: '물회',
+      restaurant: '민영활어공장',
+      location: '1루 1층 (야구장에서 물회를 먹는 신세계)'
+    },
     cheerSongUrl: 'https://www.youtube.com/watch?v=E39BlC99Tck',
-    uniformStyle: '카리스마틱 레드 & 화이트',
-    fashion: '열정과 깔끔함. 스타벅스 콜라보 유니폼 인기',
-    meme: '🚀 세상에 없던 야구! 인천 상륙 작전! 홈런 공장장 최정과 함께라면 두렵지 않아! 야구장에서 스벅 마시며 홈런 쇼 관람!',
-    description: '스포테인먼트(스포츠+엔터)의 끝판왕. 이마트/노브랜드 버프. 홈런으로 시작해서 홈런으로 끝나는 상남자 야구.',
-    vibe: '인천 야구의 자존심. 맛있는 거 먹으러 야구장 간다. 연안부두 떼창은 인천 아재들의 눈물 버튼.',
-    keywords: ['최정랜더스', '홈런군단', '스타벅스', '연안부두', '이마트', '인천'],
+    uniformStyle: '레드 & 화이트',
+    fashion: '스타벅스 유니폼이 젤 예쁨. 노브랜드 모자 쓰고 직관.',
+    meme: '🚀 **"성적이 중요한 팬덤."** SK 왕조(2007-2012) 시절 눈높이가 높아짐. 못하면 가차 없음. 2021년 신세계 인수 후 마케팅/투자는 1위.',
+    description: '2000년대 후반을 지배한 **SK 왕조**의 후예. 2018년 극적인 업셋 우승과 2022년 KBO 최초 와이어 투 와이어 우승의 저력. 2028-29년 청라 돔구장 이주 예정.',
+    vibe: '세련된 스포테인먼트. 야구장에서 고기 구워 먹고 스벅 마시는 문화. 인천 아재들의 "연안부두" 타임은 눈물 버튼.',
+    keywords: ['SK왕조계승', '와이어투와이어', '청라돔', '홈런공장', '스타벅스', '인천'],
     starPlayers: [
-      { name: '최정', position: '내야수', description: '리빙 레전드. KBO 통산 홈런 1위. 동상 건립 추진 중.' },
-      { name: '김광현', position: '투수', description: '영원한 에이스. 미소 천사.' },
-      { name: '박성한', position: '내야수', description: '랜더스의 소금. 공수주 완벽한 유격수.' }
+      { name: '최정', position: '내야수', description: 'KBO 통산 홈런 1위. SSG의 살아있는 심장(현역).' },
+      { name: '김광현', position: '투수', description: '영원한 에이스. 대한민국 좌완의 자존심.' },
+      { name: '박성한', position: '내야수', description: '랜더스의 소금. 완벽한 유격수.' }
     ],
     legends: [
-      { name: '박경완', position: '포수', description: '포수 조련사.' },
-      { name: '김강민', position: '외야수', description: '짐승 수비 (은퇴).' },
-      { name: '추신수', position: '외야수', description: '메이저리거의 귀환 (2025 은퇴).' }
+      { name: '박경완', position: '포수', number: 26, description: '[영구결번] 포수 최초 20-20. SK 왕조의 안방마님.' },
+      { name: '박정권', position: '내야수', number: 36, description: '[레전드] 가을 사나이. 가을만 되면 신이 되는 남자.' },
+      { name: '김성근', position: '감독', number: 38, description: '[레전드] 야신. SK 왕조를 건설한 명장.' }
     ],
     history: {
-      founded: '2000년 (SK) → 2021년 (SSG)',
+      founded: '2000년(SK) -> 2021년(SSG)',
       championships: 5,
-      recentAchievements: ['2022 와이어 투 와이어 통합 우승', '2021 정규시즌 우승'],
-      majorEvents: ['2007-2010 4연패', '2018 한국시리즈 우승', '2022 한국시리즈 우승']
+      recentAchievements: ['2022 와이어 투 와이어 통합 우승', '2018 업셋 우승'],
+      majorEvents: ['2007-2012 SK 왕조 (6년 연속 코시 진출)', '2028 청라 돔 시대 준비']
     },
-    // 신규 정보
-    officialWebsite: 'https://www.ssglanders.com/',
-    ticketUrl: 'https://ticketlink.co.kr/',
     ticketPlatform: '티켓링크',
-    transportation: {
-      subway: {
-        line: '1호선/수인분당선',
-        station: '인천역/문학경기장역',
-        exit: '1번 출구',
-        walkTime: '도보 5~10분'
-      },
-      ktx: {
-        station: '인천역',
-        distance: '경기장까지 1km',
-        transport: '도보 15분 or 택시 5분'
-      },
-      parking: '주차 가능 (넓음)'
-    },
-    seatPrices: {
-      premium: '32,000원',
-      table: '28,000원',
-      infield: '13,000원',
-      outfield: '7,000원'
-    },
     personality: {
-      keywords: ['럭셔리', '홈런', '스타벅스', '부자구단'],
-      tip: '💡 홈런 군단! 스타벅스 마시며 시원한 장타',
-      bestFor: '화끈한 공격야구와 럭셔리함을 좋아하는 사람'
+      keywords: ['성적', '화끈함', '홈런', '미래지향'],
+      tip: '💡 야구장에서 물회에 소주 한잔? 랜더스필드에선 가능.',
+      bestFor: '화끈한 공격 야구와 최신식 관람 문화를 즐기는 사람'
     }
   },
 
@@ -510,123 +431,106 @@ export const kboTeams: KBOTeam[] = [
   {
     id: 'nc',
     name: 'NC 다이노스',
+    sponsor: 'Reebok',
     englishName: 'NC Dinos',
     color: '#315288',
     colorScheme: 'cool',
     mascot: '공룡 🦕',
+    mascotInfo: {
+      name: '단디/쎄리',
+      description: '단디 해라! 쎄리 라! 이름부터 경상도. 근육질 공룡.',
+      imageUrl: '/mascot/nc-dino.png'
+    },
     logo: '🦕',
-    teamPhoto: '/teamphoto/nc.png',
     stadium: '창원 NC파크',
     homeCity: '창원',
+    food: {
+      bestMenu: '알통떡강정',
+      restaurant: '알통치킨',
+      location: '1층 내야'
+    },
     cheerSongUrl: 'https://www.youtube.com/watch?v=-k1QchhdvAc',
     uniformStyle: '마린 블루 & 골드',
-    fashion: '바다의 푸른빛과 황금의 영광. 세련된 폰트와 디자인',
-    meme: '⚔️ 집행검을 들어라! 거침없이 가자! 데이터 야구의 정수, 스마트한 공룡 군단! 마산 아재의 열정과 최신식 파크의 조화!',
-    description: '게임 회사 구단답게 이벤트가 화려함. 팬덤은 조용하지만 화나면 무서움(마산 아재). 뷰가 제일 좋은 야구장 보유.',
-    vibe: '정의, 명예, 존중(Justice, Honor, Respect). 근데 팬들은 "단디 해라!" 하나면 통함. IT 기업 구단답게 데이터를 중시함.',
-    keywords: ['집행검', '단디쎄리', '마산아재', '창원NC파크', 'IT야구', '창원'],
+    fashion: '골드 포인트가 들어간 유니폼이 고급짐.',
+    meme: '⚔️ **"2020 코로나 우승의 추억."** 집행검 들어 올리는 세리머니는 전설. IT 기업 구단이라 데이터 야구에 능함. 구장이 메이저급으로 좋음.',
+    description: '역사는 짧지만 임팩트는 강함. **양의지, 나성범, 테임즈** 등 거쳐 간 레전드들이 화려함. 창원 NC파크는 KBO 최고의 뷰와 시설을 자랑.',
+    vibe: '아기자기하고 가족적인 분위기 + 마산 아재들의 화끈함이 공존. 쾌적한 야구 관람의 끝판왕.',
+    keywords: ['집행검', '데이터야구', '최신식구장', '테임즈', '엔팍', '창원'],
     starPlayers: [
-      { name: '박건우', position: '외야수', description: '안타 제조기. 창원 아이돌. 꾸준함의 대명사.' },
-      { name: '김주원', position: '내야수', description: '스위치 히터 유격수. 국대 주전.' },
-      { name: '김형준', position: '포수', description: '공룡 군단의 안방마님. 한 방 있는 포수.' }
+      { name: '박건우', position: '외야수', description: '꾸준함의 대명사. 엔팍의 아이돌.' },
+      { name: '김주원', position: '내야수', description: '국가대표 유격수. 스위치 히터.' },
+      { name: '데이비슨', position: '내야수', description: '테임즈의 향수를 불러일으키는 거포 외인.' }
     ],
     legends: [
-      { name: '나성범', position: '외야수', description: '창단 프랜차이즈 (현 KIA).' },
-      { name: '에릭 테임즈', position: '내야수', description: 'KBO 폭격기, 신.' },
-      { name: '양의지', position: '포수', description: '우승 청부사 (현 두산).' }
+      { name: '나성범', position: '외야수', number: 47, description: '[레전드] 창단 프랜차이즈 스타 (현 KIA).' },
+      { name: '에릭 테임즈', position: '내야수', number: 47, description: '[레전드] KBO 생태계 파괴자. 40-40 클럽의 신.' },
+      { name: '양의지', position: '포수', number: 25, description: '[레전드] 2020 우승의 주역 (집행검 군주).' },
+      { name: '이호준', position: '내야수', number: 27, description: '[레전드] NC의 맏형이자 인생 멘토.' }
     ],
     history: {
       founded: '2011년 (9구단)',
       championships: 1,
-      recentAchievements: ['2020 통합 우승 (집행검 들어올림)', '2019 준우승'],
-      majorEvents: ['2015년 첫 포스트시즌', '2020 정규시즌 우승', '2020 한국시리즈 우승']
+      recentAchievements: ['2020 통합 우승', '2023 포스트시즌 돌풍'],
+      majorEvents: ['2020 첫 우승(집행검)', '창원 NC파크 개장']
     },
-    // 신규 정보
-    officialWebsite: 'https://www.ncdinos.com/',
-    ticketUrl: 'https://www.ncdinos.com/',
-    ticketPlatform: '자체 예매 시스템',
-    transportation: {
-      ktx: {
-        station: '창원중앙역',
-        distance: '경기장까지 5km',
-        transport: '버스 or 택시 15분'
-      },
-      parking: '주차 가능 (최신 시설)'
-    },
-    seatPrices: {
-      premium: '29,000원',
-      infield: '12,000원',
-      outfield: '6,000원'
-    },
+    ticketPlatform: '구단 자체 앱',
     personality: {
-      keywords: ['세련됨', '데이터', '신생팀', 'IT'],
-      tip: '💡 최신 시설의 세련된 야구! 데이터 기반 스마트함',
-      bestFor: '세련되고 새로운 것을 좋아하는 사람'
+      keywords: ['세련됨', '시설', '데이터', '추억'],
+      tip: '💡 최신식 구장에서 쾌적하게 알통떡강정 먹으며 야구 보기.',
+      bestFor: '쾌적한 환경과 데이터 기반의 스마트한 야구를 좋아하는 사람'
     }
   },
 
-  // 🧙‍♂️ kt wiz
+  // 🧙♂️ KT 위즈
   {
     id: 'kt',
     name: 'KT 위즈',
+    sponsor: 'New Balance',
     englishName: 'KT Wiz',
     color: '#000000',
     colorScheme: 'neutral',
     mascot: '마법사 🧙',
+    mascotInfo: {
+      name: '빅/또리',
+      description: '검은색 털뭉치 몬스터. 은근히 귀여움.',
+      imageUrl: '/mascot/kt-vicddory.png'
+    },
     logo: '🧙‍♂️',
-    teamPhoto: '/teamphoto/kt.png',
     stadium: '수원 KT 위즈파크',
     homeCity: '수원',
+    food: {
+      bestMenu: '만두 & 쫄면',
+      restaurant: '보영만두',
+      location: '3루 내야 (수원의 명물)'
+    },
     cheerSongUrl: 'https://www.youtube.com/watch?v=TiZOu5M3Zdk',
-    uniformStyle: '블랙 & 빅토리 레드',
-    fashion: '강인함과 마법의 신비로움. 검정색 간지, 마법사 로고',
-    meme: '🔮 마법 같은 역전승! 수원 거포 군단! 봄에는 꼴찌, 가을에는 우승? 롤러코스터! 수원 화성처럼 단단한 마법사들의 요새!',
-    description: '강백호 이적(한화) 후 "팀 KT"로 똘똘 뭉침. 여름만 되면 승률이 급상승하는 "여름성" 기질.',
-    vibe: '10구단의 반란. 마법은 끝나지 않았다. 야구장 앞 진미통닭과 보영만두가 본체라는 설이 있음.',
-    keywords: ['여름성', '마법사', '워터페스티벌', '진미통닭', '수원', '롤러코스터'],
+    uniformStyle: '올 블랙 (간지)',
+    fashion: '뉴발란스 스폰서. 올 블랙 유니폼은 일상복으로 입어도 될 만큼 시크함.',
+    meme: '🔮 **"여름성 2."** 여름만 되면 마법같이 치고 올라감. 2021년 우승으로 막내 구단 티 벗음. 야구장 앞 진미통닭/보영만두가 본체.',
+    description: '가장 늦게 생긴 막내지만 형들 다 이기고 다님. 탄탄한 선발 야구. 2026년 김현수(LG->KT) 영입 등 베테랑 수집가.',
+    vibe: '끈끈함. 화려한 스타 플레이어보다는 팀워크로 승부함. 워터 페스티벌 등 이벤트 맛집.',
+    keywords: ['마법사', '언더독', '여름성', '통닭', '수원', '강철매직'],
     starPlayers: [
-      { name: '고영표', position: '투수', description: '체인지업 마스터. 퀄리티 스타트 제조기.' },
-      { name: '박영현', position: '투수', description: '돌직구 마무리. 9회 삭제 마법사.' },
-      { name: '배정대', position: '외야수', description: '끝내기의 사나이. 위기에 강함.' }
+      { name: '고영표', position: '투수', description: '국가대표 잠수함. 퀄리티 스타트 제조기.' },
+      { name: '박영현', position: '투수', description: 'KBO 최고의 마무리. 돌직구 마법사.' },
+      { name: '안현민', position: '외야수', description: 'KT의 고릴라.' }
     ],
     legends: [
-      { name: '유한준', position: '외야수', description: '소리 없이 강한 남자.' },
-      { name: '박경수', position: '내야수', description: '수원 거포, 2루수 수비 장인.' },
-      { name: '황재균', position: '내야수', description: '창단 첫 우승의 주역.' }
+      { name: '박경수', position: '내야수', number: 6, description: '[준영구결번] 수원 거포. 2021 우승 캡틴. KT의 정신적 지주.' },
+      { name: '강백호', position: '내야수', number: 50, description: '[레전드] 창단 첫 우승 주역. KT의 천재 타자 (현 한화).' },
+      { name: '유한준', position: '외야수', number: 61, description: '[레전드] 소리 없이 강한 남자.' }
     ],
     history: {
-      founded: '2013년 (10구단, 막내)',
+      founded: '2013년 (10구단)',
       championships: 1,
-      recentAchievements: ['2021 통합 우승', '2024 정규시즌 2위'],
-      majorEvents: ['2015년 첫 포스트시즌', '2021 한국시리즈 우승', '신생팀의 기적']
+      recentAchievements: ['2021 통합 우승', '4년 연속 포스트시즌'],
+      majorEvents: ['2021 창단 첫 우승', '마법 같은 역전극']
     },
-    // 신규 정보
-    officialWebsite: 'https://www.ktwiz.co.kr/',
-    ticketUrl: 'https://ticketlink.co.kr/',
     ticketPlatform: '티켓링크',
-    transportation: {
-      subway: {
-        line: '1호선/수인분당선',
-        station: '수원역',
-        exit: '8번 출구',
-        walkTime: '버스 10분 or 택시 10분'
-      },
-      ktx: {
-        station: '수원역',
-        distance: '경기장까지 4km',
-        transport: '버스 or 택시'
-      },
-      parking: '주차 가능'
-    },
-    seatPrices: {
-      premium: '30,000원',
-      infield: '12,000원',
-      outfield: '7,000원'
-    },
     personality: {
-      keywords: ['마법', '역전', '언더독', '여름성'],
-      tip: '💡 마법 같은 역전극! 롤러코스터 즐기기',
-      bestFor: '드라마틱한 반전과 언더독을 응원하는 사람'
+      keywords: ['팀워크', '이벤트', '먹거리', '반전'],
+      tip: '💡 보영만두의 군만두+쫄면 조합은 진리. 진미통닭도 잊지 말 것.',
+      bestFor: '팀워크 중심의 야구와 다양한 이벤트를 즐기는 사람'
     }
   }
 ];

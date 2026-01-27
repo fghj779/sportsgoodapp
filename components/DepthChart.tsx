@@ -167,12 +167,6 @@ export default function DepthChart({ depthChart, teamColor, teamName }: DepthCha
                         )}
                     </div>
                 </motion.div>
-
-                {/* 범례 */}
-                <div className="text-xs text-gray-500 bg-gray-50 rounded-lg p-3">
-                    <p className="font-semibold mb-1">📌 범례</p>
-                    <p>🇺🇸 미국 | 🇩🇴 도미니카 | 🇻🇪 베네수엘라 | 🇨🇦 캐나다 | 🇵🇦 파나마 | 🇦🇺 호주 | 🇹🇼 대만 | 🇯🇵 일본 | (AQ) 아시아쿼터</p>
-                </div>
             </div>
         </Card>
     );

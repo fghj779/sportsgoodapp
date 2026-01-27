@@ -7,13 +7,30 @@ import Card from '@/components/Card';
 import BaseballAnimation from '@/components/BaseballAnimation';
 import { kboTeams } from '@/data/teams';
 import { Sparkles, Mail, BookOpen, X } from 'lucide-react';
+import BaseballRules from '@/components/BaseballRules';
 import { useState } from 'react';
+
+// 팀 기본 정보 데이터
+const teamBasicInfo: Record<string, { founded: string; wins: string; lastWin: string }> = {
+  kia: { founded: '1982', wins: '12회', lastWin: '2024' },
+  samsung: { founded: '1982', wins: '8회', lastWin: '2014' },
+  doosan: { founded: '1982', wins: '6회', lastWin: '2019' },
+  ssg: { founded: '2000', wins: '5회', lastWin: '2022' },
+  lg: { founded: '1982', wins: '4회', lastWin: '2025' },
+  lotte: { founded: '1982', wins: '2회', lastWin: '1992' },
+  hanwha: { founded: '1986', wins: '1회', lastWin: '1999' },
+  nc: { founded: '2011', wins: '1회', lastWin: '2020' },
+  kt: { founded: '2013', wins: '1회', lastWin: '2021' },
+  kiwoom: { founded: '2008', wins: '0회', lastWin: '-' },
+};
 
 export default function Home() {
   const router = useRouter();
   const [showRules, setShowRules] = useState(false);
   const [showContact, setShowContact] = useState(false);
-  const [showTeamTable, setShowTeamTable] = useState(false);
+  const [selectedTeam, setSelectedTeam] = useState<string | null>(null);
+
+  const selectedTeamData = selectedTeam ? kboTeams.find(t => t.id === selectedTeam) : null;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-50 to-blue-100 py-12 px-4">
@@ -69,7 +86,7 @@ export default function Home() {
           </Button>
         </motion.div>
 
-        {/* 야구룰 유튜브 영상 */}
+        {/* 야구룰 가이드 - 영상 + 설명 같이 */}
         <AnimatePresence>
           {showRules && (
             <motion.div
@@ -77,11 +94,12 @@ export default function Home() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="overflow-hidden"
+              className="overflow-hidden space-y-6"
             >
+              {/* 유튜브 영상 */}
               <Card>
                 <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-2xl font-bold text-gray-800">⚾ 야구 룰 기초!</h2>
+                  <h2 className="text-2xl font-bold text-gray-800">🎬 3분만에 배우는 야구!</h2>
                   <button
                     onClick={() => setShowRules(false)}
                     className="p-2 hover:bg-gray-100 rounded-full transition-colors"
@@ -102,94 +120,127 @@ export default function Home() {
                   />
                 </div>
                 <p className="text-center text-sm text-gray-500 mt-3">
-                  🎬 야구가 처음이라면 이 영상부터 시작해보세요!
+                  🎧 영상을 보며 야구 기본 룰을 익혀보세요!
                 </p>
               </Card>
+
+              {/* 기존 야구룰 텍스트 설명 */}
+              <BaseballRules />
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* 10개 구단 미리보기 (테이블 토글) */}
+        {/* 10개 구단 버튼 - 클릭시 해당 팀 정보 표시 */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8 }}
         >
           <Card>
-            <button
-              onClick={() => setShowTeamTable(!showTeamTable)}
-              className="w-full flex items-center justify-center gap-2 mb-4 hover:opacity-80 transition-opacity"
-            >
+            <div className="flex items-center justify-center gap-2 mb-6">
               <span className="text-2xl">⚾</span>
               <h2 className="text-2xl font-bold text-gray-800">
                 구단 먼저 알아보기
               </h2>
-              <span className="text-xl">{showTeamTable ? '▼' : '▶'}</span>
-            </button>
-
-            <AnimatePresence>
-              {showTeamTable && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="overflow-hidden"
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+              {kboTeams.map((team, idx) => (
+                <motion.button
+                  key={team.id}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.9 + idx * 0.05 }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setSelectedTeam(team.id)}
+                  className="p-4 rounded-xl bg-gradient-to-br from-white to-gray-50 border-2 border-gray-100 hover:border-pink-300 transition-all"
                 >
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-sm">
-                      <thead>
-                        <tr className="bg-gradient-to-r from-pink-100 to-purple-100">
-                          <th className="px-3 py-2 text-left font-bold text-gray-700">구단명</th>
-                          <th className="px-3 py-2 text-center font-bold text-gray-700">창단</th>
-                          <th className="px-3 py-2 text-center font-bold text-gray-700">우승</th>
-                          <th className="px-3 py-2 text-center font-bold text-gray-700">최근 우승</th>
-                          <th className="px-3 py-2 text-center font-bold text-gray-700">연고지</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {[
-                          { name: 'KIA 타이거즈', emoji: '🐯', founded: '1982', wins: '12회', lastWin: '2024', city: '광주' },
-                          { name: '삼성 라이온즈', emoji: '🦁', founded: '1982', wins: '8회', lastWin: '2014', city: '대구' },
-                          { name: '두산 베어스', emoji: '🐻', founded: '1982', wins: '6회', lastWin: '2019', city: '서울' },
-                          { name: 'SSG 랜더스', emoji: '🛸', founded: '2000', wins: '5회', lastWin: '2022', city: '인천' },
-                          { name: 'LG 트윈스', emoji: '⚾', founded: '1982', wins: '4회', lastWin: '2025', city: '서울' },
-                          { name: '롯데 자이언츠', emoji: '⚓', founded: '1982', wins: '2회', lastWin: '1992', city: '부산' },
-                          { name: '한화 이글스', emoji: '🦅', founded: '1986', wins: '1회', lastWin: '1999', city: '대전' },
-                          { name: 'NC 다이노스', emoji: '🦕', founded: '2011', wins: '1회', lastWin: '2020', city: '창원' },
-                          { name: 'KT 위즈', emoji: '🧙', founded: '2013', wins: '1회', lastWin: '2021', city: '수원' },
-                          { name: '키움 히어로즈', emoji: '🦸', founded: '2008', wins: '0회', lastWin: '-', city: '서울' },
-                        ].map((team, idx) => (
-                          <tr
-                            key={team.name}
-                            className={idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
-                          >
-                            <td className="px-3 py-2 font-medium whitespace-nowrap">
-                              <span className="mr-1">{team.emoji}</span>
-                              {team.name}
-                            </td>
-                            <td className="px-3 py-2 text-center text-gray-600">{team.founded}</td>
-                            <td className="px-3 py-2 text-center font-semibold text-pink-600">{team.wins}</td>
-                            <td className="px-3 py-2 text-center text-gray-600">{team.lastWin}</td>
-                            <td className="px-3 py-2 text-center text-gray-600">{team.city}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                  <div className="text-center">
+                    <div className="text-4xl mb-2">{team.logo}</div>
+                    <div className="text-sm font-bold text-gray-800">
+                      {team.name}
+                    </div>
                   </div>
-                  <p className="text-center text-xs text-gray-400 mt-3">
-                    * KIA 타이거즈가 최다 12회 우승으로 KBO 리그 최강! 🏆
-                  </p>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {!showTeamTable && (
-              <p className="text-center text-sm text-gray-400">
-                👆 클릭하면 10개 구단 정보를 한눈에 볼 수 있어요!
-              </p>
-            )}
+                </motion.button>
+              ))}
+            </div>
+            <p className="text-center text-sm text-gray-400 mt-4">
+              👆 각 구단을 클릭해서 기본 정보를 확인해보세요!
+            </p>
           </Card>
         </motion.div>
+
+        {/* 팀 정보 팝업 모달 */}
+        <AnimatePresence>
+          {selectedTeam && selectedTeamData && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+              onClick={() => setSelectedTeam(null)}
+            >
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-2xl"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <span className="text-4xl">{selectedTeamData.logo}</span>
+                    <h3 className="text-xl font-bold text-gray-800">{selectedTeamData.name}</h3>
+                  </div>
+                  <button
+                    onClick={() => setSelectedTeam(null)}
+                    className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                  >
+                    <X size={20} className="text-gray-500" />
+                  </button>
+                </div>
+
+                {/* 팀 기본 정보 테이블 */}
+                <div className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl p-4 space-y-3">
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">📅 창단</span>
+                    <span className="font-semibold text-gray-800">{teamBasicInfo[selectedTeam].founded}년</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">🏆 우승</span>
+                    <span className="font-semibold text-pink-600">{teamBasicInfo[selectedTeam].wins}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">🥇 최근 우승</span>
+                    <span className="font-semibold text-gray-800">{teamBasicInfo[selectedTeam].lastWin}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">📍 연고지</span>
+                    <span className="font-semibold text-gray-800">{selectedTeamData.homeCity}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">🎭 마스코트</span>
+                    <span className="font-semibold text-gray-800">{selectedTeamData.mascot}</span>
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => {
+                    const params = new URLSearchParams({
+                      teamId: selectedTeam,
+                      compatibility: '95',
+                      message: encodeURIComponent(`${selectedTeamData.name}에 대해 더 알아보세요! 💕`)
+                    });
+                    router.push(`/result?${params.toString()}`);
+                  }}
+                  className="w-full mt-4 px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-500 text-white font-semibold rounded-xl hover:from-pink-600 hover:to-purple-600 transition-all shadow-lg"
+                >
+                  📚 더 자세히 알아보기
+                </button>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* 제휴문의 작은 버튼 */}
         <motion.div
