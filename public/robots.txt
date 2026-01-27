@@ -1,0 +1,11 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+Allow: /ads.txt
+
+# Google AdSense
+User-agent: Mediapartners-Google
+Allow: /
+
+# Sitemap (optional)
+Sitemap: https://sportsgoodapp.vercel.app/sitemap.xml
