@@ -1,18 +1,21 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { MatchResult } from '@/types';
 import Button from '@/components/Button';
 import Card from '@/components/Card';
 import BaseballRules from '@/components/BaseballRules';
-import { Share2, Home, RotateCcw, Heart, MapPin, Shirt, Music, Trophy, Star, Users, History, Palette } from 'lucide-react';
+import { Share2, Home, RotateCcw, Heart, MapPin, Shirt, Music, Trophy, Star, Users, History, Palette, Download, Camera } from 'lucide-react';
+import html2canvas from 'html2canvas';
 
 export default function ResultPage() {
   const router = useRouter();
   const [result, setResult] = useState<MatchResult | null>(null);
   const [showRules, setShowRules] = useState(false);
+  const [isCapturing, setIsCapturing] = useState(false);
+  const captureRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const savedResult = localStorage.getItem('matchResult');
@@ -47,6 +50,73 @@ export default function ResultPage() {
     router.push('/quiz');
   };
 
+  const handleDownloadImage = async () => {
+    if (!captureRef.current || !result) return;
+
+    setIsCapturing(true);
+    try {
+      const canvas = await html2canvas(captureRef.current, {
+        backgroundColor: '#f3e8ff',
+        scale: 2,
+        logging: false,
+        useCORS: true,
+      });
+
+      const link = document.createElement('a');
+      link.download = `KBO-TI_${result.team.name}_결과.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    } catch (error) {
+      console.error('이미지 저장 실패:', error);
+      alert('이미지 저장에 실패했습니다. 다시 시도해주세요.');
+    } finally {
+      setIsCapturing(false);
+    }
+  };
+
+  const handleShareAsImage = async () => {
+    if (!captureRef.current || !result) return;
+
+    setIsCapturing(true);
+    try {
+      const canvas = await html2canvas(captureRef.current, {
+        backgroundColor: '#f3e8ff',
+        scale: 2,
+        logging: false,
+        useCORS: true,
+      });
+
+      canvas.toBlob(async (blob) => {
+        if (!blob) return;
+
+        const file = new File([blob], `KBO-TI_${result.team.name}.png`, { type: 'image/png' });
+
+        if (navigator.share && navigator.canShare({ files: [file] })) {
+          try {
+            await navigator.share({
+              title: `나는 ${result.team.name} 팬!`,
+              text: `KBO-TI로 내 운명의 야구팀을 찾았어요! 궁합도 ${result.compatibility}%`,
+              files: [file],
+            });
+          } catch (err) {
+            console.log('공유 취소됨');
+          }
+        } else {
+          // Web Share API를 지원하지 않으면 다운로드
+          const link = document.createElement('a');
+          link.download = `KBO-TI_${result.team.name}_결과.png`;
+          link.href = canvas.toDataURL('image/png');
+          link.click();
+        }
+      });
+    } catch (error) {
+      console.error('이미지 공유 실패:', error);
+      alert('이미지 공유에 실패했습니다. 다시 시도해주세요.');
+    } finally {
+      setIsCapturing(false);
+    }
+  };
+
   if (!result) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-50 to-blue-100 flex items-center justify-center">
@@ -71,6 +141,7 @@ export default function ResultPage() {
       <div className="max-w-4xl mx-auto space-y-6">
         {/* 메인 결과 카드 */}
         <motion.div
+          ref={captureRef}
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
@@ -399,34 +470,71 @@ export default function ResultPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.8 }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-4"
+          className="space-y-4"
         >
-          <Button
-            variant="primary"
-            onClick={handleShare}
-            className="flex items-center justify-center gap-2"
-          >
-            <Share2 size={20} />
-            <span>결과 공유하기</span>
-          </Button>
-          
-          <Button
-            variant="secondary"
-            onClick={handleRetry}
-            className="flex items-center justify-center gap-2"
-          >
-            <RotateCcw size={20} />
-            <span>다시 해보기</span>
-          </Button>
-          
-          <Button
-            variant="secondary"
-            onClick={() => router.push('/')}
-            className="flex items-center justify-center gap-2"
-          >
-            <Home size={20} />
-            <span>홈으로</span>
-          </Button>
+          {/* 공유 버튼들 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Button
+              variant="primary"
+              onClick={handleShareAsImage}
+              disabled={isCapturing}
+              className="flex items-center justify-center gap-2"
+            >
+              <Camera size={20} />
+              <span>{isCapturing ? '이미지 생성 중...' : '이미지로 공유하기 📸'}</span>
+            </Button>
+            
+            <Button
+              variant="primary"
+              onClick={handleDownloadImage}
+              disabled={isCapturing}
+              className="flex items-center justify-center gap-2 bg-gradient-to-r from-purple-400 to-purple-500 hover:from-purple-500 hover:to-purple-600"
+            >
+              <Download size={20} />
+              <span>{isCapturing ? '저장 중...' : '이미지 저장하기 💾'}</span>
+            </Button>
+          </div>
+
+          {/* 기본 버튼들 */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Button
+              variant="secondary"
+              onClick={handleShare}
+              className="flex items-center justify-center gap-2"
+            >
+              <Share2 size={20} />
+              <span>텍스트 공유</span>
+            </Button>
+            
+            <Button
+              variant="secondary"
+              onClick={handleRetry}
+              className="flex items-center justify-center gap-2"
+            >
+              <RotateCcw size={20} />
+              <span>다시 해보기</span>
+            </Button>
+            
+            <Button
+              variant="secondary"
+              onClick={() => router.push('/')}
+              className="flex items-center justify-center gap-2"
+            >
+              <Home size={20} />
+              <span>홈으로</span>
+            </Button>
+          </div>
+
+          {/* 안내 메시지 */}
+          <Card className="bg-gradient-to-r from-pink-50 to-purple-50">
+            <div className="text-center text-sm text-gray-600">
+              <p className="font-semibold mb-2">💡 SNS 공유 TIP</p>
+              <p className="text-xs leading-relaxed">
+                <span className="font-medium text-pink-600">이미지로 공유하기</span>: 카카오톡, 인스타 스토리에 바로 공유<br/>
+                <span className="font-medium text-purple-600">이미지 저장하기</span>: 갤러리에 저장 후 자유롭게 업로드
+              </p>
+            </div>
+          </Card>
         </motion.div>
 
         {/* 푸터 메시지 */}
