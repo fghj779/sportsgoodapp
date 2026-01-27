@@ -23,8 +23,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
-      <body className={`${notoSansKR.variable} antialiased`}>
+    <html lang="ko" suppressHydrationWarning>
+      <body className={`${notoSansKR.variable} antialiased`} suppressHydrationWarning>
         {children}
       </body>
     </html>
