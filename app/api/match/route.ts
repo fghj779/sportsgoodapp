@@ -36,17 +36,22 @@ export async function POST(request: NextRequest) {
 재치있고 귀엽게, 밈과 문화를 활용해서 설명해줘.
 반말로 친근하게 대해주되, 존중하는 태도를 유지해.
 
-KBO 10개 구단:
-1. 두산 베어스 (doosan) - 명문, 역전의 DNA, 클래식
-2. LG 트윈스 (lg) - 2023 우승, 열정, 트렌디, 힙
-3. KT 위즈 (kt) - 신생팀, 마법사, 2021 우승, 쿨함
-4. SSG 랜더스 (ssg) - 2022 우승, 럭셔리, 부자 구단
-5. NC 다이노스 (nc) - 공룡, 파워, 경상도 열정
-6. 키움 히어로즈 (kiwoom) - 히어로, 서울, 실내 구장, 고급
-7. 삼성 라이온즈 (samsung) - 최다 우승(8회), 명가, 대구 자부심
-8. 롯데 자이언츠 (lotte) - 부산 자부심, 최고 팬심, 우승은 못해도 사랑은 1등
-9. 한화 이글스 (hanwha) - 해탈의 경지, 인내심, 기다림의 미학
-10. KIA 타이거즈 (kia) - 2024 우승, 호랑이, 열정, 광주`
+KBO 10개 구단 (색깔 계열 포함):
+1. LG 트윈스 (lg) - 빨강/레드, 2023 우승, 열정, 트렌디, 힙, 따뜻한 색
+2. KIA 타이거즈 (kia) - 빨강/레드, 2024 우승, 호랑이, 열정, 광주, 따뜻한 색
+3. 두산 베어스 (doosan) - 네이비/파랑, 명문, 역전의 DNA, 클래식, 차가운 색
+4. SSG 랜더스 (ssg) - 빨강/레드, 2022 우승, 럭셔리, 부자 구단, 따뜻한 색
+5. KT 위즈 (kt) - 블랙/검정, 신생팀, 마법사, 2021 우승, 쿨함, 중립 색
+6. 삼성 라이온즈 (samsung) - 블루/파랑, 최다 우승(8회), 명가, 대구, 차가운 색
+7. NC 다이노스 (nc) - 네이비/파랑, 공룡, 파워, 경상도 열정, 차가운 색
+8. 키움 히어로즈 (kiwoom) - 버건디/레드, 히어로, 서울, 실내 구장, 따뜻한 색
+9. 롯데 자이언츠 (lotte) - 네이비/파랑, 부산 자부심, 최고 팬심, 차가운 색
+10. 한화 이글스 (hanwha) - 오렌지/주황, 해탈의 경지, 인내심, 따뜻한 색
+
+**중요**: 사용자의 색깔 선호도를 반드시 고려해서 매칭하세요!
+- 따뜻한 색 선호 → 빨강/레드/오렌지 계열 팀 우선
+- 차가운 색 선호 → 파랑/네이비 계열 팀 우선
+- 베이직 컬러 선호 → 블랙/네이비 같은 차분한 팀`
         },
         {
           role: "user",
@@ -145,9 +150,31 @@ function analyzeAnswers(answers: Answer[]): string {
   const aCount = answers.filter(a => a.selected === 'A').length;
   const bCount = answers.filter(a => a.selected === 'B').length;
   
+  // 색깔 관련 질문 분석 (질문 10, 15번)
+  const colorQ10 = answers.find(a => a.questionId === 10);
+  const colorQ15 = answers.find(a => a.questionId === 15);
+  
+  let colorPreference = '';
+  if (colorQ10?.selected === 'A') {
+    colorPreference = '따뜻한 색 (빨강, 주황, 분홍) 선호';
+  } else if (colorQ10?.selected === 'B') {
+    colorPreference = '차가운 색 (파랑, 보라, 초록) 선호';
+  }
+  
+  let wardrobeStyle = '';
+  if (colorQ15?.selected === 'A') {
+    wardrobeStyle = '화려하고 밝은 컬러 선호';
+  } else if (colorQ15?.selected === 'B') {
+    wardrobeStyle = '베이직하고 차분한 컬러 선호';
+  }
+  
   let profile = `총 20개 질문 중:\n`;
   profile += `- A 선택: ${aCount}개 (적극적, 외향적, 트렌디, 열정적 성향)\n`;
   profile += `- B 선택: ${bCount}개 (신중함, 내향적, 클래식, 차분한 성향)\n\n`;
+  
+  profile += `색깔 선호도:\n`;
+  profile += `- ${colorPreference}\n`;
+  profile += `- ${wardrobeStyle}\n\n`;
   
   if (aCount > 15) {
     profile += '매우 외향적이고 열정적인 스타일. 트렌디하고 힙한 것을 좋아함.';

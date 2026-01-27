@@ -6,11 +6,13 @@ import { useRouter } from 'next/navigation';
 import { MatchResult } from '@/types';
 import Button from '@/components/Button';
 import Card from '@/components/Card';
-import { Share2, Home, RotateCcw, Heart, MapPin, Shirt, Music } from 'lucide-react';
+import BaseballRules from '@/components/BaseballRules';
+import { Share2, Home, RotateCcw, Heart, MapPin, Shirt, Music, Trophy, Star, Users, History, Palette } from 'lucide-react';
 
 export default function ResultPage() {
   const router = useRouter();
   const [result, setResult] = useState<MatchResult | null>(null);
+  const [showRules, setShowRules] = useState(false);
 
   useEffect(() => {
     const savedResult = localStorage.getItem('matchResult');
@@ -35,7 +37,6 @@ export default function ResultPage() {
         console.log('공유 취소됨');
       }
     } else {
-      // 클립보드에 복사
       navigator.clipboard.writeText(shareText);
       alert('결과가 클립보드에 복사되었어요! 📋');
     }
@@ -75,7 +76,6 @@ export default function ResultPage() {
           transition={{ duration: 0.5 }}
         >
           <Card className="text-center space-y-6 relative overflow-hidden">
-            {/* 배경 장식 */}
             <div className="absolute top-0 left-0 w-full h-2" style={{ backgroundColor: team.color }} />
             
             <motion.div
@@ -132,15 +132,154 @@ export default function ResultPage() {
           </Card>
         </motion.div>
 
-        {/* 팀 상세 정보 */}
+        {/* 팀 분위기 & 컬러 */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.9 }}
         >
           <Card>
+            <div className="flex items-center gap-3 mb-4">
+              <Palette className="text-purple-500" size={28} />
+              <h2 className="text-2xl font-bold text-gray-800">팀 컬러 & 분위기</h2>
+            </div>
+            <div className="space-y-4">
+              <div className="flex items-center gap-4">
+                <div 
+                  className="w-20 h-20 rounded-full shadow-lg"
+                  style={{ backgroundColor: team.color }}
+                />
+                <div>
+                  <p className="font-semibold text-gray-800 mb-1">{team.uniformStyle}</p>
+                  <p className="text-gray-600 text-sm">{team.fashion}</p>
+                </div>
+              </div>
+              <div className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl p-4">
+                <p className="text-gray-700">{team.vibe}</p>
+              </div>
+            </div>
+          </Card>
+        </motion.div>
+
+        {/* 스타 플레이어 */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.0 }}
+        >
+          <Card>
+            <div className="flex items-center gap-3 mb-4">
+              <Star className="text-yellow-500" size={28} fill="currentColor" />
+              <h2 className="text-2xl font-bold text-gray-800">현재 스타 플레이어</h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {team.starPlayers.map((player, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 1.1 + idx * 0.1 }}
+                  className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-4"
+                >
+                  <div className="text-3xl mb-2">⭐</div>
+                  <h3 className="font-bold text-gray-800 text-lg">{player.name}</h3>
+                  <p className="text-sm text-purple-600 mb-2">{player.position}</p>
+                  <p className="text-sm text-gray-600">{player.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </Card>
+        </motion.div>
+
+        {/* 레전드 선수 */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.2 }}
+        >
+          <Card>
+            <div className="flex items-center gap-3 mb-4">
+              <Trophy className="text-amber-500" size={28} />
+              <h2 className="text-2xl font-bold text-gray-800">레전드 선수</h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {team.legends.map((legend, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 1.3 + idx * 0.1 }}
+                  className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl p-4"
+                >
+                  <div className="text-3xl mb-2">🏆</div>
+                  <h3 className="font-bold text-gray-800 text-lg">{legend.name}</h3>
+                  <p className="text-sm text-amber-600 mb-2">{legend.position}</p>
+                  <p className="text-sm text-gray-600">{legend.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </Card>
+        </motion.div>
+
+        {/* 팀 역사 */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.4 }}
+        >
+          <Card>
+            <div className="flex items-center gap-3 mb-4">
+              <History className="text-indigo-500" size={28} />
+              <h2 className="text-2xl font-bold text-gray-800">팀 역사</h2>
+            </div>
+            <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-indigo-50 rounded-xl p-4 text-center">
+                  <p className="text-sm text-indigo-600 mb-1">창단</p>
+                  <p className="text-2xl font-bold text-gray-800">{team.history.founded}</p>
+                </div>
+                <div className="bg-pink-50 rounded-xl p-4 text-center">
+                  <p className="text-sm text-pink-600 mb-1">우승 횟수</p>
+                  <p className="text-2xl font-bold text-gray-800">{team.history.championships}회</p>
+                </div>
+              </div>
+              
+              <div>
+                <h3 className="font-semibold text-gray-800 mb-2">최근 성적</h3>
+                <ul className="space-y-2">
+                  {team.history.recentAchievements.map((achievement, idx) => (
+                    <li key={idx} className="flex items-center gap-2 text-gray-700">
+                      <span className="text-pink-500">•</span>
+                      {achievement}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-gray-800 mb-2">주요 이벤트</h3>
+                <ul className="space-y-2">
+                  {team.history.majorEvents.map((event, idx) => (
+                    <li key={idx} className="flex items-center gap-2 text-gray-700">
+                      <span className="text-purple-500">•</span>
+                      {event}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </Card>
+        </motion.div>
+
+        {/* 기존 팀 상세 정보 */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.5 }}
+        >
+          <Card>
             <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
-              {team.name} 자세히 알아보기 📚
+              더 알아보기 📚
             </h2>
 
             <div className="space-y-6">
@@ -198,7 +337,7 @@ export default function ResultPage() {
                       key={keyword}
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 1 + index * 0.1 }}
+                      transition={{ delay: 1.6 + index * 0.1 }}
                       className="px-4 py-2 bg-gradient-to-r from-pink-100 to-purple-100 text-gray-700 rounded-full text-sm font-medium"
                     >
                       #{keyword}
@@ -210,11 +349,43 @@ export default function ResultPage() {
           </Card>
         </motion.div>
 
+        {/* 야구 룰 가이드 */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.7 }}
+        >
+          <Card className="bg-gradient-to-r from-blue-50 to-purple-50">
+            <div className="text-center mb-4">
+              <button
+                onClick={() => setShowRules(!showRules)}
+                className="text-2xl font-bold text-gray-800 hover:text-pink-500 transition-colors"
+              >
+                {showRules ? '▼ 야구 룰 가이드 접기' : '▶ 야구 룰 가이드 보기'}
+              </button>
+              <p className="text-gray-600 text-sm mt-2">
+                야구가 처음이라면 꼭 읽어보세요! ⚾
+              </p>
+            </div>
+          </Card>
+          
+          {showRules && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="mt-4"
+            >
+              <BaseballRules />
+            </motion.div>
+          )}
+        </motion.div>
+
         {/* 액션 버튼들 */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2 }}
+          transition={{ delay: 1.8 }}
           className="grid grid-cols-1 md:grid-cols-3 gap-4"
         >
           <Button
@@ -249,7 +420,7 @@ export default function ResultPage() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
+          transition={{ delay: 1.9 }}
           className="text-center space-y-2"
         >
           <p className="text-gray-600">
