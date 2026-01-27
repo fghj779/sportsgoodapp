@@ -60,6 +60,14 @@ export interface KBOTeam {
       distance: string;
       transport: string;  // 버스/택시
     };
+    train?: {
+      station: string;
+      note: string;
+    };
+    bus?: {
+      station: string;
+      note: string;
+    };
     parking: string;
   };
   seatPrices: {  // 좌석별 가격

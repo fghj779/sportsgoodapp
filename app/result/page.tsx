@@ -391,6 +391,22 @@ function ResultContent() {
                       </p>
                     </div>
                   )}
+                  {team.transportation.train && (
+                    <div className="mb-2">
+                      <p className="text-sm font-semibold text-blue-600">🚄 기차</p>
+                      <p className="text-gray-700 text-sm">
+                        {team.transportation.train.station} - {team.transportation.train.note}
+                      </p>
+                    </div>
+                  )}
+                  {team.transportation.bus && (
+                    <div className="mb-2">
+                      <p className="text-sm font-semibold text-green-600">🚌 버스</p>
+                      <p className="text-gray-700 text-sm">
+                        {team.transportation.bus.station} - {team.transportation.bus.note}
+                      </p>
+                    </div>
+                  )}
                   <p className="text-xs text-gray-500 mt-2">🅿️ {team.transportation.parking}</p>
                 </div>
               </div>
