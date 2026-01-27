@@ -100,15 +100,41 @@ function ResultContent() {
           <Card className="text-center space-y-6 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-2" style={{ backgroundColor: team.color }} />
             
-            {/* 상단 로고 */}
+            {/* 상단 팀 사진 - 누끼 제거된 큰 이미지 */}
             <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
-              className="pt-4"
+              initial={{ scale: 0, y: -50 }}
+              animate={{ scale: 1, y: 0 }}
+              transition={{ delay: 0.3, type: "spring", stiffness: 200, damping: 15 }}
+              className="pt-4 relative"
             >
-              <div className="text-8xl mb-4">{team.logo}</div>
-              <h1 className="text-4xl font-bold text-gray-800 mb-2">
+              {/* 팀 사진 배경 효과 */}
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white pointer-events-none" />
+              
+              {/* 팀 사진 (fallback: 이모지) */}
+              <div className="relative z-10 flex justify-center items-center mb-6">
+                <motion.div
+                  animate={{ 
+                    y: [0, -20, 0],
+                    rotate: [0, 5, -5, 0]
+                  }}
+                  transition={{ 
+                    duration: 3, 
+                    repeat: Infinity, 
+                    ease: "easeInOut" 
+                  }}
+                  className="relative"
+                >
+                  {/* 빛나는 효과 */}
+                  <div className="absolute inset-0 blur-3xl opacity-30 rounded-full" style={{ backgroundColor: team.color }} />
+                  
+                  {/* 실제 이미지 or 이모지 */}
+                  <div className="relative text-9xl md:text-[12rem] filter drop-shadow-2xl">
+                    {team.logo}
+                  </div>
+                </motion.div>
+              </div>
+              
+              <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-2">
                 {team.name}
               </h1>
               <p className="text-xl text-gray-600 mb-4">
@@ -436,29 +462,32 @@ function ResultContent() {
                 </div>
               </div>
 
-              {/* 응원가 */}
+              {/* 응원가 - 자동 재생 */}
               <div className="p-4 bg-pink-50 rounded-xl">
                 <div className="flex items-center gap-2 mb-3">
                   <Music className="text-pink-500" size={24} />
-                  <h3 className="font-semibold text-gray-800">응원가</h3>
+                  <h3 className="font-semibold text-gray-800">응원가 🎵</h3>
                 </div>
                 <div className="aspect-video rounded-lg overflow-hidden shadow-lg">
                   <iframe
                     width="100%"
                     height="100%"
-                    src={team.cheerSongUrl.replace('watch?v=', 'embed/')}
+                    src={`${team.cheerSongUrl.replace('watch?v=', 'embed/')}?autoplay=1&mute=0&controls=1&modestbranding=1`}
                     title="응원가"
                     frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowFullScreen
                     className="w-full h-full"
                   />
                 </div>
+                <p className="text-xs text-gray-500 mt-2 text-center">
+                  🎧 소리가 안 들리면 영상을 클릭해주세요!
+                </p>
                 <a
                   href={team.cheerSongUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block mt-3 px-4 py-2 bg-pink-500 text-white rounded-full text-sm hover:bg-pink-600 transition-colors"
+                  className="inline-block mt-3 px-4 py-2 bg-pink-500 text-white rounded-full text-sm hover:bg-pink-600 transition-colors w-full text-center"
                 >
                   유튜브에서 보기 🎵
                 </a>

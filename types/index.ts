@@ -26,6 +26,7 @@ export interface KBOTeam {
   colorScheme: 'warm' | 'cool' | 'neutral';  // 색 계열
   mascot: string;
   logo: string;
+  teamPhoto: string;  // 팀 대표 사진 (누끼 제거된 PNG)
   stadium: string;
   homeCity: string;  // 연고지
   cheerSongUrl: string;
