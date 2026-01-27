@@ -32,7 +32,7 @@ export default function BaseballAnimation() {
           delay: 0.3
         }}
       >
-        🏏
+        🧢
       </motion.div>
       <motion.div
         className="text-6xl"
