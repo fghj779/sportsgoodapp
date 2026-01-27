@@ -8,7 +8,7 @@ import { kboTeams } from '@/data/teams';
 import Button from '@/components/Button';
 import Card from '@/components/Card';
 import BaseballRules from '@/components/BaseballRules';
-import { Share2, Home, RotateCcw, Heart, MapPin, Shirt, Music, Trophy, Star, History, Palette } from 'lucide-react';
+import { Share2, Home, RotateCcw, Heart, MapPin, Shirt, Music, Trophy, Star, Users, History, Palette } from 'lucide-react';
 
 function ResultContent() {
   const router = useRouter();
@@ -17,24 +17,30 @@ function ResultContent() {
   const [showRules, setShowRules] = useState(false);
 
   useEffect(() => {
+    // URL 파라미터에서 결과 가져오기 (localStorage 대신!)
     const teamId = searchParams.get('teamId');
     const compatibility = searchParams.get('compatibility');
     const message = searchParams.get('message');
 
     if (!teamId || !compatibility || !message) {
+      // 파라미터가 없으면 홈으로
       router.push('/');
       return;
     }
 
+    // 팀 정보 찾기
     const team = kboTeams.find(t => t.id === teamId);
     if (!team) {
       router.push('/');
       return;
     }
+
+    // 결과 설정
     setResult({
       team,
       compatibility: parseInt(compatibility),
       aiMessage: decodeURIComponent(message),
+      reason: '',  // deprecated
     });
   }, [router, searchParams]);
 
@@ -58,6 +64,7 @@ function ResultContent() {
   };
 
   const handleRetry = () => {
+    // localStorage 사용 안 함!
     router.push('/quiz');
   };
 
@@ -310,6 +317,22 @@ function ResultContent() {
                   ))}
                 </ul>
               </div>
+              
+              {/* 뎁스차트 버튼 */}
+              <div className="mt-6 text-center">
+                <Button
+                  variant="primary"
+                  onClick={() => {
+                    // 뎁스차트 페이지로 이동 (추후 구현)
+                    window.open(`https://www.koreabaseball.com/Team/PlayerList.aspx?team=${team.id}`, '_blank');
+                  }}
+                  className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all"
+                >
+                  <span className="flex items-center justify-center gap-2">
+                    ⚾ 2026 시즌 뎁스차트 보기
+                  </span>
+                </Button>
+              </div>
             </div>
           </Card>
         </motion.div>
@@ -381,6 +404,22 @@ function ResultContent() {
                       <p className="text-sm font-semibold text-blue-600">🚄 KTX</p>
                       <p className="text-gray-700 text-sm">
                         {team.transportation.ktx.station} → {team.transportation.ktx.transport}
+                      </p>
+                    </div>
+                  )}
+                  {team.transportation.train && (
+                    <div className="mb-2">
+                      <p className="text-sm font-semibold text-blue-600">🚄 기차</p>
+                      <p className="text-gray-700 text-sm">
+                        {team.transportation.train.station} - {team.transportation.train.note}
+                      </p>
+                    </div>
+                  )}
+                  {team.transportation.bus && (
+                    <div className="mb-2">
+                      <p className="text-sm font-semibold text-green-600">🚌 버스</p>
+                      <p className="text-gray-700 text-sm">
+                        {team.transportation.bus.station} - {team.transportation.bus.note}
                       </p>
                     </div>
                   )}
