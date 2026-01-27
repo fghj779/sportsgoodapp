@@ -387,6 +387,76 @@ function ResultContent() {
                 </div>
               </div>
 
+              {/* 교통편 */}
+              {team.transportation && (
+                <div className="flex items-start gap-4 p-4 bg-green-50 rounded-xl">
+                  <span className="text-2xl">🚇</span>
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-gray-800 mb-3">경기장 가는 법</h3>
+                    {team.transportation.subway && (
+                      <div className="mb-2">
+                        <p className="text-sm font-semibold text-green-600">🚇 지하철</p>
+                        <p className="text-gray-700 text-sm">
+                          {team.transportation.subway.line} {team.transportation.subway.station} {team.transportation.subway.exit} ({team.transportation.subway.walkTime})
+                        </p>
+                      </div>
+                    )}
+                    {team.transportation.ktx && (
+                      <div className="mb-2">
+                        <p className="text-sm font-semibold text-blue-600">🚄 KTX</p>
+                        <p className="text-gray-700 text-sm">
+                          {team.transportation.ktx.station} → {team.transportation.ktx.transport}
+                        </p>
+                      </div>
+                    )}
+                    {team.transportation.parking && (
+                      <p className="text-xs text-gray-500 mt-2">🅿️ {team.transportation.parking}</p>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* 좌석 가격 */}
+              {team.seatPrices && (
+                <div className="flex items-start gap-4 p-4 bg-indigo-50 rounded-xl">
+                  <span className="text-2xl">🎫</span>
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-gray-800 mb-3">좌석별 가격 (2026 시즌)</h3>
+                    <div className="grid grid-cols-2 gap-2 text-sm">
+                      {team.seatPrices.premium && (
+                        <div className="bg-white rounded-lg p-2">
+                          <p className="text-purple-600 font-medium">프리미엄석</p>
+                          <p className="text-gray-800 font-bold">{team.seatPrices.premium}</p>
+                        </div>
+                      )}
+                      {team.seatPrices.table && (
+                        <div className="bg-white rounded-lg p-2">
+                          <p className="text-blue-600 font-medium">테이블석</p>
+                          <p className="text-gray-800 font-bold">{team.seatPrices.table}</p>
+                        </div>
+                      )}
+                      {team.seatPrices.box && (
+                        <div className="bg-white rounded-lg p-2">
+                          <p className="text-orange-600 font-medium">박스석</p>
+                          <p className="text-gray-800 font-bold">{team.seatPrices.box}</p>
+                        </div>
+                      )}
+                      <div className="bg-white rounded-lg p-2">
+                        <p className="text-green-600 font-medium">내야석</p>
+                        <p className="text-gray-800 font-bold">{team.seatPrices.infield}</p>
+                      </div>
+                      <div className="bg-white rounded-lg p-2">
+                        <p className="text-blue-600 font-medium">외야석</p>
+                        <p className="text-gray-800 font-bold">{team.seatPrices.outfield}</p>
+                      </div>
+                    </div>
+                    <p className="text-xs text-gray-500 mt-2">
+                      💳 예매: {team.ticketPlatform}
+                    </p>
+                  </div>
+                </div>
+              )}
+
               {/* 티켓 예매 버튼 */}
               <div className="text-center">
                 <a
