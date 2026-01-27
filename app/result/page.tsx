@@ -63,8 +63,8 @@ export default function ResultPage() {
       });
 
       const link = document.createElement('a');
-      link.download = `KBO-TI_${result.team.name}_결과.png`;
-      link.href = canvas.toDataURL('image/png');
+      link.download = `KBO-TI_${result.team.name}_결과.jpg`;
+      link.href = canvas.toDataURL('image/jpeg', 0.95);
       link.click();
     } catch (error) {
       console.error('이미지 저장 실패:', error);
@@ -89,7 +89,7 @@ export default function ResultPage() {
       canvas.toBlob(async (blob) => {
         if (!blob) return;
 
-        const file = new File([blob], `KBO-TI_${result.team.name}.png`, { type: 'image/png' });
+        const file = new File([blob], `KBO-TI_${result.team.name}.jpg`, { type: 'image/jpeg' });
 
         if (navigator.share && navigator.canShare({ files: [file] })) {
           try {
@@ -104,11 +104,11 @@ export default function ResultPage() {
         } else {
           // Web Share API를 지원하지 않으면 다운로드
           const link = document.createElement('a');
-          link.download = `KBO-TI_${result.team.name}_결과.png`;
-          link.href = canvas.toDataURL('image/png');
+          link.download = `KBO-TI_${result.team.name}_결과.jpg`;
+          link.href = canvas.toDataURL('image/jpeg', 0.95);
           link.click();
         }
-      });
+      }, 'image/jpeg', 0.95);
     } catch (error) {
       console.error('이미지 공유 실패:', error);
       alert('이미지 공유에 실패했습니다. 다시 시도해주세요.');
