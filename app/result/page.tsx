@@ -323,7 +323,6 @@ function ResultContent() {
                 <Button
                   variant="primary"
                   onClick={() => {
-                    // 뎁스차트 페이지로 이동 (추후 구현)
                     window.open(`https://www.koreabaseball.com/Team/PlayerList.aspx?team=${team.id}`, '_blank');
                   }}
                   className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all"
@@ -404,22 +403,6 @@ function ResultContent() {
                       <p className="text-sm font-semibold text-blue-600">🚄 KTX</p>
                       <p className="text-gray-700 text-sm">
                         {team.transportation.ktx.station} → {team.transportation.ktx.transport}
-                      </p>
-                    </div>
-                  )}
-                  {team.transportation.train && (
-                    <div className="mb-2">
-                      <p className="text-sm font-semibold text-blue-600">🚄 기차</p>
-                      <p className="text-gray-700 text-sm">
-                        {team.transportation.train.station} - {team.transportation.train.note}
-                      </p>
-                    </div>
-                  )}
-                  {team.transportation.bus && (
-                    <div className="mb-2">
-                      <p className="text-sm font-semibold text-green-600">🚌 버스</p>
-                      <p className="text-gray-700 text-sm">
-                        {team.transportation.bus.station} - {team.transportation.bus.note}
                       </p>
                     </div>
                   )}
