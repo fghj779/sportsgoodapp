@@ -132,3 +132,39 @@ export interface TeamDepthChart {
   rotation: string[];
   bullpen: Bullpen;
 }
+
+// 응원가 노래방 관련 타입
+export interface CheerSong {
+  id: string;
+  teamId: string;
+  type: 'team' | 'player';
+  title: string;
+  playerName?: string;
+  lyrics: string[];
+  youtubeVideoId: string;
+  startTime?: number;
+}
+
+export interface TeamCheerSongs {
+  teamId: string;
+  teamSongs: CheerSong[];
+  playerSongs: CheerSong[];
+}
+
+// GameCenter 관련 타입
+export interface ScheduledGame {
+  id: string;
+  date: string;
+  time: string;
+  homeTeam: string;
+  awayTeam: string;
+  stadium: string;
+}
+
+// 번개장터 연동 타입
+export interface MerchContext {
+  type: 'team' | 'player';
+  teamId: string;
+  teamName: string;
+  playerName?: string;
+}

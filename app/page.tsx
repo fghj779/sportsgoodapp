@@ -6,7 +6,7 @@ import Button from '@/components/Button';
 import Card from '@/components/Card';
 import BaseballAnimation from '@/components/BaseballAnimation';
 import { kboTeams } from '@/data/teams';
-import { Sparkles, Mail, BookOpen, TrendingUp, X } from 'lucide-react';
+import { Sparkles, Mail, BookOpen, TrendingUp, X, Mic2 } from 'lucide-react';
 import dynamic from 'next/dynamic';
 
 const RankingChart = dynamic(() => import('@/components/RankingChart'), { ssr: false });
@@ -134,12 +134,12 @@ export default function Home() {
           )}
         </AnimatePresence>
 
-        {/* 순위 변동 보기 버튼 */}
+        {/* 순위 변동 & 노래방 버튼 */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.75 }}
-          className="text-center"
+          className="flex flex-col sm:flex-row gap-3 justify-center items-center"
         >
           <button
             onClick={() => setShowRanking(true)}
@@ -147,6 +147,13 @@ export default function Home() {
           >
             <TrendingUp size={20} />
             순위 변동 보기 (2015~2025)
+          </button>
+          <button
+            onClick={() => router.push('/karaoke')}
+            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-500 text-white font-semibold rounded-xl shadow-sm hover:shadow-md hover:from-pink-600 hover:to-purple-600 transition-all"
+          >
+            <Mic2 size={20} />
+            응원가 노래방
           </button>
         </motion.div>
 

@@ -8,7 +8,8 @@ import { kboTeams } from '@/data/teams';
 import Button from '@/components/Button';
 import Card from '@/components/Card';
 import BaseballRules from '@/components/BaseballRules';
-import { Share2, Home, RotateCcw, Heart, MapPin, Shirt, Music, Trophy, Star, Users, History, Palette } from 'lucide-react';
+import { Share2, Home, RotateCcw, Heart, MapPin, Shirt, Music, Trophy, Star, Users, History, Palette, Mic2 } from 'lucide-react';
+import MerchBlock from '@/components/merch/MerchBlock';
 import DepthChart from '@/components/DepthChart';
 import { depthCharts } from '@/data/depthCharts';
 
@@ -532,6 +533,50 @@ function ResultContent() {
                 </div>
               </div>
             </div>
+          </Card>
+        </motion.div>
+
+        {/* 번개장터 굿즈 블록 */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.65 }}
+        >
+          <MerchBlock
+            context={{
+              type: 'team',
+              teamId: team.id,
+              teamName: team.name,
+            }}
+            title={`${team.name} 굿즈 구매하기`}
+            description="번개장터에서 유니폼, 모자, 응원도구를 만나보세요!"
+          />
+        </motion.div>
+
+        {/* 노래방 CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.68 }}
+        >
+          <Card className="bg-gradient-to-r from-pink-50 to-purple-50 border-2 border-pink-200">
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-14 bg-gradient-to-br from-pink-500 to-purple-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                <Mic2 size={28} className="text-white" />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-bold text-gray-800 mb-1">응원가 따라부르기</h3>
+                <p className="text-sm text-gray-600">
+                  {team.name} 응원가 가사를 보면서 연습해보세요!
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={() => router.push('/karaoke')}
+              className="w-full mt-4 py-3 px-6 bg-gradient-to-r from-pink-500 to-purple-500 text-white font-bold rounded-xl hover:from-pink-600 hover:to-purple-600 transition-all"
+            >
+              🎤 노래방 가기
+            </button>
           </Card>
         </motion.div>
 
