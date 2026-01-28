@@ -148,7 +148,7 @@ export const kboTeams: KBOTeam[] = [
       imageUrl: '/mascot/hanwha.png'
     },
     logo: '🦅',
-    stadium: '대전 베이스볼 드림파크',
+    stadium: '대전 한화생명 볼파크',
     homeCity: '대전',
     cheerSongUrl: 'https://www.youtube.com/watch?v=ucNR9zLqmDs',
     uniformStyle: '다이너마이트 오렌지',
@@ -238,7 +238,7 @@ export const kboTeams: KBOTeam[] = [
       founded: '1982년 (원년)',
       championships: 8,
       recentAchievements: ['2011-2014 통합 4연패', '2014 한국시리즈 우승'],
-      majorEvents: ['2002-2006 5연패', 'KBO 최초 3000승', '8회 우승']
+      majorEvents: ['2002, 2005, 2006 우승', '2011-2014 4연패', '8회 우승']
     },
     transportation: {
       subway: { line: '대구 2호선', station: '대공원역', exit: '4번/5번 출구', walkTime: '도보 1분 (역 바로 앞)' },
@@ -302,9 +302,9 @@ export const kboTeams: KBOTeam[] = [
     ],
     history: {
       founded: '1982년 (MBC 청룡)',
-      championships: 5,
+      championships: 4,
       recentAchievements: ['2025 한국시리즈 우승', '2023 한국시리즈 우승'],
-      majorEvents: ['1990, 1994 우승', '2025 디펜딩 챔피언']
+      majorEvents: ['1990, 1994, 2023, 2025 우승', '2023-2025 2연패']
     },
     transportation: {
       subway: { line: '2호선/9호선', station: '종합운동장역', exit: '5번/6번 출구', walkTime: '도보 3분' },
@@ -632,7 +632,7 @@ export const kboTeams: KBOTeam[] = [
     history: {
       founded: '2013년 (10구단, 막내)',
       championships: 1,
-      recentAchievements: ['2021 통합 우승', '2024 정규시즌 2위'],
+      recentAchievements: ['2021 통합 우승', '2024 포스트시즌 진출'],
       majorEvents: ['2015년 첫 포스트시즌', '2021 우승']
     },
     transportation: {
