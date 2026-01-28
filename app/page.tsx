@@ -6,7 +6,10 @@ import Button from '@/components/Button';
 import Card from '@/components/Card';
 import BaseballAnimation from '@/components/BaseballAnimation';
 import { kboTeams } from '@/data/teams';
-import { Sparkles, Mail, BookOpen, X } from 'lucide-react';
+import { Sparkles, Mail, BookOpen, TrendingUp, X } from 'lucide-react';
+import dynamic from 'next/dynamic';
+
+const RankingChart = dynamic(() => import('@/components/RankingChart'), { ssr: false });
 import BaseballRules from '@/components/BaseballRules';
 import { useState } from 'react';
 
@@ -28,6 +31,7 @@ export default function Home() {
   const router = useRouter();
   const [showRules, setShowRules] = useState(false);
   const [showContact, setShowContact] = useState(false);
+  const [showRanking, setShowRanking] = useState(false);
   const [selectedTeam, setSelectedTeam] = useState<string | null>(null);
 
   const selectedTeamData = selectedTeam ? kboTeams.find(t => t.id === selectedTeam) : null;
@@ -126,6 +130,57 @@ export default function Home() {
 
               {/* 기존 야구룰 텍스트 설명 */}
               <BaseballRules />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* 순위 변동 보기 버튼 */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.75 }}
+          className="text-center"
+        >
+          <button
+            onClick={() => setShowRanking(true)}
+            className="inline-flex items-center gap-2 px-6 py-3 bg-white border-2 border-purple-200 hover:border-purple-400 text-purple-600 font-semibold rounded-xl shadow-sm hover:shadow-md transition-all"
+          >
+            <TrendingUp size={20} />
+            순위 변동 보기 (2015~2025)
+          </button>
+        </motion.div>
+
+        {/* 순위 변동 모달 */}
+        <AnimatePresence>
+          {showRanking && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+              onClick={() => setShowRanking(false)}
+            >
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                className="bg-white rounded-2xl p-6 max-w-2xl w-full shadow-2xl max-h-[90vh] overflow-y-auto"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2">
+                    <TrendingUp className="text-purple-500" size={24} />
+                    <h3 className="text-xl font-bold text-gray-800">KBO 순위 변동 (2015~2025)</h3>
+                  </div>
+                  <button
+                    onClick={() => setShowRanking(false)}
+                    className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                  >
+                    <X size={20} className="text-gray-500" />
+                  </button>
+                </div>
+                <RankingChart />
+              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
