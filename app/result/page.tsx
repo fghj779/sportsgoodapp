@@ -8,16 +8,18 @@ import { kboTeams } from '@/data/teams';
 import Button from '@/components/Button';
 import Card from '@/components/Card';
 import BaseballRules from '@/components/BaseballRules';
-import { Share2, Home, RotateCcw, Heart, MapPin, Shirt, Music, Trophy, Star, Users, History, Palette, Mic2 } from 'lucide-react';
+import { Share2, Home, RotateCcw, Heart, MapPin, Shirt, Music, Trophy, Star, Users, History, Palette, Mic2, Download, Instagram, MessageCircle } from 'lucide-react';
 import MerchBlock from '@/components/merch/MerchBlock';
 import DepthChart from '@/components/DepthChart';
 import { depthCharts } from '@/data/depthCharts';
+import ShareModal from '@/components/share/ShareModal';
 
 function ResultContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [result, setResult] = useState<MatchResult | null>(null);
   const [showRules, setShowRules] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
 
   useEffect(() => {
     // URL 파라미터에서 결과 가져오기 (localStorage 대신!)
@@ -45,25 +47,6 @@ function ResultContent() {
       aiMessage: decodeURIComponent(message),
     });
   }, [router, searchParams]);
-
-  const handleShare = async () => {
-    const shareText = `나는 ${result?.team.name} 팬! ⚾💖\nKBO-TI로 내 운명의 야구팀을 찾았어요!\n\n궁합도: ${result?.compatibility}%`;
-
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: 'KBO-TI 결과',
-          text: shareText,
-          url: window.location.origin,
-        });
-      } catch (err) {
-        console.log('공유 취소됨');
-      }
-    } else {
-      navigator.clipboard.writeText(shareText);
-      alert('결과가 클립보드에 복사되었어요! 📋');
-    }
-  };
 
   const handleRetry = () => {
     // localStorage 사용 안 함!
@@ -612,22 +595,50 @@ function ResultContent() {
           )}
         </motion.div>
 
-        {/* 액션 버튼들 */}
+        {/* 공유 버튼 (강조) */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.8 }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-4"
         >
-          <Button
-            variant="secondary"
-            onClick={handleShare}
-            className="flex items-center justify-center gap-2"
-          >
-            <Share2 size={20} />
-            <span>결과 공유하기</span>
-          </Button>
+          <Card className="bg-gradient-to-r from-pink-50 to-purple-50 border-2 border-pink-200">
+            <div className="text-center mb-4">
+              <h3 className="text-lg font-bold text-gray-800 mb-2">결과를 공유해보세요!</h3>
+              <p className="text-sm text-gray-600">친구들과 함께 야구장 가요 ⚾</p>
+            </div>
+            <div className="grid grid-cols-3 gap-3">
+              <button
+                onClick={() => setShowShareModal(true)}
+                className="flex flex-col items-center gap-2 py-3 px-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-semibold hover:from-blue-600 hover:to-blue-700 transition-all"
+              >
+                <Download size={24} />
+                <span className="text-xs">이미지 저장</span>
+              </button>
+              <button
+                onClick={() => setShowShareModal(true)}
+                className="flex flex-col items-center gap-2 py-3 px-4 bg-gradient-to-r from-pink-500 via-purple-500 to-orange-500 text-white rounded-xl font-semibold hover:from-pink-600 hover:via-purple-600 hover:to-orange-600 transition-all"
+              >
+                <Instagram size={24} />
+                <span className="text-xs">인스타그램</span>
+              </button>
+              <button
+                onClick={() => setShowShareModal(true)}
+                className="flex flex-col items-center gap-2 py-3 px-4 bg-[#FEE500] text-[#191919] rounded-xl font-semibold hover:bg-[#FDD800] transition-all"
+              >
+                <MessageCircle size={24} />
+                <span className="text-xs">카카오톡</span>
+              </button>
+            </div>
+          </Card>
+        </motion.div>
 
+        {/* 액션 버튼들 */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.85 }}
+          className="grid grid-cols-2 gap-4"
+        >
           <Button
             variant="secondary"
             onClick={handleRetry}
@@ -646,6 +657,15 @@ function ResultContent() {
             <span>홈으로</span>
           </Button>
         </motion.div>
+
+        {/* 공유 모달 */}
+        <ShareModal
+          isOpen={showShareModal}
+          onClose={() => setShowShareModal(false)}
+          team={team}
+          compatibility={compatibility}
+          aiMessage={aiMessage}
+        />
 
         {/* 푸터 메시지 */}
         <motion.div
