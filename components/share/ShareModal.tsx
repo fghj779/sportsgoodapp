@@ -1,8 +1,8 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Download, Instagram, MessageCircle, Link2, Check } from 'lucide-react';
+import { X, Download, Instagram, MessageCircle, Link2, Check, Share } from 'lucide-react';
 import html2canvas from 'html2canvas';
 import ShareableCard from './ShareableCard';
 import { KBOTeam } from '@/types';
@@ -15,18 +15,6 @@ interface ShareModalProps {
   aiMessage: string;
 }
 
-declare global {
-  interface Window {
-    Kakao?: {
-      init: (key: string) => void;
-      isInitialized: () => boolean;
-      Share: {
-        sendDefault: (options: object) => void;
-      };
-    };
-  }
-}
-
 export default function ShareModal({
   isOpen,
   onClose,
@@ -36,166 +24,139 @@ export default function ShareModal({
 }: ShareModalProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isGenerating, setIsGenerating] = useState(false);
-  const [generatedImage, setGeneratedImage] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
-  const [kakaoReady, setKakaoReady] = useState(false);
+  const [imageBlob, setImageBlob] = useState<Blob | null>(null);
+  const [imageDataUrl, setImageDataUrl] = useState<string | null>(null);
 
-  // Kakao SDK 로드
-  useEffect(() => {
-    if (typeof window !== 'undefined' && !window.Kakao) {
-      const script = document.createElement('script');
-      script.src = 'https://t1.kakaocdn.net/kakao_js_sdk/2.6.0/kakao.min.js';
-      script.async = true;
-      script.onload = () => {
-        if (window.Kakao && !window.Kakao.isInitialized()) {
-          // Kakao JavaScript 키 (공개 키)
-          window.Kakao.init('a1b2c3d4e5f6g7h8i9j0'); // 실제 키로 교체 필요
-          setKakaoReady(true);
-        }
-      };
-      document.head.appendChild(script);
-    } else if (window.Kakao?.isInitialized()) {
-      setKakaoReady(true);
+  // 이미지 생성
+  const generateImage = useCallback(async () => {
+    if (!cardRef.current || imageBlob) return;
+
+    setIsGenerating(true);
+    try {
+      const canvas = await html2canvas(cardRef.current, {
+        scale: 2,
+        backgroundColor: '#fce7f3',
+        useCORS: true,
+        logging: false,
+      });
+
+      const dataUrl = canvas.toDataURL('image/png');
+      setImageDataUrl(dataUrl);
+
+      canvas.toBlob((blob) => {
+        if (blob) setImageBlob(blob);
+        setIsGenerating(false);
+      }, 'image/png');
+    } catch (error) {
+      console.error('이미지 생성 실패:', error);
+      setIsGenerating(false);
     }
-  }, []);
+  }, [imageBlob]);
+
+  // 모달 열릴 때 이미지 생성
+  useEffect(() => {
+    if (isOpen && !imageBlob) {
+      // 약간의 딜레이 후 생성 (렌더링 완료 대기)
+      const timer = setTimeout(generateImage, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen, imageBlob, generateImage]);
+
+  // 모달 닫힐 때 상태 초기화
+  useEffect(() => {
+    if (!isOpen) {
+      setImageBlob(null);
+      setImageDataUrl(null);
+      setIsGenerating(false);
+    }
+  }, [isOpen]);
 
   // 이미지 다운로드
   const handleDownload = async () => {
-    if (!cardRef.current) {
-      alert('이미지를 생성할 수 없습니다.');
+    if (!imageDataUrl) {
+      alert('이미지를 생성 중입니다. 잠시 후 다시 시도해주세요.');
       return;
     }
 
-    setIsGenerating(true);
-
     try {
-      const canvas = await html2canvas(cardRef.current, {
-        scale: 2,
-        backgroundColor: '#fce7f3',
-        useCORS: true,
-        logging: false,
-      });
-
-      // 새 탭에서 이미지 열기 (가장 안정적인 방식)
-      const dataUrl = canvas.toDataURL('image/png');
-
-      // 다운로드 시도
+      // Blob URL 생성 후 다운로드
       const link = document.createElement('a');
-      link.href = dataUrl;
+      link.href = imageDataUrl;
       link.download = `KBO-TI_${team.name}_결과.png`;
-
-      // Safari 대응
-      if (navigator.userAgent.includes('Safari') && !navigator.userAgent.includes('Chrome')) {
-        // Safari에서는 새 탭으로 열기
-        const newTab = window.open();
-        if (newTab) {
-          newTab.document.write(`<img src="${dataUrl}" alt="KBO-TI 결과" style="max-width:100%"/>`);
-          newTab.document.title = `KBO-TI_${team.name}_결과`;
-          alert('새 탭에서 이미지가 열렸어요!\n이미지를 길게 눌러 저장해주세요 📸');
-        }
-      } else {
-        // Chrome, Firefox 등
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        alert('이미지가 저장되었어요! 📸\n다운로드 폴더를 확인해주세요.');
-      }
+      link.style.display = 'none';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     } catch (error) {
       console.error('다운로드 실패:', error);
-      alert('다운로드에 실패했어요. 다시 시도해주세요.');
-    } finally {
-      setIsGenerating(false);
+      // 실패시 새 탭으로 열기
+      const newTab = window.open();
+      if (newTab && imageDataUrl) {
+        newTab.document.write(`<img src="${imageDataUrl}" alt="KBO-TI 결과"/>`);
+        alert('이미지가 새 탭에 열렸어요. 이미지를 길게 눌러 저장해주세요!');
+      }
     }
   };
 
-  // 인스타그램 공유 (Web Share API 또는 다운로드)
-  const handleInstagramShare = async () => {
-    if (!cardRef.current) {
-      alert('이미지를 생성할 수 없습니다.');
+  // 네이티브 공유 (Instagram, 기타 앱 선택 가능)
+  const handleNativeShare = async () => {
+    if (!imageBlob) {
+      alert('이미지를 생성 중입니다. 잠시 후 다시 시도해주세요.');
       return;
     }
 
-    setIsGenerating(true);
-
     try {
-      const canvas = await html2canvas(cardRef.current, {
-        scale: 2,
-        backgroundColor: '#fce7f3',
-        useCORS: true,
-        logging: false,
-      });
+      const file = new File([imageBlob], `KBO-TI_${team.name}_결과.png`, { type: 'image/png' });
 
-      // Web Share API 지원 시 (모바일)
-      if (navigator.share && navigator.canShare) {
-        const blob = await new Promise<Blob | null>((resolve) => {
-          canvas.toBlob(resolve, 'image/png');
+      // Web Share API 지원 확인
+      if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          files: [file],
+          title: `나는 ${team.name} 팬! ⚾`,
+          text: `궁합도 ${compatibility}%! KBO-TI로 내 운명의 야구팀을 찾았어요!`,
         });
-
-        if (blob) {
-          const file = new File([blob], `KBO-TI_${team.name}_결과.png`, { type: 'image/png' });
-          const shareData = { files: [file] };
-
-          if (navigator.canShare(shareData)) {
-            await navigator.share(shareData);
-            return;
-          }
-        }
+      } else {
+        // Web Share API 미지원 시 다운로드
+        handleDownload();
+        alert('이미지가 저장되었어요!\n인스타그램 앱에서 스토리에 공유해주세요 📸');
       }
-
-      // Web Share API 미지원 시 새 탭으로 열기
-      const dataUrl = canvas.toDataURL('image/png');
-      const newTab = window.open();
-      if (newTab) {
-        newTab.document.write(`
-          <html>
-            <head><title>KBO-TI 결과 - ${team.name}</title></head>
-            <body style="margin:0;display:flex;justify-content:center;align-items:center;min-height:100vh;background:#f3f4f6;">
-              <img src="${dataUrl}" alt="KBO-TI 결과" style="max-width:100%;height:auto;"/>
-            </body>
-          </html>
-        `);
-        alert('새 탭에서 이미지가 열렸어요!\n이미지를 저장 후 인스타그램에 공유해주세요 📸');
+    } catch (error: any) {
+      if (error.name !== 'AbortError') {
+        console.error('공유 실패:', error);
+        handleDownload();
       }
-    } catch (error) {
-      console.error('공유 실패:', error);
-      alert('공유에 실패했어요. 다시 시도해주세요.');
-    } finally {
-      setIsGenerating(false);
     }
   };
 
   // 카카오톡 공유
   const handleKakaoShare = () => {
-    if (!window.Kakao?.Share) {
-      // Kakao SDK가 없으면 링크 복사로 대체
-      handleCopyLink();
-      alert('카카오톡 앱에서 링크를 붙여넣기 해주세요!');
-      return;
-    }
-
     const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
+    const shareText = `나는 ${team.name} 팬! ⚾💖 궁합도 ${compatibility}%!\nKBO-TI로 내 운명의 야구팀을 찾았어요!`;
 
-    window.Kakao.Share.sendDefault({
-      objectType: 'feed',
-      content: {
-        title: `나는 ${team.name} 팬! ⚾💖`,
-        description: `궁합도 ${compatibility}%! KBO-TI로 내 운명의 야구팀을 찾았어요!`,
-        imageUrl: 'https://kbo-ti.vercel.app/og-image.png', // OG 이미지
-        link: {
-          mobileWebUrl: shareUrl,
-          webUrl: shareUrl,
-        },
-      },
-      buttons: [
-        {
-          title: '나도 테스트하기',
-          link: {
-            mobileWebUrl: typeof window !== 'undefined' ? window.location.origin : '',
-            webUrl: typeof window !== 'undefined' ? window.location.origin : '',
-          },
-        },
-      ],
-    });
+    // 카카오톡 공유 URL 스킴
+    const kakaoShareUrl = `https://sharer.kakao.com/talk/friends/picker/link?app_key=javascript_key&request_url=${encodeURIComponent(shareUrl)}`;
+
+    // 모바일에서 카카오톡 앱 열기 시도
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+    if (isMobile) {
+      // 카카오톡 앱으로 텍스트 공유 (딥링크)
+      const kakaoLink = `kakaolink://send?text=${encodeURIComponent(shareText + '\n' + shareUrl)}`;
+
+      // 앱 열기 시도
+      window.location.href = kakaoLink;
+
+      // 앱이 없으면 3초 후 웹 공유로 대체
+      setTimeout(() => {
+        // 링크 복사로 대체
+        handleCopyLink();
+      }, 2500);
+    } else {
+      // 데스크톱: 링크 복사
+      handleCopyLink();
+      alert('링크가 복사되었어요!\n카카오톡에 붙여넣기 해주세요 💬');
+    }
   };
 
   // 링크 복사
@@ -209,6 +170,8 @@ export default function ShareModal({
       // fallback
       const textArea = document.createElement('textarea');
       textArea.value = url;
+      textArea.style.position = 'fixed';
+      textArea.style.left = '-9999px';
       document.body.appendChild(textArea);
       textArea.select();
       document.execCommand('copy');
@@ -217,14 +180,6 @@ export default function ShareModal({
       setTimeout(() => setCopied(false), 2000);
     }
   };
-
-  // 모달 닫힐 때 상태 초기화
-  useEffect(() => {
-    if (!isOpen) {
-      setGeneratedImage(null);
-      setIsGenerating(false);
-    }
-  }, [isOpen]);
 
   return (
     <AnimatePresence>
@@ -257,17 +212,20 @@ export default function ShareModal({
             {/* 미리보기 카드 */}
             <div className="flex justify-center mb-6 overflow-hidden rounded-2xl bg-gray-100 relative">
               {isGenerating && (
-                <div className="absolute inset-0 flex items-center justify-center bg-gray-100 z-10">
-                  <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-                    className="text-4xl"
-                  >
-                    ⚾
-                  </motion.div>
+                <div className="absolute inset-0 flex items-center justify-center bg-gray-100/80 z-10">
+                  <div className="text-center">
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+                      className="text-4xl mb-2"
+                    >
+                      ⚾
+                    </motion.div>
+                    <p className="text-sm text-gray-600">이미지 생성 중...</p>
+                  </div>
                 </div>
               )}
-              <div className="transform scale-[0.85] origin-top">
+              <div className="transform scale-[0.8] origin-top">
                 <ShareableCard
                   ref={cardRef}
                   team={team}
@@ -282,21 +240,21 @@ export default function ShareModal({
               {/* 이미지 저장 */}
               <button
                 onClick={handleDownload}
-                disabled={isGenerating}
-                className="flex items-center justify-center gap-2 py-3 px-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-semibold hover:from-blue-600 hover:to-blue-700 transition-all disabled:opacity-50"
+                disabled={isGenerating || !imageDataUrl}
+                className="flex items-center justify-center gap-2 py-3 px-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-semibold hover:from-blue-600 hover:to-blue-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Download size={20} />
                 <span>이미지 저장</span>
               </button>
 
-              {/* 인스타그램 */}
+              {/* 공유하기 (Instagram 등) */}
               <button
-                onClick={handleInstagramShare}
-                disabled={isGenerating}
-                className="flex items-center justify-center gap-2 py-3 px-4 bg-gradient-to-r from-pink-500 via-purple-500 to-orange-500 text-white rounded-xl font-semibold hover:from-pink-600 hover:via-purple-600 hover:to-orange-600 transition-all disabled:opacity-50"
+                onClick={handleNativeShare}
+                disabled={isGenerating || !imageBlob}
+                className="flex items-center justify-center gap-2 py-3 px-4 bg-gradient-to-r from-pink-500 via-purple-500 to-orange-500 text-white rounded-xl font-semibold hover:from-pink-600 hover:via-purple-600 hover:to-orange-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <Instagram size={20} />
-                <span>인스타그램</span>
+                <Share size={20} />
+                <span>공유하기</span>
               </button>
 
               {/* 카카오톡 */}
