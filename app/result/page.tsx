@@ -477,10 +477,10 @@ function ResultContent() {
                   <iframe
                     width="100%"
                     height="100%"
-                    src={`${team.cheerSongUrl.replace('watch?v=', 'embed/')}?controls=1&modestbranding=1`}
+                    src={`${team.cheerSongUrl.replace('watch?v=', 'embed/')}?autoplay=1&mute=0&controls=1&modestbranding=1`}
                     title="응원가"
                     frameBorder="0"
-                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowFullScreen
                     className="w-full h-full"
                   />
