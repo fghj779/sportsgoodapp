@@ -8,7 +8,7 @@ import { kboTeams } from '@/data/teams';
 import Button from '@/components/Button';
 import Card from '@/components/Card';
 import BaseballRules from '@/components/BaseballRules';
-import { Share2, Home, RotateCcw, Heart, MapPin, Shirt, Music, Trophy, Star, Users, History, Palette, Mic2, Download, Instagram, MessageCircle } from 'lucide-react';
+import { Share2, Home, RotateCcw, Heart, MapPin, Shirt, Music, Trophy, Star, Users, History, Palette, Mic2 } from 'lucide-react';
 import MerchBlock from '@/components/merch/MerchBlock';
 import DepthChart from '@/components/DepthChart';
 import { depthCharts } from '@/data/depthCharts';
@@ -606,29 +606,13 @@ function ResultContent() {
               <h3 className="text-lg font-bold text-gray-800 mb-2">결과를 공유해보세요!</h3>
               <p className="text-sm text-gray-600">친구들과 함께 야구장 가요 ⚾</p>
             </div>
-            <div className="grid grid-cols-3 gap-3">
-              <button
-                onClick={() => setShowShareModal(true)}
-                className="flex flex-col items-center gap-2 py-3 px-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-semibold hover:from-blue-600 hover:to-blue-700 transition-all"
-              >
-                <Download size={24} />
-                <span className="text-xs">이미지 저장</span>
-              </button>
-              <button
-                onClick={() => setShowShareModal(true)}
-                className="flex flex-col items-center gap-2 py-3 px-4 bg-gradient-to-r from-pink-500 via-purple-500 to-orange-500 text-white rounded-xl font-semibold hover:from-pink-600 hover:via-purple-600 hover:to-orange-600 transition-all"
-              >
-                <Instagram size={24} />
-                <span className="text-xs">인스타그램</span>
-              </button>
-              <button
-                onClick={() => setShowShareModal(true)}
-                className="flex flex-col items-center gap-2 py-3 px-4 bg-[#FEE500] text-[#191919] rounded-xl font-semibold hover:bg-[#FDD800] transition-all"
-              >
-                <MessageCircle size={24} />
-                <span className="text-xs">카카오톡</span>
-              </button>
-            </div>
+            <button
+              onClick={() => setShowShareModal(true)}
+              className="w-full flex items-center justify-center gap-2 py-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-xl font-bold text-lg hover:from-pink-600 hover:to-purple-600 transition-all"
+            >
+              <Share2 size={24} />
+              친구에게 공유하기
+            </button>
           </Card>
         </motion.div>
 

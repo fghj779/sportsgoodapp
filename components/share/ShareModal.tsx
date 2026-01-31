@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, MessageCircle, Link2, Check, Share2, Download } from 'lucide-react';
+import { X, Link2, Check, Share2, Download } from 'lucide-react';
 import { KBOTeam } from '@/types';
 
 interface ShareModalProps {
@@ -26,7 +26,6 @@ export default function ShareModal({
 
   // 이미지 저장
   const handleSaveImage = () => {
-    // 새 탭에서 이미지 열기 (모바일에서 길게 눌러 저장 가능)
     window.open(imageUrl, '_blank');
   };
 
@@ -45,11 +44,6 @@ export default function ShareModal({
     } else {
       handleCopyLink();
     }
-  };
-
-  // 카카오톡
-  const handleKakao = () => {
-    window.open(`https://story.kakao.com/share?url=${encodeURIComponent(shareUrl)}`, '_blank');
   };
 
   // 링크 복사
@@ -118,43 +112,32 @@ export default function ShareModal({
                 이미지 저장하기
               </button>
 
-              {/* 공유하기 */}
+              {/* 친구에게 공유하기 */}
               <button
                 onClick={handleShare}
                 className="w-full flex items-center justify-center gap-2 py-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-xl font-bold text-lg"
               >
                 <Share2 size={22} />
-                공유하기
+                친구에게 공유하기
               </button>
 
-              <div className="grid grid-cols-2 gap-3">
-                {/* 카카오 */}
-                <button
-                  onClick={handleKakao}
-                  className="flex items-center justify-center gap-2 py-3 bg-[#FEE500] text-[#191919] rounded-xl font-semibold"
-                >
-                  <MessageCircle size={20} />
-                  카카오
-                </button>
-
-                {/* 링크 복사 */}
-                <button
-                  onClick={handleCopyLink}
-                  className="flex items-center justify-center gap-2 py-3 bg-gray-100 text-gray-700 rounded-xl font-semibold"
-                >
-                  {copied ? (
-                    <>
-                      <Check size={20} className="text-green-500" />
-                      <span className="text-green-600">복사됨!</span>
-                    </>
-                  ) : (
-                    <>
-                      <Link2 size={20} />
-                      링크복사
-                    </>
-                  )}
-                </button>
-              </div>
+              {/* 링크 복사 */}
+              <button
+                onClick={handleCopyLink}
+                className="w-full flex items-center justify-center gap-2 py-3 bg-gray-100 text-gray-700 rounded-xl font-semibold"
+              >
+                {copied ? (
+                  <>
+                    <Check size={20} className="text-green-500" />
+                    <span className="text-green-600">복사됨!</span>
+                  </>
+                ) : (
+                  <>
+                    <Link2 size={20} />
+                    링크 복사
+                  </>
+                )}
+              </button>
             </div>
 
             {/* 안내 */}
