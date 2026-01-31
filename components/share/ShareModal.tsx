@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Link2, Check, Share2, Download } from 'lucide-react';
+import { X, Link2, Check, Share2 } from 'lucide-react';
 import { KBOTeam } from '@/types';
 
 interface ShareModalProps {
@@ -22,12 +22,6 @@ export default function ShareModal({
   const [copied, setCopied] = useState(false);
 
   const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
-  const imageUrl = `/api/share-image?teamId=${team.id}&compatibility=${compatibility}`;
-
-  // 이미지 저장
-  const handleSaveImage = () => {
-    window.open(imageUrl, '_blank');
-  };
 
   // 공유하기 (Web Share API)
   const handleShare = async () => {
@@ -82,7 +76,7 @@ export default function ShareModal({
             onClick={(e) => e.stopPropagation()}
           >
             {/* 헤더 */}
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-bold text-gray-800">결과 공유하기</h2>
               <button
                 onClick={onClose}
@@ -92,26 +86,19 @@ export default function ShareModal({
               </button>
             </div>
 
-            {/* 이미지 미리보기 */}
-            <div className="mb-4 rounded-2xl overflow-hidden border-2 border-pink-100">
-              <img
-                src={imageUrl}
-                alt="공유 이미지"
-                className="w-full"
-              />
+            {/* 결과 미리보기 */}
+            <div className="bg-gradient-to-br from-pink-100 to-purple-100 rounded-2xl p-6 mb-6 text-center">
+              <div className="text-6xl mb-3">{team.logo}</div>
+              <h3 className="text-2xl font-bold text-gray-800 mb-1">{team.name}</h3>
+              <div className="flex items-center justify-center gap-2 text-pink-500">
+                <span>💖</span>
+                <span className="text-xl font-bold">{compatibility}%</span>
+                <span>💖</span>
+              </div>
             </div>
 
             {/* 공유 버튼들 */}
             <div className="space-y-3">
-              {/* 이미지 저장 */}
-              <button
-                onClick={handleSaveImage}
-                className="w-full flex items-center justify-center gap-2 py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-bold text-lg"
-              >
-                <Download size={22} />
-                이미지 저장하기
-              </button>
-
               {/* 친구에게 공유하기 */}
               <button
                 onClick={handleShare}
@@ -124,26 +111,21 @@ export default function ShareModal({
               {/* 링크 복사 */}
               <button
                 onClick={handleCopyLink}
-                className="w-full flex items-center justify-center gap-2 py-3 bg-gray-100 text-gray-700 rounded-xl font-semibold"
+                className="w-full flex items-center justify-center gap-2 py-4 bg-gray-100 text-gray-700 rounded-xl font-bold text-lg"
               >
                 {copied ? (
                   <>
-                    <Check size={20} className="text-green-500" />
+                    <Check size={22} className="text-green-500" />
                     <span className="text-green-600">복사됨!</span>
                   </>
                 ) : (
                   <>
-                    <Link2 size={20} />
+                    <Link2 size={22} />
                     링크 복사
                   </>
                 )}
               </button>
             </div>
-
-            {/* 안내 */}
-            <p className="text-center text-xs text-gray-400 mt-4">
-              이미지 저장 → 새 탭에서 이미지 길게 눌러 저장!
-            </p>
           </motion.div>
         </motion.div>
       )}
