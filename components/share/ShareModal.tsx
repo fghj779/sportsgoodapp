@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Link2, Check, Share2 } from 'lucide-react';
+import { X, Link2, Check, Share2, Download } from 'lucide-react';
 import { KBOTeam } from '@/types';
 
 interface ShareModalProps {
@@ -22,21 +22,61 @@ export default function ShareModal({
   const [copied, setCopied] = useState(false);
 
   const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
+  // 스크린샷용 페이지 URL
+  const screenshotPageUrl = typeof window !== 'undefined'
+    ? `${window.location.origin}/share/${team.id}?compatibility=${compatibility}`
+    : '';
+
+  // 이미지 저장 (스크린샷 페이지로 이동)
+  const handleDownload = () => {
+    window.open(screenshotPageUrl, '_blank');
+  };
 
   // 공유하기 (Web Share API)
   const handleShare = async () => {
-    if (navigator.share) {
-      try {
-        await navigator.share({
+    const shareText = `나는 ${team.name} 팬! ⚾💖\n궁합도 ${compatibility}%!\nKBO-TI로 내 운명의 야구팀을 찾았어요!\n나도 테스트하기 👉 ${shareUrl}`;
+
+    try {
+      // Web Share API 지원 확인
+      if (navigator.share && navigator.canShare) {
+        const shareData = {
           title: `나는 ${team.name} 팬!`,
-          text: `궁합도 ${compatibility}%! KBO-TI로 내 운명의 야구팀을 찾았어요!`,
-          url: shareUrl,
-        });
-      } catch (e) {
-        // 사용자가 취소한 경우
+          text: shareText,
+        };
+
+        // canShare로 공유 가능 여부 확인
+        if (navigator.canShare(shareData)) {
+          await navigator.share(shareData);
+          return;
+        }
       }
-    } else {
-      handleCopyLink();
+
+      // Web Share API 미지원 시 - 텍스트 복사
+      await navigator.clipboard.writeText(shareText);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (error: unknown) {
+      const err = error as { name?: string };
+      // 사용자가 취소한 경우는 무시
+      if (err.name === 'AbortError') {
+        return;
+      }
+      // 다른 에러 발생 시 텍스트 복사 시도
+      try {
+        await navigator.clipboard.writeText(shareText);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } catch {
+        // 클립보드도 실패하면 폴백
+        const input = document.createElement('input');
+        input.value = shareText;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        document.body.removeChild(input);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      }
     }
   };
 
@@ -99,6 +139,15 @@ export default function ShareModal({
 
             {/* 공유 버튼들 */}
             <div className="space-y-3">
+              {/* 이미지 저장 */}
+              <button
+                onClick={handleDownload}
+                className="w-full flex items-center justify-center gap-2 py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-bold text-lg"
+              >
+                <Download size={22} />
+                이미지 저장하기
+              </button>
+
               {/* 친구에게 공유하기 */}
               <button
                 onClick={handleShare}
@@ -126,6 +175,11 @@ export default function ShareModal({
                 )}
               </button>
             </div>
+
+            {/* 안내 */}
+            <p className="text-center text-xs text-gray-400 mt-4">
+              이미지 저장 → 스크린샷을 찍어 저장하세요!
+            </p>
           </motion.div>
         </motion.div>
       )}
