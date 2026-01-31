@@ -59,47 +59,109 @@ export default function ShareModal({
     }
   }, []);
 
-  // 이미지 생성
-  const generateImage = async () => {
-    if (!cardRef.current) return null;
+  // 이미지 다운로드
+  const handleDownload = async () => {
+    if (!cardRef.current) {
+      alert('이미지를 생성할 수 없습니다.');
+      return;
+    }
 
     setIsGenerating(true);
+
     try {
       const canvas = await html2canvas(cardRef.current, {
         scale: 2,
-        backgroundColor: null,
+        backgroundColor: '#fce7f3',
         useCORS: true,
         logging: false,
       });
+
+      // 새 탭에서 이미지 열기 (가장 안정적인 방식)
       const dataUrl = canvas.toDataURL('image/png');
-      setGeneratedImage(dataUrl);
-      return dataUrl;
+
+      // 다운로드 시도
+      const link = document.createElement('a');
+      link.href = dataUrl;
+      link.download = `KBO-TI_${team.name}_결과.png`;
+
+      // Safari 대응
+      if (navigator.userAgent.includes('Safari') && !navigator.userAgent.includes('Chrome')) {
+        // Safari에서는 새 탭으로 열기
+        const newTab = window.open();
+        if (newTab) {
+          newTab.document.write(`<img src="${dataUrl}" alt="KBO-TI 결과" style="max-width:100%"/>`);
+          newTab.document.title = `KBO-TI_${team.name}_결과`;
+          alert('새 탭에서 이미지가 열렸어요!\n이미지를 길게 눌러 저장해주세요 📸');
+        }
+      } else {
+        // Chrome, Firefox 등
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        alert('이미지가 저장되었어요! 📸\n다운로드 폴더를 확인해주세요.');
+      }
     } catch (error) {
-      console.error('이미지 생성 실패:', error);
-      return null;
+      console.error('다운로드 실패:', error);
+      alert('다운로드에 실패했어요. 다시 시도해주세요.');
     } finally {
       setIsGenerating(false);
     }
   };
 
-  // 이미지 다운로드
-  const handleDownload = async () => {
-    let imageUrl = generatedImage;
-    if (!imageUrl) {
-      imageUrl = await generateImage();
-    }
-    if (!imageUrl) return;
-
-    const link = document.createElement('a');
-    link.download = `KBO-TI_${team.name}_결과.png`;
-    link.href = imageUrl;
-    link.click();
-  };
-
-  // 인스타그램 공유 (이미지 다운로드 후 안내)
+  // 인스타그램 공유 (Web Share API 또는 다운로드)
   const handleInstagramShare = async () => {
-    await handleDownload();
-    alert('이미지가 저장되었어요! 📸\n인스타그램 스토리에 공유해보세요!');
+    if (!cardRef.current) {
+      alert('이미지를 생성할 수 없습니다.');
+      return;
+    }
+
+    setIsGenerating(true);
+
+    try {
+      const canvas = await html2canvas(cardRef.current, {
+        scale: 2,
+        backgroundColor: '#fce7f3',
+        useCORS: true,
+        logging: false,
+      });
+
+      // Web Share API 지원 시 (모바일)
+      if (navigator.share && navigator.canShare) {
+        const blob = await new Promise<Blob | null>((resolve) => {
+          canvas.toBlob(resolve, 'image/png');
+        });
+
+        if (blob) {
+          const file = new File([blob], `KBO-TI_${team.name}_결과.png`, { type: 'image/png' });
+          const shareData = { files: [file] };
+
+          if (navigator.canShare(shareData)) {
+            await navigator.share(shareData);
+            return;
+          }
+        }
+      }
+
+      // Web Share API 미지원 시 새 탭으로 열기
+      const dataUrl = canvas.toDataURL('image/png');
+      const newTab = window.open();
+      if (newTab) {
+        newTab.document.write(`
+          <html>
+            <head><title>KBO-TI 결과 - ${team.name}</title></head>
+            <body style="margin:0;display:flex;justify-content:center;align-items:center;min-height:100vh;background:#f3f4f6;">
+              <img src="${dataUrl}" alt="KBO-TI 결과" style="max-width:100%;height:auto;"/>
+            </body>
+          </html>
+        `);
+        alert('새 탭에서 이미지가 열렸어요!\n이미지를 저장 후 인스타그램에 공유해주세요 📸');
+      }
+    } catch (error) {
+      console.error('공유 실패:', error);
+      alert('공유에 실패했어요. 다시 시도해주세요.');
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
   // 카카오톡 공유
@@ -156,10 +218,11 @@ export default function ShareModal({
     }
   };
 
-  // 모달 열릴 때 이미지 미리 생성
+  // 모달 닫힐 때 상태 초기화
   useEffect(() => {
-    if (isOpen && !generatedImage) {
-      generateImage();
+    if (!isOpen) {
+      setGeneratedImage(null);
+      setIsGenerating(false);
     }
   }, [isOpen]);
 
@@ -192,9 +255,9 @@ export default function ShareModal({
             </div>
 
             {/* 미리보기 카드 */}
-            <div className="flex justify-center mb-6 overflow-hidden rounded-2xl bg-gray-100">
-              {isGenerating ? (
-                <div className="w-[360px] h-[400px] flex items-center justify-center">
+            <div className="flex justify-center mb-6 overflow-hidden rounded-2xl bg-gray-100 relative">
+              {isGenerating && (
+                <div className="absolute inset-0 flex items-center justify-center bg-gray-100 z-10">
                   <motion.div
                     animate={{ rotate: 360 }}
                     transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
@@ -203,16 +266,15 @@ export default function ShareModal({
                     ⚾
                   </motion.div>
                 </div>
-              ) : (
-                <div className="scale-[0.85] origin-top">
-                  <ShareableCard
-                    ref={cardRef}
-                    team={team}
-                    compatibility={compatibility}
-                    aiMessage={aiMessage}
-                  />
-                </div>
               )}
+              <div className="transform scale-[0.85] origin-top">
+                <ShareableCard
+                  ref={cardRef}
+                  team={team}
+                  compatibility={compatibility}
+                  aiMessage={aiMessage}
+                />
+              </div>
             </div>
 
             {/* 공유 버튼들 */}
