@@ -272,6 +272,24 @@ export default function QuizPage() {
         >
           솔직하게 답할수록 정확해져! 💯
         </motion.p>
+
+        {/* 푸터 */}
+        <motion.footer
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6 }}
+          className="text-center mt-12 pt-6 border-t border-gray-200"
+        >
+          <div className="flex flex-wrap justify-center items-center gap-4 text-xs text-gray-400">
+            <a href="/privacy" className="hover:text-purple-600 transition-colors">
+              개인정보처리방침
+            </a>
+            <span>|</span>
+            <a href="/terms" className="hover:text-purple-600 transition-colors">
+              이용약관
+            </a>
+          </div>
+        </motion.footer>
       </div>
     </div>
   );

@@ -304,21 +304,40 @@ export default function Home() {
           )}
         </AnimatePresence>
 
-        {/* 제휴문의 작은 버튼 */}
-        <motion.div
+        {/* 푸터 */}
+        <motion.footer
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2 }}
-          className="text-center"
+          className="text-center space-y-4 pt-8 border-t border-gray-200"
         >
-          <button
-            onClick={() => setShowContact(true)}
-            className="inline-flex items-center gap-2 px-4 py-2 text-sm text-gray-500 hover:text-purple-600 transition-colors"
-          >
-            <Mail size={16} />
-            제휴문의
-          </button>
-        </motion.div>
+          <div className="flex flex-wrap justify-center items-center gap-4 text-sm">
+            <button
+              onClick={() => setShowContact(true)}
+              className="inline-flex items-center gap-2 px-4 py-2 text-gray-500 hover:text-purple-600 transition-colors"
+            >
+              <Mail size={16} />
+              제휴문의
+            </button>
+            <span className="text-gray-300">|</span>
+            <a
+              href="/privacy"
+              className="text-gray-500 hover:text-purple-600 transition-colors"
+            >
+              개인정보처리방침
+            </a>
+            <span className="text-gray-300">|</span>
+            <a
+              href="/terms"
+              className="text-gray-500 hover:text-purple-600 transition-colors"
+            >
+              이용약관
+            </a>
+          </div>
+          <p className="text-xs text-gray-400">
+            KBO-TI는 KBO와 공식적으로 제휴하지 않은 팬 서비스입니다.
+          </p>
+        </motion.footer>
 
         {/* 제휴문의 모달 */}
         <AnimatePresence>

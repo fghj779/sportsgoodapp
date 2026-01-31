@@ -36,10 +36,11 @@ export default function MerchBlock({
           <div className="flex items-center gap-2 mb-1">
             <h3 className="font-bold text-gray-800">{title}</h3>
             <span className="px-2 py-0.5 bg-orange-500 text-white text-xs font-semibold rounded-full">
-              AD
+              제휴 링크
             </span>
           </div>
           <p className="text-sm text-gray-600 mb-2">{description}</p>
+          <p className="text-xs text-gray-400 mb-2">* 이 링크를 통한 구매 시 서비스 운영에 도움이 됩니다.</p>
           <div className="flex items-center gap-1 text-orange-600 font-semibold text-sm group-hover:gap-2 transition-all">
             <span>번개장터에서 보기</span>
             <ArrowRight size={16} />

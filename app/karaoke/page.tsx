@@ -155,6 +155,33 @@ export default function KaraokePage() {
             홈으로 돌아가기
           </button>
         </motion.div>
+
+        {/* 푸터 */}
+        <motion.footer
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6 }}
+          className="text-center space-y-4 pt-8 mt-8 border-t border-gray-200"
+        >
+          <div className="flex flex-wrap justify-center items-center gap-4 text-sm">
+            <a
+              href="/privacy"
+              className="text-gray-500 hover:text-purple-600 transition-colors"
+            >
+              개인정보처리방침
+            </a>
+            <span className="text-gray-300">|</span>
+            <a
+              href="/terms"
+              className="text-gray-500 hover:text-purple-600 transition-colors"
+            >
+              이용약관
+            </a>
+          </div>
+          <p className="text-xs text-gray-400">
+            KBO-TI는 KBO와 공식적으로 제휴하지 않은 팬 서비스입니다.
+          </p>
+        </motion.footer>
       </div>
 
       {/* 번개장터 하단 버튼 */}

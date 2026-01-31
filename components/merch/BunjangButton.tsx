@@ -23,11 +23,15 @@ export default function BunjangButton({ context, className = '' }: BunjangButton
       rel="noopener noreferrer"
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
-      className={`fixed bottom-4 left-4 right-4 z-50 flex items-center justify-center gap-2 py-4 px-6 bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl transition-all ${className}`}
+      className={`fixed bottom-4 left-4 right-4 z-50 flex flex-col items-center gap-1 py-3 px-6 bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl transition-all ${className}`}
     >
-      <ShoppingBag size={20} />
-      <span>{label}</span>
-      <ExternalLink size={16} className="opacity-70" />
+      <div className="flex items-center gap-2">
+        <ShoppingBag size={20} />
+        <span>{label}</span>
+        <span className="px-2 py-0.5 bg-white/20 text-xs rounded-full">제휴</span>
+        <ExternalLink size={16} className="opacity-70" />
+      </div>
+      <span className="text-xs opacity-70">* 이 링크를 통한 구매 시 서비스 운영에 도움이 됩니다</span>
     </motion.a>
   );
 }
