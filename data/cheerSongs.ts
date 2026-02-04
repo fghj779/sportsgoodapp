@@ -541,7 +541,7 @@ export const cheerSongsData: TeamCheerSongs[] = [
           "LG의 문보경",
           "문보경 안타를 날려라 (안타!)"
         ],
-        "youtubeVideoId": "CElJ_z-eE-g",
+        "youtubeVideoId": "VLj1gEWCv6s",
         "startTime": 0
       },
       {
@@ -554,7 +554,7 @@ export const cheerSongsData: TeamCheerSongs[] = [
           "오 LG의 최원영 끝~까지",
           "오 LG의 최원영 할!수!있!어!최!원!영!"
         ],
-        "youtubeVideoId": "D9DdQkWYys4",
+        "youtubeVideoId": "VLj1gEWCv6s",
         "startTime": 0
       },
       {
@@ -566,7 +566,7 @@ export const cheerSongsData: TeamCheerSongs[] = [
         "lyrics": [
           "날려버려~ 날려버려~ 안!타!신!민!재!()"
         ],
-        "youtubeVideoId": "D9DdQkWYys4",
+        "youtubeVideoId": "VLj1gEWCv6s",
         "startTime": 0
       },
       {
@@ -583,7 +583,7 @@ export const cheerSongsData: TeamCheerSongs[] = [
           "오 LG 김주~성 워~어어어어",
           "힘차게 달려가라 L~G 김~주성"
         ],
-        "youtubeVideoId": "D9DdQkWYys4",
+        "youtubeVideoId": "VLj1gEWCv6s",
         "startTime": 0
       },
       {
@@ -598,7 +598,7 @@ export const cheerSongsData: TeamCheerSongs[] = [
           "당차고 시원하게 날려라 LG 구본혁",
           "언제나 너! 영원히 사랑할게~ (구! 본! 혁!)"
         ],
-        "youtubeVideoId": "xDhLLeRwkKY",
+        "youtubeVideoId": "VLj1gEWCv6s",
         "startTime": 0
       },
       {
@@ -613,7 +613,7 @@ export const cheerSongsData: TeamCheerSongs[] = [
           "LG의 승리를 위하여~",
           "오! 이영빈~"
         ],
-        "youtubeVideoId": "VmfFmFzz3zw",
+        "youtubeVideoId": "VLj1gEWCv6s",
         "startTime": 0
       },
       {
@@ -630,7 +630,7 @@ export const cheerSongsData: TeamCheerSongs[] = [
           "오오오오~ LG의 문성주",
           "날려버려라~ 오오오오오~"
         ],
-        "youtubeVideoId": "33fIz4ZHRzc",
+        "youtubeVideoId": "VLj1gEWCv6s",
         "startTime": 0
       },
       {
@@ -647,7 +647,7 @@ export const cheerSongsData: TeamCheerSongs[] = [
           "무!적!L!G! 오!지!환!",
           "무적 LG 오지환~"
         ],
-        "youtubeVideoId": "Xzu9_qc5Wkk",
+        "youtubeVideoId": "VLj1gEWCv6s",
         "startTime": 0
       },
       {
@@ -662,7 +662,7 @@ export const cheerSongsData: TeamCheerSongs[] = [
           "안타 안타 LG 김정율",
           "오! 김정율"
         ],
-        "youtubeVideoId": "D9DdQkWYys4",
+        "youtubeVideoId": "VLj1gEWCv6s",
         "startTime": 0
       },
       {
@@ -679,7 +679,7 @@ export const cheerSongsData: TeamCheerSongs[] = [
           "오오오오오~ 박해민~",
           "무!적!L!G! 박!해!민!"
         ],
-        "youtubeVideoId": "ILy6-KS1XyY",
+        "youtubeVideoId": "VLj1gEWCv6s",
         "startTime": 0
       },
       {
@@ -692,7 +692,7 @@ export const cheerSongsData: TeamCheerSongs[] = [
           "무적LG의 오스틴 딘! 날려버려라 오! 스! 틴! 딘!",
           "오스틴 딘 오오오~ 오스틴 딘 오오오~ 오스틴 딘 오오오~ 오!스!틴! 딘!"
         ],
-        "youtubeVideoId": "S4eoIMRqYE0",
+        "youtubeVideoId": "VLj1gEWCv6s",
         "startTime": 0
       },
       {
@@ -707,7 +707,7 @@ export const cheerSongsData: TeamCheerSongs[] = [
           "승리위해 저 끝까지",
           "날려버려 박동원 (홈런!)"
         ],
-        "youtubeVideoId": "A4wU4vFdS78",
+        "youtubeVideoId": "VLj1gEWCv6s",
         "startTime": 0
       },
       {
@@ -720,7 +720,7 @@ export const cheerSongsData: TeamCheerSongs[] = [
           "홍창기 안타 안타날려 홍창기~ 홍창기 안타 날려버려라~",
           "홍창기 안타 안타날려 홍 창기~ 무적 LG의 승리를 위해~"
         ],
-        "youtubeVideoId": "ZMTfdJqfLgo",
+        "youtubeVideoId": "POAqAqDmPx8",
         "startTime": 0
       },
       {
@@ -737,7 +737,7 @@ export const cheerSongsData: TeamCheerSongs[] = [
           "잠실의 빅보이~",
           "LG의 이재원~"
         ],
-        "youtubeVideoId": "cKTmapagRhk",
+        "youtubeVideoId": "VLj1gEWCv6s",
         "startTime": 0
       },
       {
@@ -750,7 +750,7 @@ export const cheerSongsData: TeamCheerSongs[] = [
           "LG 천성호! (호!) LG 천성호! (호!)",
           "무적 LG 승리를 위해! (안!타!천!성!호!)"
         ],
-        "youtubeVideoId": "Sdvk-WCA4Es",
+        "youtubeVideoId": "VLj1gEWCv6s",
         "startTime": 0
       },
       {
@@ -763,7 +763,7 @@ export const cheerSongsData: TeamCheerSongs[] = [
           "LG의 송찬의(안타!)~ LG의 송찬의(홈런!)~",
           "무적LG 승리위해 날려버려라~"
         ],
-        "youtubeVideoId": "33fIz4ZHRzc",
+        "youtubeVideoId": "VLj1gEWCv6s",
         "startTime": 0
       },
       {
@@ -780,7 +780,7 @@ export const cheerSongsData: TeamCheerSongs[] = [
           "LG의 승리 위하여",
           "문정빈 주인공은 바로 너!"
         ],
-        "youtubeVideoId": "fSzZ_JQmDLU",
+        "youtubeVideoId": "VLj1gEWCv6s",
         "startTime": 0
       },
       {
@@ -795,7 +795,7 @@ export const cheerSongsData: TeamCheerSongs[] = [
           "트윈스 이주헌 날려버려라",
           "LG 트윈스의 주헌이 (안타!)"
         ],
-        "youtubeVideoId": "D9DdQkWYys4",
+        "youtubeVideoId": "VLj1gEWCv6s",
         "startTime": 0
       },
       {
@@ -810,7 +810,7 @@ export const cheerSongsData: TeamCheerSongs[] = [
           "무적 LG 승리 위하여",
           "워어어어어어~"
         ],
-        "youtubeVideoId": "POyPIAzzZGw",
+        "youtubeVideoId": "VLj1gEWCv6s",
         "startTime": 0
       }
     ]
