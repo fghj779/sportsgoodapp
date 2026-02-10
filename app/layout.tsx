@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Noto_Sans_KR } from "next/font/google";
+import Script from "next/script";
+import Link from "next/link";
 import "./globals.css";
+import { CookieConsentProvider } from "@/components/CookieConsent";
 
 const notoSansKR = Noto_Sans_KR({
   variable: "--font-geist-sans",
@@ -38,7 +41,39 @@ export default function RootLayout({
   return (
     <html lang="ko" suppressHydrationWarning>
       <body className={`${notoSansKR.variable} antialiased`} suppressHydrationWarning>
-        {children}
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3426882453514090"
+          crossOrigin="anonymous"
+          strategy="lazyOnload"
+        />
+        <CookieConsentProvider>
+          <div className="min-h-screen flex flex-col">
+            <main className="flex-1">
+              {children}
+            </main>
+            <footer className="bg-white/80 backdrop-blur-sm border-t border-gray-200 py-6 px-4">
+              <div className="max-w-4xl mx-auto text-center space-y-3">
+                <div className="flex items-center justify-center gap-4 text-sm text-gray-500">
+                  <Link href="/privacy" className="hover:text-pink-500 transition-colors">
+                    개인정보처리방침
+                  </Link>
+                  <span>|</span>
+                  <Link href="/terms" className="hover:text-pink-500 transition-colors">
+                    이용약관
+                  </Link>
+                  <span>|</span>
+                  <Link href="/contact" className="hover:text-pink-500 transition-colors">
+                    제휴문의
+                  </Link>
+                </div>
+                <p className="text-xs text-gray-400">
+                  © 2026 KBO 신입팬 스타터팩. All rights reserved.
+                </p>
+              </div>
+            </footer>
+          </div>
+        </CookieConsentProvider>
       </body>
     </html>
   );

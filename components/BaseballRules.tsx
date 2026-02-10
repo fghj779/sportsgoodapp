@@ -135,6 +135,23 @@ export default function BaseballRules() {
         </p>
       </div>
 
+      {/* YouTube 영상 */}
+      <div className="mb-6">
+        <Card className="p-4 bg-white">
+          <div className="aspect-video w-full rounded-lg overflow-hidden">
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://www.youtube.com/embed/i5fvsBGUz6Q"
+              title="야구룰 영상"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="w-full h-full"
+            />
+          </div>
+        </Card>
+      </div>
+
       {baseballRules.map((rule, index) => (
         <motion.div
           key={index}

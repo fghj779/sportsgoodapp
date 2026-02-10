@@ -133,6 +133,19 @@ export interface TeamDepthChart {
   bullpen: Bullpen;
 }
 
+// depthChart.ts 데이터용 타입
+export interface DepthChart {
+  teamId: string;
+  manager: string;
+  best9: Record<string, string[]>;
+  rotation: string[];
+  bullpen: {
+    closer: string[];
+    setup: string[];
+    middle: string[];
+  };
+}
+
 // 응원가 노래방 관련 타입
 export interface CheerSong {
   id: string;

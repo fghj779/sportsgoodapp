@@ -8,7 +8,7 @@ import { kboTeams } from '@/data/teams';
 import Button from '@/components/Button';
 import Card from '@/components/Card';
 import BaseballRules from '@/components/BaseballRules';
-import { Share2, Home, RotateCcw, Heart, MapPin, Shirt, Music, Trophy, Star, Users, History, Palette, Mic2 } from 'lucide-react';
+import { Share2, Home, RotateCcw, Heart, MapPin, Shirt, Music, Trophy, Star, Users, History, Palette, Mic2, Sparkles } from 'lucide-react';
 import MerchBlock from '@/components/merch/MerchBlock';
 import DepthChart from '@/components/DepthChart';
 import { depthCharts } from '@/data/depthCharts';
@@ -28,8 +28,7 @@ function ResultContent() {
     const message = searchParams.get('message');
 
     if (!teamId || !compatibility || !message) {
-      // 파라미터가 없으면 홈으로
-      router.push('/');
+      // 파라미터가 없으면 크롤러 친화적 폴백 콘텐츠 표시
       return;
     }
 
@@ -55,17 +54,62 @@ function ResultContent() {
 
 
   if (!result) {
+    // 크롤러 친화적 폴백: 퀴즈 소개 + 팀 그리드 + CTA
     return (
-      <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-50 to-blue-100 flex items-center justify-center">
-        <div className="text-center">
+      <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-50 to-blue-100 py-12 px-4">
+        <div className="max-w-4xl mx-auto space-y-8">
+          {/* 퀴즈 소개 */}
           <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-            className="text-6xl mb-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center space-y-4"
           >
-            ⚾
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-800">
+              KBO-TI 결과 페이지
+            </h1>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              20개의 질문으로 찾는 나의 찰떡 야구팀! AI가 너의 성향을 분석해서 딱 맞는 KBO 팀을 추천해줄게!
+            </p>
           </motion.div>
-          <p className="text-gray-600">로딩 중...</p>
+
+          {/* KBO 10개 구단 그리드 */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+          >
+            <h2 className="text-2xl font-bold text-gray-800 text-center mb-6">
+              KBO 10개 구단
+            </h2>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+              {kboTeams.map((t) => (
+                <div
+                  key={t.id}
+                  className="bg-white/80 backdrop-blur-sm rounded-xl p-4 text-center shadow-sm hover:shadow-md transition-shadow"
+                >
+                  <div className="text-4xl mb-2">{t.logo}</div>
+                  <p className="font-semibold text-gray-800 text-sm">{t.name}</p>
+                  <p className="text-xs text-gray-500">{t.homeCity}</p>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* CTA 버튼 */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="text-center"
+          >
+            <button
+              onClick={() => router.push('/quiz')}
+              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white font-bold text-lg rounded-2xl hover:from-pink-600 hover:to-purple-600 transition-all shadow-lg hover:shadow-xl"
+            >
+              <Sparkles size={24} />
+              나의 찰떡 야구팀 찾으러 가기
+            </button>
+          </motion.div>
         </div>
       </div>
     );
@@ -477,7 +521,7 @@ function ResultContent() {
                   <iframe
                     width="100%"
                     height="100%"
-                    src={`${team.cheerSongUrl.replace('watch?v=', 'embed/')}?autoplay=1&mute=0&controls=1&modestbranding=1`}
+                    src={`${team.cheerSongUrl.replace('watch?v=', 'embed/')}?autoplay=1&mute=1&controls=1&modestbranding=1`}
                     title="응원가"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -486,7 +530,7 @@ function ResultContent() {
                   />
                 </div>
                 <p className="text-xs text-gray-500 mt-2 text-center">
-                  🎧 소리가 안 들리면 영상을 클릭해주세요!
+                  🔇 음소거 상태로 재생됩니다. 소리를 들으려면 영상 볼륨을 올려주세요!
                 </p>
                 <a
                   href={team.cheerSongUrl}
