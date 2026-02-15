@@ -3,15 +3,14 @@
 interface YouTubeEmbedProps {
   videoId: string;
   startTime?: number;
-  autoplay?: boolean;
 }
 
-export default function YouTubeEmbed({ videoId, startTime = 0, autoplay = true }: YouTubeEmbedProps) {
+export default function YouTubeEmbed({ videoId, startTime = 0 }: YouTubeEmbedProps) {
   const params = new URLSearchParams({
-    autoplay: autoplay ? '1' : '0',
     start: startTime.toString(),
     modestbranding: '1',
     rel: '0',
+    playsinline: '1',
   });
 
   return (
