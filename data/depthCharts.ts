@@ -131,8 +131,8 @@ export const depthCharts: Record<string, TeamDepthChart> = {
             shortStop: { starter: '김주원', backup: [] },
             leftField: { starter: '권희동', backup: [] },
             centerField: { starter: '박건우', backup: [] },
-            rightField: { starter: '손아섭', backup: [] },
-            designatedHitter: { starter: '맷 데이비슨', backup: ['손아섭'] },
+            rightField: { starter: '김성욱', backup: [] },
+            designatedHitter: { starter: '🇺🇸 맷 데이비슨', backup: [] },
         },
         rotation: ['🇺🇸 라일리 톰슨', '🇨🇦 커티스 테일러', '구창모', '신민혁', '🇯🇵 토다 나츠키 (AQ)'],
         bullpen: {

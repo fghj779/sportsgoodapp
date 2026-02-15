@@ -1,7 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState, useCallback } from 'react';
-import { Volume2, VolumeX } from 'lucide-react';
+import { useEffect, useRef, useCallback } from 'react';
 
 interface YouTubeAutoPlayerProps {
   videoUrl: string;
@@ -68,8 +67,6 @@ function loadYouTubeAPI(callback: () => void) {
 export default function YouTubeAutoPlayer({ videoUrl, teamColor = '#ec4899' }: YouTubeAutoPlayerProps) {
   const playerRef = useRef<YTPlayer | null>(null);
   const containerIdRef = useRef(`yt-player-${Math.random().toString(36).slice(2, 9)}`);
-  const [isMuted, setIsMuted] = useState(true);
-  const [isReady, setIsReady] = useState(false);
 
   const videoId = extractVideoId(videoUrl);
 
@@ -94,7 +91,8 @@ export default function YouTubeAutoPlayer({ videoUrl, teamColor = '#ec4899' }: Y
       },
       events: {
         onReady: (event: { target: YTPlayer }) => {
-          setIsReady(true);
+          event.target.unMute();
+          event.target.setVolume(80);
           event.target.playVideo();
         },
       },
@@ -114,20 +112,6 @@ export default function YouTubeAutoPlayer({ videoUrl, teamColor = '#ec4899' }: Y
     };
   }, [initPlayer]);
 
-  const handleToggleMute = () => {
-    if (!playerRef.current) return;
-
-    if (isMuted) {
-      playerRef.current.unMute();
-      playerRef.current.setVolume(80);
-      playerRef.current.playVideo();
-      setIsMuted(false);
-    } else {
-      playerRef.current.mute();
-      setIsMuted(true);
-    }
-  };
-
   if (!videoId) return null;
 
   return (
@@ -135,29 +119,6 @@ export default function YouTubeAutoPlayer({ videoUrl, teamColor = '#ec4899' }: Y
       <div className="aspect-video rounded-lg overflow-hidden shadow-lg bg-black">
         <div id={containerIdRef.current} className="w-full h-full" />
       </div>
-
-      {/* 소리 켜기/끄기 버튼 */}
-      {isReady && (
-        <button
-          onClick={handleToggleMute}
-          className="w-full py-3 rounded-xl font-bold text-white text-sm flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
-          style={{
-            backgroundColor: isMuted ? teamColor : '#6b7280',
-          }}
-        >
-          {isMuted ? (
-            <>
-              <Volume2 size={20} />
-              소리 켜기 🔊
-            </>
-          ) : (
-            <>
-              <VolumeX size={20} />
-              음소거
-            </>
-          )}
-        </button>
-      )}
     </div>
   );
 }

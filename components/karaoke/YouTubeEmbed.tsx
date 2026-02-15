@@ -1,7 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState, useCallback } from 'react';
-import { Volume2, VolumeX } from 'lucide-react';
+import { useEffect, useRef, useCallback } from 'react';
 
 interface YouTubeEmbedProps {
   videoId: string;
@@ -43,8 +42,6 @@ function loadYouTubeAPI(callback: () => void) {
 export default function YouTubeEmbed({ videoId, startTime = 0 }: YouTubeEmbedProps) {
   const playerRef = useRef<YTPlayer | null>(null);
   const containerIdRef = useRef(`yt-karaoke-${Math.random().toString(36).slice(2, 9)}`);
-  const [isMuted, setIsMuted] = useState(true);
-  const [isReady, setIsReady] = useState(false);
 
   const initPlayer = useCallback(() => {
     if (!videoId) return;
@@ -66,7 +63,8 @@ export default function YouTubeEmbed({ videoId, startTime = 0 }: YouTubeEmbedPro
       },
       events: {
         onReady: (event: { target: YTPlayer }) => {
-          setIsReady(true);
+          event.target.unMute();
+          event.target.setVolume(80);
           event.target.playVideo();
         },
       },
@@ -74,8 +72,6 @@ export default function YouTubeEmbed({ videoId, startTime = 0 }: YouTubeEmbedPro
   }, [videoId, startTime]);
 
   useEffect(() => {
-    setIsReady(false);
-    setIsMuted(true);
     loadYouTubeAPI(() => {
       initPlayer();
     });
@@ -87,46 +83,11 @@ export default function YouTubeEmbed({ videoId, startTime = 0 }: YouTubeEmbedPro
     };
   }, [initPlayer]);
 
-  const handleToggleMute = () => {
-    if (!playerRef.current) return;
-    if (isMuted) {
-      playerRef.current.unMute();
-      playerRef.current.setVolume(80);
-      playerRef.current.playVideo();
-      setIsMuted(false);
-    } else {
-      playerRef.current.mute();
-      setIsMuted(true);
-    }
-  };
-
   return (
     <div className="space-y-3">
       <div className="aspect-video rounded-xl overflow-hidden shadow-lg bg-black">
         <div id={containerIdRef.current} className="w-full h-full" />
       </div>
-      {isReady && (
-        <button
-          onClick={handleToggleMute}
-          className={`w-full py-3 rounded-xl font-bold text-white text-sm flex items-center justify-center gap-2 transition-all active:scale-[0.98] ${
-            isMuted
-              ? 'bg-pink-500 hover:bg-pink-600'
-              : 'bg-gray-500 hover:bg-gray-600'
-          }`}
-        >
-          {isMuted ? (
-            <>
-              <Volume2 size={20} />
-              소리 켜기 🔊
-            </>
-          ) : (
-            <>
-              <VolumeX size={20} />
-              음소거
-            </>
-          )}
-        </button>
-      )}
     </div>
   );
 }
