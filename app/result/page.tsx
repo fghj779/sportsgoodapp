@@ -9,6 +9,7 @@ import Button from '@/components/Button';
 import Card from '@/components/Card';
 import BaseballRules from '@/components/BaseballRules';
 import { Share2, Home, RotateCcw, Heart, MapPin, Shirt, Music, Trophy, Star, Users, History, Palette, Mic2, Sparkles } from 'lucide-react';
+import YouTubeAutoPlayer from '@/components/YouTubeAutoPlayer';
 import MerchBlock from '@/components/merch/MerchBlock';
 import DepthChart from '@/components/DepthChart';
 import { depthCharts } from '@/data/depthCharts';
@@ -517,21 +518,7 @@ function ResultContent() {
                   <Music className="text-pink-500" size={24} />
                   <h3 className="font-semibold text-gray-800">응원가 🎵</h3>
                 </div>
-                <div className="aspect-video rounded-lg overflow-hidden shadow-lg">
-                  <iframe
-                    width="100%"
-                    height="100%"
-                    src={`${team.cheerSongUrl.replace('watch?v=', 'embed/')}?autoplay=1&mute=1&controls=1&modestbranding=1`}
-                    title="응원가"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowFullScreen
-                    className="w-full h-full"
-                  />
-                </div>
-                <p className="text-xs text-gray-500 mt-2 text-center">
-                  🔇 음소거 상태로 재생됩니다. 소리를 들으려면 영상 볼륨을 올려주세요!
-                </p>
+                <YouTubeAutoPlayer videoUrl={team.cheerSongUrl} teamColor={team.color} />
                 <a
                   href={team.cheerSongUrl}
                   target="_blank"
